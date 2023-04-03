@@ -5,3 +5,4 @@ To see if you require a commercial license for Duende IdentityServer please see 
 This is a test 
 test2
 test3
+test4
