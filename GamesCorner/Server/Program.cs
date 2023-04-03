@@ -1,4 +1,5 @@
 using GamesCorner.Server.Data;
+using GamesCorner.Server.Extensions;
 using GamesCorner.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -20,6 +21,8 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
 	.AddIdentityServerJwt();
+
+builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -51,7 +54,7 @@ app.UseAuthorization();
 
 
 app.MapRazorPages();
-app.MapControllers();
+app.MapEndpoints();
 app.MapFallbackToFile("index.html");
 
 app.Run();
