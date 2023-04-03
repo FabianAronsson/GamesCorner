@@ -4,3 +4,4 @@ To see how to use Azure Active Directory for your identity please see https://ak
 To see if you require a commercial license for Duende IdentityServer please see https://aka.ms/identityserverlicense
 This is a test 
 test2
+test3
