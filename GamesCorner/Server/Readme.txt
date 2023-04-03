@@ -3,3 +3,4 @@ This is an open source product with a reciprocal license agreement. If you plan 
 To see how to use Azure Active Directory for your identity please see https://aka.ms/aspnetidentityserver
 To see if you require a commercial license for Duende IdentityServer please see https://aka.ms/identityserverlicense
 This is a test 
+test2
