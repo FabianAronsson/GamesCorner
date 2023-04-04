@@ -11,6 +11,5 @@ namespace DataAccess.Models
 		public Guid Id { get; set; }
 		public Guid ProductId { get; set; }
 		public int Amount { get; set; }
-        public double Price { get; set; }
-	}
+    }
 }
