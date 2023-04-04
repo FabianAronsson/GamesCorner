@@ -25,7 +25,7 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
 
-builder.Services.AddControllersWithViews();
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
