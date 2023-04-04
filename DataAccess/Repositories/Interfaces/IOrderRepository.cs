@@ -1,6 +1,8 @@
-﻿namespace DataAccess.Repositories.Interfaces;
+﻿using DataAccess.Models;
 
-public interface IOrderRepository
+namespace DataAccess.Repositories.Interfaces;
+
+public interface IOrderRepository:IRepository<OrderModel>
 {
 	
 }
