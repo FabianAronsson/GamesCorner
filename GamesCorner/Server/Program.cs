@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using GamesCorner.Server.Data;
 using GamesCorner.Server.Extensions;
 using GamesCorner.Server.Models;
@@ -15,10 +16,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+	.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddIdentityServer()
-	.AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+	.AddApiAuthorization<ApplicationUser, ApplicationDbContext>(opt =>
+    {
+		opt.IdentityResources["openid"].UserClaims.Add("role");
+        opt.ApiResources.Single().UserClaims.Add("role");
+    });
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 builder.Services.AddAuthentication()
 	.AddIdentityServerJwt();
@@ -51,6 +57,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseIdentityServer();
+app.UseAuthentication();
 app.UseAuthorization();
 
 
