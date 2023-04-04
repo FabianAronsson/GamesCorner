@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Handlers\" />
     <Folder Include="Extensions\" />
     <Folder Include="Requests\Interface\" />
   </ItemGroup>
