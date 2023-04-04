@@ -10,7 +10,7 @@ namespace DataAccess.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        public async Task<OrderModel> GetAsync(int id)
+        public async Task<OrderModel?> GetAsync(Guid id)
         {
             throw new NotImplementedException();
         }
