@@ -1,10 +1,11 @@
-﻿using Duende.IdentityServer.EntityFramework.Options;
+﻿using DataAccess.DataContext.Data;
+using Duende.IdentityServer.EntityFramework.Options;
 using GamesCorner.Server.Models;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace DataAccess.DataContext.Data
+namespace GamesCorner.Server.Data
 {
 	public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
 	{
