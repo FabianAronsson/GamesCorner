@@ -1,4 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
+using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
+using DataAccess.UnitOfWork;
 using GamesCorner.Server.Data;
 using GamesCorner.Server.Extensions;
 using GamesCorner.Server.Models;
@@ -31,6 +34,9 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
 
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddRazorPages();
 
