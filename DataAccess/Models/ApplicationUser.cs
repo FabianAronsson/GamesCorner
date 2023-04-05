@@ -5,11 +5,11 @@ namespace GamesCorner.Server.Models
 {
 	public class ApplicationUser : IdentityUser
 	{
-		[Required]
-		public string Address { get; set; }
-		[Required, MaxLength(4)]
-        public string  PostCode{ get; set; }
-		[Required]
-		public string City { get; set; }
-    }
+		public string? Address { get; set; } = string.Empty;
+
+		[MaxLength(4)]
+		public string? PostCode { get; set; } = string.Empty;
+		
+		public string? City { get; set; } = string.Empty;
+	}
 }
