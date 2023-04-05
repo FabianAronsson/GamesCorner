@@ -11,15 +11,24 @@ namespace GamesCorner.Server.Handlers
 		{
 			
 			var sessionService = new SessionService();
+			var session = new Session();
 
-			var session = await sessionService.GetAsync(request.Session_Id);
+			try
+			{
+				session = await sessionService.GetAsync(request.Session_Id);
+
+			}
+			catch (Exception e)
+			{
+				Results.BadRequest("Invalid Session Id");
+				throw;
+			}
 
 			var customerEmail = session.CustomerDetails.Email;
 
-			await request.UnitOfWork.OrderRepository.AddAsync(request.OrderObject);
+			await request.UnitOfWork.OrderRepository.UpdateAsync(request.OrderObject);
 
 			return Results.Ok();
-
 
 		}
 	}

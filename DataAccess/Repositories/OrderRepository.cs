@@ -36,8 +36,7 @@ namespace DataAccess.Repositories
         public async Task<OrderModel> UpdateAsync(OrderModel entity)
         {
 	        _storeContext.Orders.Update(entity);
-
-            return entity;
+	        return entity;
         }
 
         public async Task<OrderModel> DeleteAsync(OrderModel entity)
