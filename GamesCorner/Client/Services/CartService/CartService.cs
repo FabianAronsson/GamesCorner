@@ -1,6 +1,9 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using Blazored.LocalStorage;
 using GamesCorner.Shared.Dtos;
+using Microsoft.AspNetCore.Components.Authorization;
 
 
 namespace GamesCorner.Client.Services.CartService
@@ -9,26 +12,39 @@ namespace GamesCorner.Client.Services.CartService
     {
         private readonly ILocalStorageService _localStorage;
         private readonly HttpClient _httpClient;
+        private readonly AuthenticationStateProvider _authenticationStateProvider;
 
-        public CartService(ILocalStorageService localStorage, HttpClient httpClient)
+        public CartService(ILocalStorageService localStorage, HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider)
         {
             _localStorage = localStorage;   
             _httpClient = httpClient;
+            _authenticationStateProvider = authenticationStateProvider;
         }
 
-        public async Task AddToCart(OrderItemDto item)
+        public async Task AddToCart(OrderItemDto item, string userId)
         {
-            var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
-            var existing = cart.FirstOrDefault(i=>i.Id.Equals(item.Id));
-            if (existing is not null)
+            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+            var Id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            if (Id is null)
             {
-                existing.Amount += existing.Amount;
+                var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
+                var existing = cart.FirstOrDefault(i => i.Id.Equals(item.Id));
+                if (existing is not null)
+                {
+                    existing.Amount += existing.Amount;
+                }
+                else
+                {
+                    cart.Add(item);
+                }
+                await _localStorage.SetItemAsync("cart", cart);
             }
             else
             {
-                cart.Add(item);
+                var cart = await _httpClient.GetFromJsonAsync<Order>("getActiveOrder");
             }
-            await _localStorage.SetItemAsync("cart", cart);
+
+            
         }
 
 
