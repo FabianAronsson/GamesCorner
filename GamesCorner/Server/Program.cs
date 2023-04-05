@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using DataAccess.DataContext.Data;
 using DataAccess.Repositories;
 using DataAccess.Repositories.Interfaces;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<StoreContext>(options =>
-    options.UseSqlServer(connectionString));
+	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
@@ -51,6 +53,27 @@ builder.Services.AddRazorPages();
 
 var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
 builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+
+IHostBuilder CreateHostBuilder(string[] args) =>
+	Host.CreateDefaultBuilder(args)
+		.ConfigureAppConfiguration((context, config) =>
+		{
+			var builtConfiguration = config.Build();
+
+			string KuURl = builtConfiguration["KeyVaulConfig:KVUrl"];
+			string tenantId = builtConfiguration["KeyVaulConfig:TenantId"];
+			string clientId = builtConfiguration["KeyVaulConfig:ClientId"];
+			string clientSecret = builtConfiguration["KeyVaulConfig:ClientSecretId"];
+
+			var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+			var client = new SecretClient(new Uri(KuURl), credential);
+			config.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
+		})
+		.ConfigureWebHostDefaults(webBuilder =>
+		{
+			webBuilder.UseStartup<StartupBase>();
+		});
+		
 
 var app = builder.Build();
 
