@@ -9,6 +9,7 @@ public static class WebApplicationEndpointsExtensions
     {
         app.MediateGet<OidcConfigurationRequest>("_configuration/{clientId}");
         app.MediateGet<GetProductRequest>("getProduct");
+        app.MediateGet<GetActiveOrderRequest>("getActiveOrder");
         return app;
     }
 }
