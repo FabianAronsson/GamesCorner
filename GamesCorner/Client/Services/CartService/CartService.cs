@@ -41,16 +41,34 @@ namespace GamesCorner.Client.Services.CartService
             }
             else
             {
-                var cart = await _httpClient.GetFromJsonAsync<Order>("getActiveOrder");
+                var cart = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
+                var existing = cart.Products.FirstOrDefault(o => o.ProductId.Equals(item.ProductId));
+                if (existing is not null)
+                {
+                    existing.Amount += existing.Amount;
+                }
+                else
+                {
+                    cart.Products.Add(item);
+                }
             }
 
-            
+
         }
 
 
-        public Task<List<OrderItemDto>> GetCartItems()
+        public async Task<List<OrderItemDto>> GetCartItems()
         {
-            throw new NotImplementedException();
+            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+            var Id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            if (Id is null)
+            {
+                return await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
+            }
+
+            var order = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
+            return order.Products;
+
         }
 
         public Task DeleteItem(OrderItemDto item)
