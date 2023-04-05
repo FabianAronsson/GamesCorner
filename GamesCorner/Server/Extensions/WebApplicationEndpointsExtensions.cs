@@ -8,6 +8,7 @@ public static class WebApplicationEndpointsExtensions
     public static WebApplication MapEndpoints(this WebApplication app)
     {
         app.MediateGet<OidcConfigurationRequest>("_configuration/{clientId}");
+        app.MediateGet<GetProductRequest>("getProduct");
         return app;
     }
 }

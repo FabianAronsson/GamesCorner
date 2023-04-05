@@ -1,30 +1,53 @@
+using System.IdentityModel.Tokens.Jwt;
+using DataAccess.DataContext.Data;
+using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
+using DataAccess.UnitOfWork;
 using GamesCorner.Server.Data;
 using GamesCorner.Server.Extensions;
 using GamesCorner.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<StoreContext>(options =>
+    options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+	.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddIdentityServer()
-	.AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+	.AddApiAuthorization<ApplicationUser, ApplicationDbContext>(opt =>
+    {
+		opt.IdentityResources["openid"].UserClaims.Add("role");
+        opt.ApiResources.Single().UserClaims.Add("role");
+    });
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 builder.Services.AddAuthentication()
 	.AddIdentityServerJwt();
 
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -50,6 +73,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseIdentityServer();
+app.UseAuthentication();
 app.UseAuthorization();
 
 
