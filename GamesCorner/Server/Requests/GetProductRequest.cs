@@ -6,6 +6,6 @@ namespace GamesCorner.Server.Requests
     public class GetProductRequest : IHttpRequest
     {
         public Guid Id { get; set; }
-        public UnitOfWork UnitOfWork { get; set; }
+        public IUnitOfWork UnitOfWork { get; set; }
     }
 }
