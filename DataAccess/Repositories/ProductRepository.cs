@@ -24,9 +24,13 @@ namespace DataAccess.Repositories
             return await _storeContext.Products.FirstOrDefaultAsync(p => p.Id.Equals(id));
         }
 
-		public async Task<IEnumerable<ProductModel>> GetAllAsync()
+		public async Task<List<ProductModel>> GetAllAsync(string name)
 		{
-			throw new NotImplementedException();
+			List<ProductModel> products = new();
+
+			products = _storeContext.Products.Where(x => x.Name.Contains(name)).ToList();
+		
+			return products;
 		}
 
 		public async Task<ProductModel> AddAsync(ProductModel entity)
@@ -40,6 +44,11 @@ namespace DataAccess.Repositories
 		}
 
 		public async Task<ProductModel> DeleteAsync(ProductModel entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<ProductModel>> GetAllAsync()
 		{
 			throw new NotImplementedException();
 		}
