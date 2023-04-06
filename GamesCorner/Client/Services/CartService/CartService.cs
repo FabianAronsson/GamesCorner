@@ -66,7 +66,7 @@ namespace GamesCorner.Client.Services.CartService
         {
             if (GetUserId() is null)
             {
-                var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
+                var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
                 cart.Remove(item);
             }
             else
@@ -78,7 +78,10 @@ namespace GamesCorner.Client.Services.CartService
 
         public Task EmptyCart()
         {
-            
+            if (GetUserId() is null)
+            {
+                
+            }
         }
 
         public Task<string> Checkout()
