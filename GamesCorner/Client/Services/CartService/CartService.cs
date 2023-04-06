@@ -77,12 +77,18 @@ namespace GamesCorner.Client.Services.CartService
             
         }
 
-        public Task EmptyCart()
+        public async Task EmptyCart(string orderId)
         {
-            //if (GetUserId() is null)
-            //{
-
-            //}
+            if (GetUserId() is null)
+            {
+                var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
+                cart.Clear();
+                await _localStorage.SetItemAsync("cart", cart);
+            }
+            else
+            {
+                await _httpClient.DeleteAsync($"emptyCart/{orderId}");
+            }
         }
 
         public Task<string> Checkout()

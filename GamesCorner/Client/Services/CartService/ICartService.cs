@@ -7,7 +7,7 @@ namespace GamesCorner.Client.Services.CartService
         Task AddToCart(OrderItemDto item, string userId);
         Task<List<OrderItemDto>> GetCartItems();
         Task DeleteItem(OrderItemDto item);
-        Task EmptyCart();
+        Task EmptyCart(string orderId);
         Task<string> Checkout();
     }
 }
