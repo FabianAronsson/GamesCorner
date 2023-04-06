@@ -10,5 +10,13 @@ public static class WebApplicationMediatrEndppointExtensions
         app.MapGet(url,
             async (IMediator mediator, [AsParameters] TRequest request) => await mediator.Send(request));
         return app;
+
+    }
+
+    public static WebApplication MediatePost<TRequest>(this WebApplication app, string url) where TRequest : IHttpRequest
+    {
+        app.MapPost(url,
+            async (IMediator mediator, [AsParameters] TRequest request) => await mediator.Send(request));
+        return app;
     }
 }

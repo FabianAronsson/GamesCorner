@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace GamesCorner.Shared.Dtos
 {
-    internal class OrderDto
+    public class OrderDto
     {
+        public string Id { get; set; }
+        public string CustomerEmail { get; set; }
+        public List<OrderItemDto> Products { get; set; }
+        public DateTime PurchaseDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }
