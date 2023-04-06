@@ -18,27 +18,22 @@ namespace GamesCorner.Server.Extensions
 		{
 			using var scope = app.Services.CreateScope();
 			var services = scope.ServiceProvider;
-			var UnitOfWork = services.GetRequiredService<IUnitOfWork>();
+			var unitOfWork = services.GetRequiredService<IUnitOfWork>();
 
-			string test = "";
-			var productsInDatabase = await UnitOfWork.ProductRepository.GetAllAsync( test);
+			var productsInDatabase = await unitOfWork.ProductRepository.GetAllAsync(string.Empty);
 			if (productsInDatabase.Count() > 0)
 				return app;
 
+			var jsonArrayOfGames = Properties.Resources.GamesAsJson;
 
-
-			var json = Properties.Resources.GamesAsJson;
-
-
-
-			var products = JsonConvert.DeserializeObject<List<ProductModel>>(json);
+			var products = JsonConvert.DeserializeObject<List<ProductModel>>(jsonArrayOfGames);
 
 			foreach (var product in products)
 			{
-				await UnitOfWork.ProductRepository.AddAsync(product);
+				await unitOfWork.ProductRepository.AddAsync(product);
 			}
 
-			await UnitOfWork.Save();
+			await unitOfWork.Save();
 			return app;
 
 		}
