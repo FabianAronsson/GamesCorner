@@ -35,8 +35,7 @@ namespace DataAccess.Repositories
 
 		public async Task<ProductModel> AddAsync(ProductModel entity)
 		{
-			await _storeContext.Products.AddAsync(entity);
-			return entity;
+			throw new NotImplementedException();
 		}
 
 		public async Task<ProductModel> UpdateAsync(ProductModel entity)
