@@ -1,0 +1,24 @@
+﻿@page "/SearchResults"
+@using GamesCorner.Shared.DTOs
+@inject IHttpClientFactory HttpClientFactory
+
+@*Write a grid layout of card that display and image and name*@
+@*The card should be clickable and navigate to the game details page*@
+
+<h1>Results</h1>
+<div class="container d-flex justify-content-center align-items-center flex-wrap bg-dark pt-2 ">
+	
+	@foreach (var product in _products)
+	{
+		
+		<div class="card m-2" style="width: 18rem;">
+			<a href="#">
+			<img src="@product.ImageUrl" class="card-img-top" alt="@product.Name image">
+			</a>
+			<div class="card-body bg-dark">
+				<h5 class="card-title text-light">@product.Name</h5>
+			</div>
+		</div>
+		
+	}
+</div>
