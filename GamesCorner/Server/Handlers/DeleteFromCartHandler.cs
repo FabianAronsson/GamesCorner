@@ -13,8 +13,9 @@ namespace GamesCorner.Server.Handlers
                 .UnitOfWork.OrderRepository
                 .GetAllAsync();
 
+            var email = (await request.UnitOfWork.UserRepository.GetAsync(Guid.Parse(userId))).Email;
             var order = orders.Where(o => o.IsActive)
-                .FirstOrDefault(o => o.Id.Equals(userId));
+                .FirstOrDefault(o => o.CustomerEmail.Equals(email));
 
             var item = order.Products.FirstOrDefault(o => o.Id.Equals(request.OrderItemId));
             if (item is not null && item.Amount != 0)

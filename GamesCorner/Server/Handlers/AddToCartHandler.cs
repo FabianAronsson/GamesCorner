@@ -16,7 +16,7 @@ namespace GamesCorner.Server.Handlers
                 .GetAllAsync();
 
             var order = orders.Where(o => o.IsActive)
-                .FirstOrDefault(o => o.Id.Equals(userId));
+                .FirstOrDefault(o => o.CustomerEmail.Equals(request.UnitOfWork.UserRepository.GetAsync(Guid.Parse(userId))));
 
             if (order is null)
             {

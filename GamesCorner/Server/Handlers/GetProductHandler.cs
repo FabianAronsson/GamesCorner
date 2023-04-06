@@ -8,7 +8,7 @@ namespace GamesCorner.Server.Handlers
     {
         public async Task<IResult> Handle(GetProductRequest request, CancellationToken cancellationToken)
         {
-            var product = request.UnitOfWork.ProductRepository.GetAsync(request.Id);
+            var product = await request.UnitOfWork.ProductRepository.GetAsync(request.Id);
             return product is null ? Results.NotFound("Product doesn't exist") : Results.Ok(product);
         }
     }

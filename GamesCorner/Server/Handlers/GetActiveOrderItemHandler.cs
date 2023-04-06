@@ -12,13 +12,14 @@ namespace GamesCorner.Server.Handlers
     {
         public async Task<IResult> Handle(GetActiveOrderRequest request, CancellationToken cancellationToken)
         {
-            var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var orders = await request
                 .UnitOfWork.OrderRepository
                 .GetAllAsync();
 
-           var order = orders.Where(o => o.IsActive)
-            .FirstOrDefault(o => o.Id.Equals(userId));
+            var email = (await request.UnitOfWork.UserRepository.GetAsync(Guid.Parse(userId)))?.Email;
+            var order = orders.Where(o => o.IsActive)
+            .FirstOrDefault(o => o.CustomerEmail.Equals(email));
 
             return order is null ? Results.NotFound("Order doesn't exist") : Results.Ok(order);
         }
