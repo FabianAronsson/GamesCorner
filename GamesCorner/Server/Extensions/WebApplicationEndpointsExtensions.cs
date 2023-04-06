@@ -12,6 +12,7 @@ public static class WebApplicationEndpointsExtensions
         app.MediateGet<GetActiveOrderRequest>("getActiveOrder");
         app.MediatePost<AddToCartRequest>("addToCart");
         app.MediateDelete<DeleteFromCartRequest>("deleteItemFromCart");
+        app.MediateDelete<EmptyCartRequest>("emptyCart");
         return app;
     }
 }
