@@ -49,9 +49,8 @@ namespace GamesCorner.Client.Services.CartService
                 }
                 else
                 { 
-                    var result = await _httpClient.PostAsJsonAsync<OrderItemDto>("addToCart", item);
+                    var result = await _httpClient.PostAsJsonAsync("addToCart", item);
                     await result.Content.ReadFromJsonAsync<OrderItemDto>();
-
                 }
             }
 
