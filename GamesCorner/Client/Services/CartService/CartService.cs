@@ -61,7 +61,6 @@ namespace GamesCorner.Client.Services.CartService
 
             var order = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
             return order.Products;
-            //return new List<OrderItemDto>();
         }
 
         public async Task DeleteItem(OrderItemDto item)
