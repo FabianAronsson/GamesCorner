@@ -42,7 +42,6 @@ namespace GamesCorner.Server.Handlers
                 }
             }
             await request.UnitOfWork.Save();
-
             return Results.Ok("Item added");
         }
     }

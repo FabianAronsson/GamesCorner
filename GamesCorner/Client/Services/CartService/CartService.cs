@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using Blazored.LocalStorage;
 using GamesCorner.Shared.Dtos;
@@ -30,7 +29,6 @@ namespace GamesCorner.Client.Services.CartService
 
         public async Task AddToCart(OrderItemDto item, string userId)
         {
-            
             if (GetUserId() is null)
             {
                 var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
@@ -47,17 +45,8 @@ namespace GamesCorner.Client.Services.CartService
             }
             else
             {
-                var cart = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
-                var existing = cart?.Products.FirstOrDefault(o => o.ProductId.Equals(item.ProductId));
-                if (existing is not null)
-                {
-                    existing.Amount += existing.Amount;
-                }
-                else
-                { 
-                    var result = await _httpClient.PostAsJsonAsync("addToCart", item);
-                    await result.Content.ReadFromJsonAsync<OrderItemDto>();
-                }
+                var result = await _httpClient.PostAsJsonAsync("addToCart", item);
+                await result.Content.ReadFromJsonAsync<OrderItemDto>();
             }
         }
 
@@ -71,7 +60,6 @@ namespace GamesCorner.Client.Services.CartService
 
             var order = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
             return order.Products;
-            
         }
 
         public async Task DeleteItem(OrderItemDto item)
@@ -80,7 +68,6 @@ namespace GamesCorner.Client.Services.CartService
             {
                 var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
                 cart.Remove(item);
-
             }
             else
             {
@@ -91,7 +78,7 @@ namespace GamesCorner.Client.Services.CartService
 
         public Task EmptyCart()
         {
-            throw new NotImplementedException();
+            
         }
 
         public Task<string> Checkout()

@@ -8,7 +8,7 @@ namespace GamesCorner.Server.Handlers
     {
         public async Task<IResult> Handle(DeleteFromCartRequest request, CancellationToken cancellationToken)
         {
-            var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var orders = await request
                 .UnitOfWork.OrderRepository
                 .GetAllAsync();
@@ -16,15 +16,17 @@ namespace GamesCorner.Server.Handlers
             var order = orders.Where(o => o.IsActive)
                 .FirstOrDefault(o => o.Id.Equals(userId));
 
-            if (order is null)
+            var item = order.Products.FirstOrDefault(o => o.Id.Equals(request.OrderItemId));
+            if (item is not null && item.Amount != 0)
             {
-                return Results.NotFound("order not found");
+                item.Amount -= item.Amount;
             }
-
-
-            order.Products.Remove(order.Products.FirstOrDefault(i => i.Id.Equals(request.OrderItemId)));
+            else
+            {
+                order.Products.Remove(item);
+            }
             await request.UnitOfWork.Save();
-            return Results.Ok("Item removed");
+            return Results.Ok();
         }
     }
 }
