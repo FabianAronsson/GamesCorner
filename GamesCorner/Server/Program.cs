@@ -51,28 +51,28 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddRazorPages();
 
-var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 
-IHostBuilder CreateHostBuilder(string[] args) =>
-	Host.CreateDefaultBuilder(args)
-		.ConfigureAppConfiguration((context, config) =>
-		{
-			var builtConfiguration = config.Build();
+//IHostBuilder CreateHostBuilder(string[] args) =>
+//	Host.CreateDefaultBuilder(args)
+//		.ConfigureAppConfiguration((context, config) =>
+//		{
+//			var builtConfiguration = config.Build();
 
-			string KuURl = builtConfiguration["KeyVaulConfig:KVUrl"];
-			string tenantId = builtConfiguration["KeyVaulConfig:TenantId"];
-			string clientId = builtConfiguration["KeyVaulConfig:ClientId"];
-			string clientSecret = builtConfiguration["KeyVaulConfig:ClientSecretId"];
+//			string KuURl = builtConfiguration["KeyVaulConfig:KVUrl"];
+//			string tenantId = builtConfiguration["KeyVaulConfig:TenantId"];
+//			string clientId = builtConfiguration["KeyVaulConfig:ClientId"];
+//			string clientSecret = builtConfiguration["KeyVaulConfig:ClientSecretId"];
 
-			var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
-			var client = new SecretClient(new Uri(KuURl), credential);
-			config.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
-		})
-		.ConfigureWebHostDefaults(webBuilder =>
-		{
-			webBuilder.UseStartup<StartupBase>();
-		});
+//			var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+//			var client = new SecretClient(new Uri(KuURl), credential);
+//			config.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
+//		})
+//		.ConfigureWebHostDefaults(webBuilder =>
+//		{
+//			webBuilder.UseStartup<StartupBase>();
+//		});
 		
 
 var app = builder.Build();

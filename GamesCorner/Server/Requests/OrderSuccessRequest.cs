@@ -10,7 +10,7 @@ namespace GamesCorner.Server.Requests
 
 		public OrderModel OrderObject { get; set; }
 
-		public UnitOfWork UnitOfWork { get; set; }
+		public IUnitOfWork UnitOfWork { get; set; }
 
 	}
 }
