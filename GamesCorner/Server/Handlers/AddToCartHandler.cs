@@ -19,7 +19,7 @@ namespace GamesCorner.Server.Handlers
 
             if (order is null)
             {
-                return Results.NotFound();
+                return Results.NotFound("order not found");
             }
             order.Products.Add(request.item);
             return Results.Ok("Item added");
