@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using DataAccess.DataContext.Data;
 using DataAccess.Repositories;
 using DataAccess.Repositories.Interfaces;
@@ -10,8 +11,12 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -19,12 +24,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<StoreContext>(options =>
-    options.UseSqlServer(connectionString));
+	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddIdentityServer()
@@ -47,6 +52,30 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddRazorPages();
 
+//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+
+//IHostBuilder CreateHostBuilder(string[] args) =>
+//	Host.CreateDefaultBuilder(args)
+//		.ConfigureAppConfiguration((context, config) =>
+//		{
+//			var builtConfiguration = config.Build();
+
+//			string KuURl = builtConfiguration["KeyVaulConfig:KVUrl"];
+//			string tenantId = builtConfiguration["KeyVaulConfig:TenantId"];
+//			string clientId = builtConfiguration["KeyVaulConfig:ClientId"];
+//			string clientSecret = builtConfiguration["KeyVaulConfig:ClientSecretId"];
+
+//			var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+//			var client = new SecretClient(new Uri(KuURl), credential);
+//			config.AddAzureKeyVault(client, new AzureKeyVaultConfigurationOptions());
+//		})
+//		.ConfigureWebHostDefaults(webBuilder =>
+//		{
+//			webBuilder.UseStartup<StartupBase>();
+//		});
+		
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,6 +90,7 @@ else
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
+await app.SeedDatabase();
 
 app.UseHttpsRedirection();
 
@@ -73,9 +103,9 @@ app.UseIdentityServer();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 app.MapRazorPages();
 app.MapEndpoints();
+
 app.MapFallbackToFile("index.html");
 
 app.Run();
