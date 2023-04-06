@@ -21,6 +21,7 @@ namespace GamesCorner.Server.Handlers
                 return Results.NotFound("order not found");
             }
 
+
             order.Products.Remove(order.Products.FirstOrDefault(i => i.Id.Equals(request.OrderItemId)));
             await request.UnitOfWork.Save();
             return Results.Ok("Item removed");

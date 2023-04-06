@@ -48,7 +48,7 @@ namespace GamesCorner.Client.Services.CartService
             else
             {
                 var cart = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
-                var existing = cart.Products.FirstOrDefault(o => o.ProductId.Equals(item.ProductId));
+                var existing = cart?.Products.FirstOrDefault(o => o.ProductId.Equals(item.ProductId));
                 if (existing is not null)
                 {
                     existing.Amount += existing.Amount;
@@ -76,12 +76,17 @@ namespace GamesCorner.Client.Services.CartService
 
         public async Task DeleteItem(OrderItemDto item)
         {
-            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            var Id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            if (Id is null)
+            if (GetUserId() is null)
             {
-                return await _httpClient.DeleteFromJsonAsync<OrderItemDto>("deleteItemFromCart", item);
+                var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
+                cart.Remove(item);
+
             }
+            else
+            {
+                 await _httpClient.DeleteAsync($"deleteItemFromCart/{item.Id}");
+            }
+            
         }
 
         public Task EmptyCart()

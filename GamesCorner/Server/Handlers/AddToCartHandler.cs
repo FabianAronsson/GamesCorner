@@ -21,7 +21,16 @@ namespace GamesCorner.Server.Handlers
             {
                 return Results.NotFound("order not found");
             }
-            order.Products.Add(request.item);
+
+            var existing = order.Products.FirstOrDefault(o => o.Id.Equals(request.item.Id));
+            if (existing is not null)
+            {
+                existing.Amount += existing.Amount;
+            }
+            else
+            {
+                order.Products.Add(request.item);
+            }
             await request.UnitOfWork.Save();
             return Results.Ok("Item added");
         }
