@@ -10,12 +10,14 @@ namespace GamesCorner.Client.Services.CartService
     public class CartService : ICartService
     {
         private readonly ILocalStorageService _localStorage;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly HttpClient _httpClient;
         private readonly AuthenticationStateProvider _authenticationStateProvider;
 
-        public CartService(ILocalStorageService localStorage, HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider)
+        public CartService(ILocalStorageService localStorage, IHttpClientFactory httpClientFactory, HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider)
         {
-            _localStorage = localStorage;   
+            _localStorage = localStorage;
+            _httpClientFactory = httpClientFactory;
             _httpClient = httpClient;
             _authenticationStateProvider = authenticationStateProvider;
         }
@@ -92,9 +94,13 @@ namespace GamesCorner.Client.Services.CartService
             }
         }
 
-        public Task<string> Checkout()
+        public async Task<string> Checkout()
         {
-            throw new NotImplementedException();
+            var cartItems = await GetCartItems();
+            var httpClient = _httpClientFactory.CreateClient("public");
+            var result = await httpClient.PostAsJsonAsync("checkout", cartItems);
+            var url = await result.Content.ReadAsStringAsync();
+            return url;
         }
     }
 }
