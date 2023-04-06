@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.DataContext.Data;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
+using Duende.IdentityServer.EntityFramework.Entities;
+using Duende.IdentityServer.Extensions;
+using IdentityModel;
 
 namespace DataAccess.Repositories
 {
@@ -43,5 +47,11 @@ namespace DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public async Task<OrderModel> GetOrdersAsync( IIdentity identity)
+        {
+
+            var userId = identity.GetSubjectId();
+            var user = _storeContext.customers.FirstOrDefault(x => x.Id == userId);
     }
 }
