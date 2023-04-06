@@ -9,9 +9,20 @@ namespace GamesCorner.Server.Handlers
     {
         public async Task<IResult> Handle(AddToCartRequest request, CancellationToken cancellationToken)
         {
-            var order = await request.UnitOfWork.OrderRepository.GetAsync(request.OrderId);
+            var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var orders = await request
+                .UnitOfWork.OrderRepository
+                .GetAllAsync();
+
+            var order = orders.Where(o => o.IsActive)
+                .FirstOrDefault(o => o.Id.Equals(userId));
+
+            if (order is null)
+            {
+                return Results.NotFound();
+            }
             order.Products.Add(request.item);
-            return Results.Ok();
+            return Results.Ok("Item added");
         }
     }
 }

@@ -48,8 +48,10 @@ namespace GamesCorner.Client.Services.CartService
                     existing.Amount += existing.Amount;
                 }
                 else
-                {
-                    cart.Products.Add(item);
+                { 
+                    var result = await _httpClient.PostAsJsonAsync<OrderItemDto>("addToCart", item);
+                    await result.Content.ReadFromJsonAsync<OrderItemDto>();
+
                 }
             }
 
