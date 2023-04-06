@@ -4,5 +4,5 @@ namespace GamesCorner.Server.Services.PaymentService;
 
 public interface IPaymentService
 {
-    string CreateCheckoutSession(List<OrderItem> cartItems);
+    Task<string> CreateCheckoutSession(List<OrderItem> cartItems);
 }

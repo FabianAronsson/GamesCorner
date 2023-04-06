@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using DataAccess.UnitOfWork;
 using Stripe;
 using Stripe.Checkout;
 
@@ -6,47 +7,58 @@ namespace GamesCorner.Server.Services.PaymentService;
 
 public class PaymentService : IPaymentService
 {
-    public PaymentService()
+    private readonly IUnitOfWork _unitOfWork;
+
+    public PaymentService(IUnitOfWork unitOfWork)
     {
         StripeConfiguration.ApiKey =
-            "SECRET STRIPE KEY"; //TODO: ADD SK KEY
+            "SECRET STRIPE KEY"; //TODO: ADD SK KEY IN KEYVAULT
+        _unitOfWork = unitOfWork;
     }
-    public string CreateCheckoutSession(List<OrderItem> cartItems)
+
+    public async Task<string> CreateCheckoutSession(List<OrderItem> cartItems)
     {
-        public string CreateCheckoutSession(List<OrderItem> cartItems)
+        //Get the products from the datbase
+        var convertedCartItems = new List<ProductModel?>();
+        foreach (var cartItem in cartItems)
         {
-            var lineItems = new List<SessionLineItemOptions>();
-            cartItems.ForEach(c => lineItems.Add(new SessionLineItemOptions()
+            convertedCartItems.Add(await _unitOfWork.ProductRepository.GetAsync(cartItem.ProductId));
+        }
+
+        //Convert the products into line items for stripe
+        var lineItems = new List<SessionLineItemOptions>();
+        convertedCartItems.ForEach(c => lineItems.Add(new SessionLineItemOptions()
+        {
+            PriceData = new SessionLineItemPriceDataOptions()
             {
-                PriceData = new SessionLineItemPriceDataOptions()
+                UnitAmountDecimal = (decimal?)(c.Price * 100),
+                Currency = "sek",
+                ProductData = new SessionLineItemPriceDataProductDataOptions()
                 {
-                    UnitAmountDecimal = (decimal?)(c.Product.Price * 100),
-                    Currency = "usd",
-                    ProductData = new SessionLineItemPriceDataProductDataOptions()
-                    {
-                        Name = c.Product.Name,
-                        Images = new List<string>() { c.Product.ImageUrl }
-                    }
-                },
-                Quantity = c.Amount
-            }));
-            var options = new SessionCreateOptions
-            {
-                PaymentMethodTypes = new List<string>()
+                    Name = c.Name,
+                    Images = new List<string>() { c.ImageUrl }
+                }
+            },
+            Quantity = cartItems.FirstOrDefault(p => p.ProductId.Equals(c.Id)).Amount
+        }));
+        var options = new SessionCreateOptions
+        {
+            PaymentMethodTypes = new List<string>()
                 {
                     "card"
                 },
-                LineItems = lineItems,
-                Mode = "payment",
-                SuccessUrl = "https://localhost:7098" + "/store/order-success?session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = "https://localhost:7098" + "/store/cart",
-            };
-            var service = new SessionService();
-            var session = service.Create(options);
+            LineItems = lineItems,
+            Mode = "payment",
+            SuccessUrl = "https://localhost:7098" + "/store/order-success?session_id={CHECKOUT_SESSION_ID}",
+            CancelUrl = "https://localhost:7098" + "/store/cart",
+        };
 
-            session.SuccessUrl += session.Id;
 
-            return session.Id;
-        }
+        var service = new SessionService();
+        var session = await service.CreateAsync(options);
+
+        session.SuccessUrl += session.Id;
+
+        return session.Id;
     }
 }
