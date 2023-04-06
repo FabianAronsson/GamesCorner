@@ -21,11 +21,17 @@ namespace GamesCorner.Client.Services.CartService
             _authenticationStateProvider = authenticationStateProvider;
         }
 
-        public async Task AddToCart(OrderItemDto item, string userId)
+        public async Task<string> GetUserId()
         {
             var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            var Id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            if (Id is null)
+            var id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            return id;
+        }
+
+        public async Task AddToCart(OrderItemDto item, string userId)
+        {
+            
+            if (GetUserId() is null)
             {
                 var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
                 var existing = cart.FirstOrDefault(i => i.Id.Equals(item.Id));
@@ -53,28 +59,29 @@ namespace GamesCorner.Client.Services.CartService
                     await result.Content.ReadFromJsonAsync<OrderItemDto>();
                 }
             }
-
-
         }
 
 
         public async Task<List<OrderItemDto>> GetCartItems()
         {
-            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            var Id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            if (Id is null)
+            if (GetUserId() is null)
             {
                 return await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
             }
 
             var order = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
             return order.Products;
-
+            
         }
 
-        public Task DeleteItem(OrderItemDto item)
+        public async Task DeleteItem(OrderItemDto item)
         {
-            throw new NotImplementedException();
+            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+            var Id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            if (Id is null)
+            {
+                return await _httpClient.DeleteFromJsonAsync<OrderItemDto>("deleteItemFromCart", item);
+            }
         }
 
         public Task EmptyCart()

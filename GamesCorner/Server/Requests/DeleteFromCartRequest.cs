@@ -6,7 +6,7 @@ namespace GamesCorner.Server.Requests
 {
     public class DeleteFromCartRequest : IHttpRequest
     {
-        public OrderItem item { get; set; }
+        public string OrderItemId { get; set; }
         public HttpContext HttpContext { get; set; }
         public IUnitOfWork UnitOfWork { get; set; }
     }

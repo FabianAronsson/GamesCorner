@@ -22,6 +22,7 @@ namespace GamesCorner.Server.Handlers
                 return Results.NotFound("order not found");
             }
             order.Products.Add(request.item);
+            await request.UnitOfWork.Save();
             return Results.Ok("Item added");
         }
     }
