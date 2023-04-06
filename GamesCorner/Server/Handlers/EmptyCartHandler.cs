@@ -8,13 +8,13 @@ namespace GamesCorner.Server.Handlers
     {
         public async Task<IResult> Handle(EmptyCartRequest request, CancellationToken cancellationToken)
         {
-            var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var orders = await request
                 .UnitOfWork.OrderRepository
                 .GetAllAsync();
 
             var order = orders.Where(o => o.IsActive)
                 .FirstOrDefault(o => o.CustomerEmail.Equals(request.OrderId));
+
             if (order is null)
             {
                 return Results.NotFound("order not found");

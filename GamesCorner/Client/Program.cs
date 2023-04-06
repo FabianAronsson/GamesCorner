@@ -22,7 +22,6 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().Cre
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<AuthenticationStateProvider>();
 
 builder.Services.AddApiAuthorization();
 

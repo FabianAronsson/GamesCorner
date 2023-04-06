@@ -20,16 +20,17 @@ namespace GamesCorner.Client.Services.CartService
             _authenticationStateProvider = authenticationStateProvider;
         }
 
-        public async Task<string> GetUserId()
+        public async Task<string?> GetUserId()
         {
-            var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            var id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            return id;
+           
+                var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+                var id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+                return id?.Value;
         }
 
         public async Task AddToCart(OrderItemDto item, string userId)
         {
-            if (GetUserId() is null)
+            if (await GetUserId() is null)
             {
                 var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
                 var existing = cart.FirstOrDefault(i => i.Id.Equals(item.Id));
@@ -53,13 +54,14 @@ namespace GamesCorner.Client.Services.CartService
 
         public async Task<List<OrderItemDto>> GetCartItems()
         {
-            if (GetUserId() is null)
+            if (await GetUserId() is null)
             {
-                return await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
+                return await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
             }
 
             var order = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
             return order.Products;
+            //return new List<OrderItemDto>();
         }
 
         public async Task DeleteItem(OrderItemDto item)
@@ -79,7 +81,7 @@ namespace GamesCorner.Client.Services.CartService
 
         public async Task EmptyCart(string orderId)
         {
-            if (GetUserId() is null)
+            if (await GetUserId() is null)
             {
                 var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
                 cart.Clear();
