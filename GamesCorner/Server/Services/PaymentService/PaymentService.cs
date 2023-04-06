@@ -18,7 +18,7 @@ public class PaymentService : IPaymentService
 
     public async Task<string> CreateCheckoutSession(List<OrderItem> cartItems)
     {
-        //Get the products from the datbase
+        //Get the products from the database
         var convertedCartItems = new List<ProductModel?>();
         foreach (var cartItem in cartItems)
         {
@@ -49,6 +49,7 @@ public class PaymentService : IPaymentService
                 },
             LineItems = lineItems,
             Mode = "payment",
+            //TODO: CHANGE THE BELOW TO THE CORRESPONDING URL
             SuccessUrl = "https://localhost:7098" + "/store/order-success?session_id={CHECKOUT_SESSION_ID}",
             CancelUrl = "https://localhost:7098" + "/store/cart",
         };
