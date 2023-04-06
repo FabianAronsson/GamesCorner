@@ -1,0 +1,572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GamesAsJson" xml:space="preserve">
+    <value>[{
+    "Name": "Cyberpunk 2077",
+    "Description": "Cyberpunk 2077 är en öppen värld, action-äventyrshistoria som utspelar sig i Night City, en megalopolis besatt av makt, glamour och kroppsmodifieringar.",
+    "Price": 599.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/840/616x353/cyberpunk-2077-pc-game-gog-com-cover.jpg?v=1663862900",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Overwatch",
+    "Description": "Overwatch är en lagbaserad flerspelar-första persons shooter som utvecklats och publicerats av Blizzard Entertainment.",
+    "Price": 299.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/img/products/5723/pcover/5723.jpg?v=1664895513",
+    "Category":"FPS",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Civilization VI",
+    "Description": "Sid Meier's Civilization VI är ett turordningsbaserat strategispel där du försöker bygga ett imperium som står tidens test.",
+    "Price": 599.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/8579/616x353/sid-meier-s-civilization-vi-pc-mac-game-steam-cover.jpg?v=1669139876",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Half-Life 2",
+    "Description": "Half-Life 2 är ett förstapersonsskjutspel utvecklat och publicerat av Valve Corporation.",
+    "Price": 99.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/2284/616x353/half-life-2-pc-mac-game-steam-cover.jpg?v=1650555068",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Portal 2",
+    "Description": "Portal 2 är ett pussel-plattformsspel utvecklat och publicerat av Valve Corporation.",
+    "Price": 99.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/220/616x353/portal-2-pc-mac-game-steam-cover.jpg?v=1662377458",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "The Witcher 3: Wild Hunt",
+    "Description": "The Witcher 3: Wild Hunt är ett actionrollspel utvecklat och publicerat av CD Projekt Red.",
+    "Price": 449.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/268/616x353/the-witcher-3-wild-hunt-pc-game-gog-com-cover.jpg?v=1650526691",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Minecraft",
+    "Description": "Minecraft är ett sandlådespel där du bygger och utforskar en virtuell värld.",
+    "Price": 279.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/442/616x353/minecraft-java-and-bedrock-edition-pc-game-cover.jpg?v=1674156218",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+   {
+    "Name": "Death Stranding",
+    "Description": "Death Stranding är ett action-äventyrsspel utvecklat av Kojima Productions.",
+    "Price": 599.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/10185/616x353/death-stranding-director-s-cut-director-s-cut-pc-game-steam-europe-cover.jpg?v=1670574833",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Stardew Valley",
+    "Description": "Stardew Valley är ett lantbrukssimuleringsspel utvecklat av ConcernedApe.",
+    "Price": 159.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/7233/616x353/stardew-valley-xbox-one-xbox-series-x-s-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1654597880",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Hades",
+    "Description": "Hades är ett roguelike actionspel utvecklat och publicerat av Supergiant Games.",
+    "Price": 229.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/5972/616x353/hades-pc-mac-game-steam-cover.jpg?v=1670573156",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "World of Warcraft",
+    "Description": "World of Warcraft är ett massivt multiplayer online rollspel utvecklat och publicerat av Blizzard Entertainment.",
+    "Price": 159.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/10713/616x353/world-of-warcraft-dragonflight-pc-mac-game-battle-net-europe-cover.jpg?v=1669630761",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "The Elder Scrolls V: Skyrim",
+    "Description": "The Elder Scrolls V: Skyrim är ett actionrollspel utvecklat och publicerat av Bethesda Game Studios.",
+    "Price": 159.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/1512/616x353/the-elder-scrolls-v-skyrim-special-edition-special-edition-pc-game-steam-cover.jpg?v=1666705850",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Terraria",
+    "Description": "Terraria är ett sidscrollande actionäventyrsspel utvecklat av Re-Logic.",
+    "Price": 119.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/932/616x353/terraria-pc-mac-game-steam-cover.jpg?v=1647352436",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Counter-Strike: Global Offensive",
+    "Description": "Counter-Strike: Global Offensive är ett förstapersonsskjutspel utvecklat av Valve Corporation.",
+    "Price": 69.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/9459/616x353/counter-strike-global-offensive-pc-mac-game-steam-cover.jpg?v=1679502937",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Genshin Impact",
+    "Description": "Genshin Impact är ett actionrollspel utvecklat av miHoYo.",
+    "Price": 420.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/9471/616x353/genshin-impact-pc-game-epic-games-cover.jpg?v=1645029961",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+ {
+    "Name": "Half-Life: Alyx",
+    "Description": "Half-Life: Alyx är ett VR-förstapersonsskjutspel utvecklat och publicerat av Valve Corporation.",
+    "Price": 369.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/5816/616x353/half-life-alyx-vr-steam-vr-pc-game-steam-cover.jpg?v=1649760385",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },{
+    "Name": "Frostpunk",
+    "Description": "Frostpunk är ett överlevnadsspel utvecklat och publicerat av 11 bit studios.",
+    "Price": 199.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/6210/616x353/frostpunk-goty-edition-goty-edition-pc-game-steam-cover.jpg?v=1648537989",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Doom Eternal",
+    "Description": "Doom Eternal är ett förstapersonsskjutspel utvecklat av id Software och publicerat av Bethesda Softworks.",
+    "Price": 449.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/7664/616x353/doom-eternal-pc-game-steam-cover.jpg?v=1657271782",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Cities: Skylines",
+    "Description": "Cities: Skylines är ett stadsbyggarspel utvecklat av Colossal Order och publicerat av Paradox Interactive.",
+    "Price": 179.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/519/616x353/cities-skylines-pc-mac-game-steam-cover.jpg?v=1662469928",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Cuphead",
+    "Description": "Cuphead är ett sidscrollande plattformsspel utvecklat och publicerat av Studio MDHR.",
+    "Price": 179.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/2310/616x353/cuphead-pc-mac-game-steam-cover.jpg?v=1656487643",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Divinity: Original Sin 2",
+    "Description": "Divinity: Original Sin 2 är ett rollspel utvecklat och publicerat av Larian Studios.",
+    "Price": 449.0,
+    "ImageUrl": "https://www.instant-gaming.com/themes/igv2/images/lazy.svg",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+   {
+    "Name": "Hollow Knight",
+    "Description": "Hollow Knight är ett sidscrollande plattformsspel utvecklat och publicerat av Team Cherry.",
+    "Price": 139.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/2198/616x353/hollow-knight-pc-mac-game-steam-cover.jpg?v=1649252899",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Subnautica",
+    "Description": "Subnautica är ett äventyrsspel som utspelar sig i en öppen värld under vattnet. Det utvecklades och publicerades av Unknown Worlds Entertainment.",
+    "Price": 299.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/1003/616x353/subnautica-pc-mac-game-steam-cover.jpg?v=1647355880",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Dead by Daylight",
+    "Description": "Dead by Daylight är ett asymmetriskt survival-horrorspel utvecklat av Behaviour Interactive.",
+    "Price": 219.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/1904/616x353/dead-by-daylight-pc-game-steam-cover.jpg?v=1652191300",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+   {
+    "Name": "Slay the Spire",
+    "Description": "Slay the Spire är ett strategispel utvecklat och publicerat av MegaCrit.",
+    "Price": 139.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/2434/616x353/slay-the-spire-pc-mac-game-steam-cover.jpg?v=1649319792",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Resident Evil Village",
+    "Description": "Resident Evil Village är ett överlevnadsspel utvecklat och publicerat av Capcom.",
+    "Price": 499.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/13107/616x353/resident-evil-village-gold-edition-gold-edition-pc-game-steam-cover.jpg?v=1676388965",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Factorio",
+    "Description": "Factorio är ett strategi- och överlevnadsspel utvecklat och publicerat av Wube Software.",
+    "Price": 249.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/2157/616x353/game-steam-factorio-cover.jpg?v=1619430722",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Oxenfree",
+    "Description": "Oxenfree är ett övernaturligt äventyrsspel utvecklat och publicerat av Night School Studio.",
+    "Price": 129.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/2549/616x353/oxenfree-pc-mac-game-steam-cover.jpg?v=1649322973",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Outer Wilds",
+    "Description": "Outer Wilds är ett äventyrsspel utvecklat av Mobius Digital och publicerat av Annapurna Interactive.",
+    "Price": 189.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/2586/616x353/outer-wilds-pc-game-steam-cover.jpg?v=1671637488",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+  "name": "Life is Strange",
+    "Description": "Life is Strange är ett episodiskt äventyrsspel utvecklat av Dontnod Entertainment och publicerat av Square Enix.",
+    "Price": 179.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/9028/616x353/life-is-strange-remastered-collection-pc-game-steam-cover.jpg?v=1651591881",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Control",
+    "Description": "Control är ett action-äventyrsspel utvecklat av Remedy Entertainment och publicerat av 505 Games.",
+    "Price": 399.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/7467/616x353/control-ultimate-edition-ultimate-edition-pc-game-steam-europe-cover.jpg?v=1668442787",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Undertale",
+    "Description": "Undertale är ett indie-rollspel utvecklat och publicerat av Toby Fox.",
+    "Price": 109.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/4986/616x353/game-steam-undertale-cover.jpg?v=1608049517",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "The Stanley Parable",
+    "Description": "The Stanley Parable är ett interaktivt narrativt spel utvecklat och publicerat av Davey Wreden.",
+    "Price": 99.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/4947/616x353/game-steam-the-stanley-parable-cover.jpg?v=1608049517",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Disco Elysium",
+    "Description": "Disco Elysium är ett isometriskt RPG-spel utvecklat och publicerat av ZA/UM.",
+    "Price": 289.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/5661/616x353/disco-elysium-the-final-cut-pc-game-gog-com-cover.jpg?v=1673536884",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+   {
+    "Name": "Ori and the Will of the Wisps",
+    "Description": "Ori and the Will of the Wisps är ett plattformsspel utvecklat av Moon Studios och publicerat av Xbox Game Studios.",
+    "Price": 219.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/2139/616x353/ori-and-the-will-of-the-wisps-pc-xbox-one-xbox-series-x-s-pc-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1655722105",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Inside",
+    "Description": "Inside är ett pusselspel utvecklat och utgivet av Playdead.",
+    "Price": 99.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/1920/616x353/inside-pc-mac-game-steam-cover.jpg?v=1649236295",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "This War of Mine",
+    "Description": "This War of Mine är ett krigsspel med överlevnadstema utvecklat av 11 bit studios.",
+    "Price": 149.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/12101/616x353/this-war-of-mine-complete-edition-complete-edition-pc-mac-game-steam-cover.jpg?v=1654789115",
+    "Category": "Indie",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "A Hat in Time",
+    "Description": "A Hat in Time är ett plattformsspel utvecklat av Gears for Breakfast.",
+    "Price": 189.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/10774/616x353/a-hat-in-time-xbox-one-xbox-series-x-s-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1650539124",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Europa Universalis IV",
+    "Description": "Europa Universalis IV är ett grand strategy-spel utvecklat av Paradox Development Studio.",
+    "Price": 369.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/227/616x353/europa-universalis-iv-pc-mac-game-steam-europe-cover.jpg?v=1662381804",
+    "Category": "Stratagy",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+   {
+    "Name": "RimWorld",
+    "Description": "RimWorld är ett simuleringsspel med överlevnadstema utvecklat av Ludeon Studios.",
+    "Price": 249.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/3237/616x353/rimworld-pc-mac-game-steam-cover.jpg?v=1649407614",
+    "Category": "Simulation",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "The Witness",
+    "Description": "The Witness är ett pusselspel utvecklat av Jonathan Blow.",
+    "Price": 229.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/1057/616x353/the-witness-pc-mac-game-steam-cover.jpg?v=1649150173",
+    "Category": "Puzzle",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Celeste",
+    "Description": "Celeste är ett plattformsspel utvecklat och utgivet av Maddy Makes Games.",
+    "Price": 139.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/8003/616x353/celeste-pc-mac-game-steam-cover.jpg?v=1652434948",
+    "Category": "Indie",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Baba Is You",
+    "Description": "Baba Is You är ett pusselspel utvecklat av Hempuli och utgivet av Crytivo.",
+    "Price": 139.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/3323/616x353/baba-is-you-mac-pc-game-steam-cover.jpg?v=1649408398",
+    "Category": "Puzzle",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "The Talos Principle",
+    "Description": "The Talos Principle är ett pusselspel utvecklat av Croteam och utgivet av Devolver Digital.",
+    "Price": 239.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/632/616x353/the-talos-principle-pc-mac-game-steam-cover.jpg?v=1650464996",
+    "Category": "Puzzle",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+   {
+    "Name": "FTL: Faster Than Light",
+    "Description": "FTL: Faster Than Light är ett strategispel utvecklat av Subset Games.",
+    "Price": 99.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/3476/616x353/ftl-faster-than-light-pc-mac-game-steam-cover.jpg?v=1649410774",
+    "Category": "Rogue-Like",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "The Binding of Isaac: Rebirth",
+    "Description": "The Binding of Isaac: Rebirth är ett indie-pusselspel med rougelike-element utvecklat av Nicalis.",
+    "Price": 149.0,
+    "ImageUrl": "https://s2.gaming-cdn.com/images/products/1720/616x353/game-steam-the-binding-of-isaac-cover.jpg?v=1608049517",
+    "Category": "Rogue-Like",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "Overcooked 2",
+    "Description": "Overcooked 2 är ett co-op-kökskaossimulatorspel utvecklat av Ghost Town Games.",
+    "Price": 189.0,
+    "ImageUrl": "https://s3.gaming-cdn.com/images/products/2705/616x353/overcooked-2-pc-mac-game-steam-cover.jpg?v=1649326990",
+    "Category": "Cooking Chaos",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+ {
+    "Name": "Don't Starve Together",
+    "Description": "Don't Starve Together är ett överlevnadsspel med öppen värld som kan spelas med flera spelare utvecklat av Klei Entertainment.",
+    "Price": 209.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/5415/616x353/don-t-starve-together-pc-mac-game-steam-cover.jpg?v=1678787858",
+    "Category": "Co-op",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+  {
+    "Name": "The Forest",
+    "Description": "The Forest är ett förstapersonsöverlevnadsspel med öppen värld och skräckelement utvecklat av Endnight Games.",
+    "Price": 229.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/642/616x353/the-forest-pc-game-steam-cover.jpg?v=1662538631",
+    "Category": "Survival",
+    "AgeRestriction":18,
+    "InStock":true
+  },
+   {
+    "Name": "Euro Truck Simulator 2",
+    "Description": "Euro Truck Simulator 2 är ett simulatorspel där spelaren kör lastbil på olika vägar och levererar varor.",
+    "Price": 179.0,
+    "ImageUrl": "https://s1.gaming-cdn.com/images/products/309/616x353/euro-truck-simulator-2-pc-mac-game-steam-cover.jpg?v=1662388736",
+    "Category": "Simulation",
+    "AgeRestriction":18,
+    "InStock":true
+  }
+]</value>
+  </data>
+</root>

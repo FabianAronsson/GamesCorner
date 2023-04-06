@@ -101,9 +101,11 @@ app.UseIdentityServer();
 app.UseAuthentication();
 app.UseAuthorization();
 
+await app.SeedDatabase();
 
 app.MapRazorPages();
 app.MapEndpoints();
+
 app.MapFallbackToFile("index.html");
 
 app.Run();
