@@ -6,5 +6,5 @@ namespace DataAccess.Repositories.Interfaces;
 
 public interface IOrderRepository:IRepository<OrderModel>
 {
-	public Task<OrderModel> GetOrdersAsync(UserManager<>);
+	public  IEnumerable<OrderModel> GetOrdersAsync();
 }

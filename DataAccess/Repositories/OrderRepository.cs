@@ -15,14 +15,14 @@ namespace DataAccess.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-	    private readonly StoreContext _storeContext;
+        private readonly StoreContext _storeContext;
 
-	    public OrderRepository(StoreContext storeContext)
-	    {
-		    _storeContext = storeContext;
-	    }
+        public OrderRepository(StoreContext storeContext)
+        {
+            _storeContext = storeContext;
+        }
 
-	    public async Task<OrderModel?> GetAsync(Guid id)
+        public async Task<OrderModel?> GetAsync(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -39,8 +39,8 @@ namespace DataAccess.Repositories
 
         public async Task<OrderModel> UpdateAsync(OrderModel entity)
         {
-	        _storeContext.Orders.Update(entity);
-	        return entity;
+            _storeContext.Orders.Update(entity);
+            return entity;
         }
 
         public async Task<OrderModel> DeleteAsync(OrderModel entity)
@@ -48,10 +48,11 @@ namespace DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<OrderModel> GetOrdersAsync( IIdentity identity)
+        public  IEnumerable<OrderModel> GetOrdersAsync()
         {
 
-            var userId = identity.GetSubjectId();
-            var user = _storeContext.customers.FirstOrDefault(x => x.Id == userId);
+
+            return  _storeContext.Orders.ToList();
+        }
     }
 }
