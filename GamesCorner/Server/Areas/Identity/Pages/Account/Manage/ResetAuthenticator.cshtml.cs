@@ -4,7 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
-using GamesCorner.Server.Models;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

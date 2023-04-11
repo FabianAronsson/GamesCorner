@@ -120,21 +120,24 @@
   <data name="GamesAsJson" xml:space="preserve">
     <value>[{
     "Name": "Cyberpunk 2077",
-    "Description": "Cyberpunk 2077 är en öppen värld, action-äventyrshistoria som utspelar sig i Night City, en megalopolis besatt av makt, glamour och kroppsmodifieringar.",
+    "Description": "Cyberpunk 2077 for PC is a first-person shooter game, but one with a difference. Set in a dystopian Free State of California, the rules of the nation and the state no longer apply. Instead, playing as a mercenary named V, the player must work their way around the city, attaining their goals and battling enemies as they go.",
     "Price": 599.0,
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/840/616x353/cyberpunk-2077-pc-game-gog-com-cover.jpg?v=1663862900",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/840/pcover/840.jpg?v=1663862900"
   },
   {
-    "Name": "Overwatch",
-    "Description": "Overwatch är en lagbaserad flerspelar-första persons shooter som utvecklats och publicerats av Blizzard Entertainment.",
+    "Name": "Overwatch 2",
+    "Description": "Overwatch 2 är en lagbaserad flerspelar-första persons shooter som utvecklats och publicerats av Blizzard Entertainment.",
     "Price": 299.0,
-    "ImageUrl": "https://s3.gaming-cdn.com/img/products/5723/pcover/5723.jpg?v=1664895513",
+    "ImageUrl": "https://gaming-cdn.com/images/products/5723/616x353/overwatch-2-watchpoint-pack-xbox-one-xbox-series-x-s-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1664895513",
     "Category":"FPS",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://s3.gaming-cdn.com/img/products/5723/pcover/5723.jpg?v=1664895513"
+
   },
   {
     "Name": "Civilization VI",
@@ -143,7 +146,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/8579/616x353/sid-meier-s-civilization-vi-pc-mac-game-steam-cover.jpg?v=1669139876",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/8579/pcover/8579.jpg?v=1669139876"
   },
   {
     "Name": "Half-Life 2",
@@ -152,7 +156,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/2284/616x353/half-life-2-pc-mac-game-steam-cover.jpg?v=1650555068",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2284/pcover/2284.jpg?v=1650555068"
   },
   {
     "Name": "Portal 2",
@@ -161,7 +166,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/220/616x353/portal-2-pc-mac-game-steam-cover.jpg?v=1662377458",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/220/pcover/220.jpg?v=1662377458"
   },
   {
     "Name": "The Witcher 3: Wild Hunt",
@@ -170,7 +176,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/268/616x353/the-witcher-3-wild-hunt-pc-game-gog-com-cover.jpg?v=1650526691",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/268/pcover/268.jpg?v=1650526691"
   },
   {
     "Name": "Minecraft",
@@ -179,7 +186,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/442/616x353/minecraft-java-and-bedrock-edition-pc-game-cover.jpg?v=1674156218",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2369/pcover/2369.jpg?v=1677838142"
   },
    {
     "Name": "Death Stranding",
@@ -188,7 +196,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/10185/616x353/death-stranding-director-s-cut-director-s-cut-pc-game-steam-europe-cover.jpg?v=1670574833",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/10185/pcover/10185.jpg?v=1670574833"
   },
   {
     "Name": "Stardew Valley",
@@ -197,7 +206,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/7233/616x353/stardew-valley-xbox-one-xbox-series-x-s-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1654597880",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/7233/pcover/7233.jpg?v=1654597880"
   },
   {
     "Name": "Hades",
@@ -206,7 +216,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/5972/616x353/hades-pc-mac-game-steam-cover.jpg?v=1670573156",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/5972/pcover/5972.jpg?v=1670573156"
   },
   {
     "Name": "World of Warcraft",
@@ -215,7 +226,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/10713/616x353/world-of-warcraft-dragonflight-pc-mac-game-battle-net-europe-cover.jpg?v=1669630761",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/150/pcover/150.jpg?v=1653561930"
   },
   {
     "Name": "The Elder Scrolls V: Skyrim",
@@ -224,7 +236,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/1512/616x353/the-elder-scrolls-v-skyrim-special-edition-special-edition-pc-game-steam-cover.jpg?v=1666705850",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/1512/pcover/1512.jpg?v=1666705850"
   },
   {
     "Name": "Terraria",
@@ -233,25 +246,28 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/932/616x353/terraria-pc-mac-game-steam-cover.jpg?v=1647352436",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/932/pcover/932.jpg?v=1647352436"
   },
   {
     "Name": "Counter-Strike: Global Offensive",
     "Description": "Counter-Strike: Global Offensive är ett förstapersonsskjutspel utvecklat av Valve Corporation.",
-    "Price": 69.0,
+    "Price": 0.0,
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/9459/616x353/counter-strike-global-offensive-pc-mac-game-steam-cover.jpg?v=1679502937",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/62/pcover/62.jpg?v=1661759553"
   },
   {
     "Name": "Genshin Impact",
     "Description": "Genshin Impact är ett actionrollspel utvecklat av miHoYo.",
-    "Price": 420.0,
+    "Price": 0.0,
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/9471/616x353/genshin-impact-pc-game-epic-games-cover.jpg?v=1645029961",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/9471/pcover/9471.jpg?v=1645029961"
   },
  {
     "Name": "Half-Life: Alyx",
@@ -260,7 +276,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/5816/616x353/half-life-alyx-vr-steam-vr-pc-game-steam-cover.jpg?v=1649760385",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/5816/pcover/5816.jpg?v=1649760385"
   },{
     "Name": "Frostpunk",
     "Description": "Frostpunk är ett överlevnadsspel utvecklat och publicerat av 11 bit studios.",
@@ -268,7 +285,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/6210/616x353/frostpunk-goty-edition-goty-edition-pc-game-steam-cover.jpg?v=1648537989",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/6210/pcover/6210.jpg?v=1648537989"
   },
   {
     "Name": "Doom Eternal",
@@ -277,7 +295,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/7664/616x353/doom-eternal-pc-game-steam-cover.jpg?v=1657271782",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/7664/pcover/7664.jpg?v=1657271782"
   },
   {
     "Name": "Cities: Skylines",
@@ -286,7 +305,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/519/616x353/cities-skylines-pc-mac-game-steam-cover.jpg?v=1662469928",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/519/pcover/519.jpg?v=1662469928"
   },
   {
     "Name": "Cuphead",
@@ -295,16 +315,18 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/2310/616x353/cuphead-pc-mac-game-steam-cover.jpg?v=1656487643",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2310/pcover/2310.jpg?v=1656487643"
   },
   {
     "Name": "Divinity: Original Sin 2",
     "Description": "Divinity: Original Sin 2 är ett rollspel utvecklat och publicerat av Larian Studios.",
     "Price": 449.0,
-    "ImageUrl": "https://www.instant-gaming.com/themes/igv2/images/lazy.svg",
+    "ImageUrl": "https://gaming-cdn.com/images/products/997/616x353/divinity-original-sin-ii-definitive-edition-pc-game-gog-com-cover.jpg?v=1673611739",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/997/pcover/997.jpg?v=1673611739"
   },
    {
     "Name": "Hollow Knight",
@@ -313,7 +335,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/2198/616x353/hollow-knight-pc-mac-game-steam-cover.jpg?v=1649252899",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2198/pcover/2198.jpg?v=1649252899"
   },
   {
     "Name": "Subnautica",
@@ -322,7 +345,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/1003/616x353/subnautica-pc-mac-game-steam-cover.jpg?v=1647355880",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/1003/pcover/1003.jpg?v=1647355880"
   },
   {
     "Name": "Dead by Daylight",
@@ -331,7 +355,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/1904/616x353/dead-by-daylight-pc-game-steam-cover.jpg?v=1652191300",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/1904/pcover/1904.jpg?v=1652191300"
   },
    {
     "Name": "Slay the Spire",
@@ -340,7 +365,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/2434/616x353/slay-the-spire-pc-mac-game-steam-cover.jpg?v=1649319792",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2434/pcover/2434.jpg?v=1649319792"
   },
   {
     "Name": "Resident Evil Village",
@@ -349,7 +375,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/13107/616x353/resident-evil-village-gold-edition-gold-edition-pc-game-steam-cover.jpg?v=1676388965",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/6329/pcover/6329.jpg?v=1651568947"
   },
   {
     "Name": "Factorio",
@@ -358,7 +385,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/2157/616x353/game-steam-factorio-cover.jpg?v=1619430722",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2157/pcover/2157.jpg?v=1619430722"
   },
   {
     "Name": "Oxenfree",
@@ -367,7 +395,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/2549/616x353/oxenfree-pc-mac-game-steam-cover.jpg?v=1649322973",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2549/pcover/2549.jpg?v=1649322973"
   },
   {
     "Name": "Outer Wilds",
@@ -376,7 +405,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/2586/616x353/outer-wilds-pc-game-steam-cover.jpg?v=1671637488",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2586/pcover/2586.jpg?v=1671637488"
   },
   {
   "name": "Life is Strange",
@@ -385,7 +415,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/9028/616x353/life-is-strange-remastered-collection-pc-game-steam-cover.jpg?v=1651591881",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/9028/pcover/9028.jpg?v=1651591881"
   },
   {
     "Name": "Control",
@@ -394,7 +425,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/7467/616x353/control-ultimate-edition-ultimate-edition-pc-game-steam-europe-cover.jpg?v=1668442787",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/7467/pcover/7467.jpg?v=1668442787"
   },
   {
     "Name": "Undertale",
@@ -403,7 +435,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/4986/616x353/game-steam-undertale-cover.jpg?v=1608049517",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/4986/pcover/4986.jpg?v=1608049517"
   },
   {
     "Name": "The Stanley Parable",
@@ -412,7 +445,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/4947/616x353/game-steam-the-stanley-parable-cover.jpg?v=1608049517",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/4947/pcover/4947.jpg?v=1608049517"
   },
   {
     "Name": "Disco Elysium",
@@ -421,7 +455,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/5661/616x353/disco-elysium-the-final-cut-pc-game-gog-com-cover.jpg?v=1673536884",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/9753/pcover/9753.jpg?v=1673536886"
   },
    {
     "Name": "Ori and the Will of the Wisps",
@@ -430,7 +465,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/2139/616x353/ori-and-the-will-of-the-wisps-pc-xbox-one-xbox-series-x-s-pc-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1655722105",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2139/pcover/2139.jpg?v=1655722105"
   },
   {
     "Name": "Inside",
@@ -439,7 +475,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/1920/616x353/inside-pc-mac-game-steam-cover.jpg?v=1649236295",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/1920/pcover/1920.jpg?v=1649236295"
   },
   {
     "Name": "This War of Mine",
@@ -448,7 +485,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/12101/616x353/this-war-of-mine-complete-edition-complete-edition-pc-mac-game-steam-cover.jpg?v=1654789115",
     "Category": "Indie",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/12101/pcover/12101.jpg?v=1654789115"
   },
   {
     "Name": "A Hat in Time",
@@ -457,7 +495,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/10774/616x353/a-hat-in-time-xbox-one-xbox-series-x-s-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1650539124",
     "Category": "Action",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/3194/pcover/3194.jpg?v=1649405836"
   },
   {
     "Name": "Europa Universalis IV",
@@ -466,7 +505,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/227/616x353/europa-universalis-iv-pc-mac-game-steam-europe-cover.jpg?v=1662381804",
     "Category": "Stratagy",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/227/pcover/227.jpg?v=1662381804"
   },
    {
     "Name": "RimWorld",
@@ -475,7 +515,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/3237/616x353/rimworld-pc-mac-game-steam-cover.jpg?v=1649407614",
     "Category": "Simulation",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/3237/pcover/3237.jpg?v=1649407614"
   },
   {
     "Name": "The Witness",
@@ -484,7 +525,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/1057/616x353/the-witness-pc-mac-game-steam-cover.jpg?v=1649150173",
     "Category": "Puzzle",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/1057/pcover/1057.jpg?v=1649150173"
   },
   {
     "Name": "Celeste",
@@ -493,7 +535,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/8003/616x353/celeste-pc-mac-game-steam-cover.jpg?v=1652434948",
     "Category": "Indie",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/8003/pcover/8003.jpg?v=1652434948"
   },
   {
     "Name": "Baba Is You",
@@ -502,7 +545,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/3323/616x353/baba-is-you-mac-pc-game-steam-cover.jpg?v=1649408398",
     "Category": "Puzzle",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/3323/pcover/3323.jpg?v=1649408398"
   },
   {
     "Name": "The Talos Principle",
@@ -511,7 +555,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/632/616x353/the-talos-principle-pc-mac-game-steam-cover.jpg?v=1650464996",
     "Category": "Puzzle",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/632/pcover/632.jpg?v=1650464996"
   },
    {
     "Name": "FTL: Faster Than Light",
@@ -520,7 +565,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/3476/616x353/ftl-faster-than-light-pc-mac-game-steam-cover.jpg?v=1649410774",
     "Category": "Rogue-Like",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/3476/pcover/3476.jpg?v=1649410774"
   },
   {
     "Name": "The Binding of Isaac: Rebirth",
@@ -529,7 +575,8 @@
     "ImageUrl": "https://s2.gaming-cdn.com/images/products/1720/616x353/game-steam-the-binding-of-isaac-cover.jpg?v=1608049517",
     "Category": "Rogue-Like",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/1720/pcover/1720.jpg?v=1608049517"
   },
   {
     "Name": "Overcooked 2",
@@ -538,7 +585,8 @@
     "ImageUrl": "https://s3.gaming-cdn.com/images/products/2705/616x353/overcooked-2-pc-mac-game-steam-cover.jpg?v=1649326990",
     "Category": "Cooking Chaos",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/2705/pcover/2705.jpg?v=1649326990"
   },
  {
     "Name": "Don't Starve Together",
@@ -547,7 +595,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/5415/616x353/don-t-starve-together-pc-mac-game-steam-cover.jpg?v=1678787858",
     "Category": "Co-op",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/5415/pcover/5415.jpg?v=1678787858"
   },
   {
     "Name": "The Forest",
@@ -556,7 +605,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/642/616x353/the-forest-pc-game-steam-cover.jpg?v=1662538631",
     "Category": "Survival",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/642/pcover/642.jpg?v=1662538631"
   },
    {
     "Name": "Euro Truck Simulator 2",
@@ -565,7 +615,8 @@
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/309/616x353/euro-truck-simulator-2-pc-mac-game-steam-cover.jpg?v=1662388736",
     "Category": "Simulation",
     "AgeRestriction":18,
-    "InStock":true
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/309/pcover/309.jpg?v=1662388736"
   }
 ]</value>
   </data>

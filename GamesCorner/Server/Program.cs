@@ -6,13 +6,14 @@ using DataAccess.Repositories.Interfaces;
 using DataAccess.UnitOfWork;
 using GamesCorner.Server.Data;
 using GamesCorner.Server.Extensions;
-using GamesCorner.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using DataAccess.Models;
+using GamesCorner.Server.Services.PaymentService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,33 +22,35 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddDbContext<StoreContext>(options =>
-	options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
-	.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddIdentityServer()
-	.AddApiAuthorization<ApplicationUser, ApplicationDbContext>(opt =>
+    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(opt =>
     {
-		opt.IdentityResources["openid"].UserClaims.Add("role");
+        opt.IdentityResources["openid"].UserClaims.Add("role");
         opt.ApiResources.Single().UserClaims.Add("role");
     });
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 builder.Services.AddAuthentication()
-	.AddIdentityServerJwt();
+    .AddIdentityServerJwt();
 
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 builder.Services.AddRazorPages();
 
@@ -73,21 +76,21 @@ builder.Services.AddRazorPages();
 //		{
 //			webBuilder.UseStartup<StartupBase>();
 //		});
-		
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseMigrationsEndPoint();
-	app.UseWebAssemblyDebugging();
+    app.UseMigrationsEndPoint();
+    app.UseWebAssemblyDebugging();
 }
 else
 {
-	app.UseExceptionHandler("/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 await app.SeedDatabase();
 

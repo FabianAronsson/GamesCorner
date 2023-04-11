@@ -5,8 +5,8 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Authorization;
-using GamesCorner.Server.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;

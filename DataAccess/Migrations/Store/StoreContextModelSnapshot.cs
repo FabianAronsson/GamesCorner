@@ -74,6 +74,10 @@ namespace DataAccess.Migrations.Store
                     b.Property<int>("AgeRestriction")
                         .HasColumnType("int");
 
+                    b.Property<string>("BannerUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

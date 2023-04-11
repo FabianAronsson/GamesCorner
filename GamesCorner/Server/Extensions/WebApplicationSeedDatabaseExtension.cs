@@ -20,7 +20,7 @@ namespace GamesCorner.Server.Extensions
 			var services = scope.ServiceProvider;
 			var unitOfWork = services.GetRequiredService<IUnitOfWork>();
 
-			var productsInDatabase = await unitOfWork.ProductRepository.GetAllAsync(string.Empty);
+			var productsInDatabase = await unitOfWork.ProductRepository.GetAllAsync("");
 			if (productsInDatabase.Count() > 0)
 				return app;
 
