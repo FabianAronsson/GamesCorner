@@ -1,0 +1,11 @@
+﻿.btn {
+    background-color: #ff5400;
+    border-radius: 50px;
+    margin-left: 5px;
+}
+
+input::placeholder {
+    color: white;
+}
+
+
