@@ -1,0 +1,31 @@
+﻿@page "/ProductInfo/{productId}"
+@inject IHttpClientFactory HttpClientFactory
+
+<h3>ProductInfo</h3>
+
+<div class="container">
+	<div class="row">
+		<div class="col-6">
+			<img src="@Product.ImageUrl" alt="@Product.Description"/>
+		</div>
+		<div class="col-6 mt-4">
+			<div class="card border-0">
+				<h2 class="card-header bg-dark text-light">@Product.Name</h2>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title text-light">@Product.Price Kr</h5>
+				<a href="#" class="btn" style="color: #ff5400">Add to cart</a>
+			</div>
+		
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-6 mt-4">
+			<h4 class="text-light">About the Game</h4>
+			<p class="text-light">@Product.Description</p>
+		</div>
+	</div>
+	
+
+</div>
