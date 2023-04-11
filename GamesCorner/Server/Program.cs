@@ -6,13 +6,13 @@ using DataAccess.Repositories.Interfaces;
 using DataAccess.UnitOfWork;
 using GamesCorner.Server.Data;
 using GamesCorner.Server.Extensions;
-using GamesCorner.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using DataAccess.Models;
 using GamesCorner.Server.Services.PaymentService;
 
 var builder = WebApplication.CreateBuilder(args);

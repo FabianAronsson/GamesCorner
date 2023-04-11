@@ -1,4 +1,4 @@
-﻿using GamesCorner.Server.Models;
+﻿using DataAccess.Models;
 
 namespace DataAccess.Repositories.Interfaces;
 

@@ -6,7 +6,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using GamesCorner.Server.Models;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -82,7 +82,10 @@ namespace GamesCorner.Server.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Address = user.Address,
+                PostalCode = user.PostCode,
+                City = user.City,
             };
         }
 
@@ -122,7 +125,20 @@ namespace GamesCorner.Server.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            if (Input.PostalCode != user.PostCode)
+            {
+                user.PostCode = Input.PostalCode;
+            }
+            if (Input.City != user.City)
+            {
+                user.City = Input.City;
+            }
+            if (Input.Address != user.Address)
+            {
+                user.Address = Input.Address;
+            }
 
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

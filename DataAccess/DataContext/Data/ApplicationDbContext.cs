@@ -1,6 +1,6 @@
 ﻿using DataAccess.DataContext.Data;
+using DataAccess.Models;
 using Duende.IdentityServer.EntityFramework.Options;
-using GamesCorner.Server.Models;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
