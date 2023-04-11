@@ -4,9 +4,10 @@
 <h3>ProductInfo</h3>
 
 <div class="container">
+	<img src="@Product.BannerUrl" alt="" />
 	<div class="row">
 		<div class="col-6">
-			<img src="@Product.ImageUrl" alt="@Product.Description"/>
+			<img class="rounded-2" src="@Product.ImageUrl" alt="@Product.Description"/>
 		</div>
 		<div class="col-6 mt-4">
 			<div class="card border-0">
@@ -14,9 +15,9 @@
 			</div>
 			<div class="card-body">
 				<h5 class="card-title text-light">@Product.Price Kr</h5>
-				<a href="#" class="btn" style="color: #ff5400">Add to cart</a>
+				<a href="#" class="btn" style="background-color: #ff5400">Add to cart</a>
 			</div>
-		
+
 		</div>
 
 	</div>
@@ -26,6 +27,6 @@
 			<p class="text-light">@Product.Description</p>
 		</div>
 	</div>
-	
+
 
 </div>
