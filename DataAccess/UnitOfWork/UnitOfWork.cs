@@ -10,17 +10,17 @@ public class UnitOfWork :IDisposable, IUnitOfWork
 	private readonly IProductRepository? _productRepository;
 	private readonly IOrderRepository? _orderRepository;
 
-	public UnitOfWork(StoreContext context, IProductRepository productRepository, IOrderRepository orderRepository)
+    public UnitOfWork(StoreContext context, IProductRepository productRepository, IOrderRepository orderRepository)
 	{
 		_context = context;
 		_productRepository = productRepository;
 		_orderRepository = orderRepository;
-	}
+    }
 
 	public IProductRepository ProductRepository => _productRepository;
 	public IOrderRepository OrderRepository => _orderRepository;
 
-	public async Task<int> Save()
+    public async Task<int> Save()
 	{
 		return await _context.SaveChangesAsync();
 	}
