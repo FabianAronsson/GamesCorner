@@ -4,9 +4,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
 using GamesCorner.Server.Data;
-using GamesCorner.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories
