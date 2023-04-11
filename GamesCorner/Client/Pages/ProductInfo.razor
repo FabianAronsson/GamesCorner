@@ -3,23 +3,24 @@
 
 <h3>ProductInfo</h3>
 
+<div class="card-header opacity-50">
+	<img class="col-12" src="@Product.BannerUrl" alt=""/>
+</div>
+
 <div class="container">
-	<img src="@Product.BannerUrl" alt="" />
 	<div class="row">
 		<div class="col-6">
 			<img class="rounded-2" src="@Product.ImageUrl" alt="@Product.Description"/>
 		</div>
-		<div class="col-6 mt-4">
-			<div class="card border-0">
-				<h2 class="card-header bg-dark text-light">@Product.Name</h2>
+		<div class="col-6 mt-4 card-group">
+			<div class="border-0 card-title">
+				<h2 class="text-light">@Product.Name</h2>
 			</div>
 			<div class="card-body">
 				<h5 class="card-title text-light">@Product.Price Kr</h5>
 				<a href="#" class="btn" style="background-color: #ff5400">Add to cart</a>
 			</div>
-
 		</div>
-
 	</div>
 	<div class="row">
 		<div class="col-6 mt-4">
@@ -27,6 +28,4 @@
 			<p class="text-light">@Product.Description</p>
 		</div>
 	</div>
-
-
 </div>
