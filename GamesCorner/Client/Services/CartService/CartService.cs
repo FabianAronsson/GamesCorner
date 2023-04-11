@@ -13,6 +13,7 @@ namespace GamesCorner.Client.Services.CartService
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly HttpClient _httpClient;
         private readonly AuthenticationStateProvider _authenticationStateProvider;
+        
 
         public CartService(ILocalStorageService localStorage, IHttpClientFactory httpClientFactory, HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider)
         {
