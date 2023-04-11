@@ -37,11 +37,16 @@ namespace GamesCorner.Client.Pages
 
 		private void FilterResultsByCategory(ChangeEventArgs obj)
 		{
-
 			var category = obj.Value;
-			if (category is not null)
+
+			if (category.ToString() == "All")
+			{
+				_filteredProducts = _products;
+			}
+			else
 			{
 				_filteredProducts = _products.Where(x => x.Category == category.ToString()).ToList();
+			
 			}
 
 			StateHasChanged();
