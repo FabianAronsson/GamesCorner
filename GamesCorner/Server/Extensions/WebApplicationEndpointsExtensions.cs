@@ -11,7 +11,7 @@ public static class WebApplicationEndpointsExtensions
         app.MediateGet<GetProductRequest>("getProduct");
         app.MediatePut<OrderSuccessRequest>("orderSuccess");
         app.MediateGet<GetAllProductsRequest>("search");
-        app.MediatePost<CreateSessionIdRequest>("checkout");
+        //app.MediatePost<CreateSessionIdRequest>("checkout");
         return app;
     }
 }
