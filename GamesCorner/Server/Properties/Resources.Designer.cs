@@ -63,16 +63,9 @@ namespace GamesCorner.Server.Properties {
         /// <summary>
         ///   Looks up a localized string similar to [{
         ///    &quot;Name&quot;: &quot;Cyberpunk 2077&quot;,
-        ///    &quot;Description&quot;: &quot;Cyberpunk 2077 är en öppen värld, action-äventyrshistoria som utspelar sig i Night City, en megalopolis besatt av makt, glamour och kroppsmodifieringar.&quot;,
+        ///    &quot;Description&quot;: &quot;Cyberpunk 2077 for PC is a first-person shooter game, but one with a difference. Set in a dystopian Free State of California, the rules of the nation and the state no longer apply. Instead, playing as a mercenary named V, the player must work their way around the city, attaining their goals and battling enemies as they go.&quot;,
         ///    &quot;Price&quot;: 599.0,
-        ///    &quot;ImageUrl&quot;: &quot;https://s1.gaming-cdn.com/images/products/840/616x353/cyberpunk-2077-pc-game-gog-com-cover.jpg?v=1663862900&quot;,
-        ///    &quot;Category&quot;: &quot;Action&quot;,
-        ///    &quot;AgeRestriction&quot;:18,
-        ///    &quot;InStock&quot;:true
-        ///  },
-        ///  {
-        ///    &quot;Name&quot;: &quot;Overwatch&quot;,
-        ///    &quot;Description&quot;: &quot;Overwatch är en lagbas [rest of string was truncated]&quot;;.
+        ///    &quot;ImageUrl&quot;: &quot;https://s1.gaming-cdn.com/images/products/840/616x353/cyberpunk-2077-pc-game-gog-com-cover. [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GamesAsJson {
             get {
