@@ -28,6 +28,14 @@ namespace GamesCorner.Server.Areas.Identity.Pages.order
 
 		public System.Security.Claims.ClaimsPrincipal User { get; set; }
 		public List<OrderModel> Orders { get; set; }
+
+		public string ProductName { get; set; }
+		public string GetProductName(Guid productId)
+		{
+			var product = _unitOfWork.ProductRepository.GetAsync(productId);
+			ProductName = product.Result.Name;
+			return ProductName;
+		}
 		public async Task<IActionResult> OnGetAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
@@ -35,11 +43,13 @@ namespace GamesCorner.Server.Areas.Identity.Pages.order
 			{
 				return NotFound($"Unable to load the user with '{_userManager.GetUserId(User)}'.");
 			}
-
-			Orders = _unitOfWork.OrderRepository.GetOrdersAsync().ToList();
-			Orders = Orders.FindAll(u => u.CustomerEmail == user.Email && u.Id.ToString() == user.Id);
+			Orders = _unitOfWork.OrderRepository.GetAllAsync().Result.ToList();
+			Orders = Orders.FindAll(u => u.CustomerEmail == user.Email);
 			return Page();
 
 		}
+
+
+		
 	}
 }

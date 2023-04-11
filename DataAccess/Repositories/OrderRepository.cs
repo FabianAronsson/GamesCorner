@@ -29,12 +29,15 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<OrderModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
+			return _storeContext.Orders.ToList();
+		}
 
         public async Task<OrderModel> AddAsync(OrderModel entity)
         {
-            throw new NotImplementedException();
+
+			 _storeContext.Orders.Add(entity); 
+			 _storeContext.SaveChanges();
+			return entity;
         }
 
         public async Task<OrderModel> UpdateAsync(OrderModel entity)
@@ -48,11 +51,5 @@ namespace DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public  IEnumerable<OrderModel> GetOrdersAsync()
-        {
-
-
-            return  _storeContext.Orders.ToList();
-        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿@page
 @using GamesCorner.Server.Areas.Identity.Pages.Account.Manage
+@using DataAccess.UnitOfWork
 @model GamesCorner.Server.Areas.Identity.Pages.order.OrdersModel
 @{
 	ViewData["Title"] = "Orders";
@@ -9,4 +10,21 @@
 
 <div class="alert alert-warning" role="alert">
 	You have @Model.Orders.Count() orders
+	@foreach (var order in Model.Orders)
+	{
+		<div class="active">@order.CustomerEmail</div>
+		<div class="active">Products:
+			@if (@order.Products != null)
+			{
+				@foreach (var product in order.Products)
+				{
+					<div class="active">@product.ProductId</div>
+					<div>@Model.GetProductName(@product.ProductId)</div>
+					<div class="active">@product.Amount</div>
+
+			
+			}
+}
+		</div>
+	}
 	</div>
