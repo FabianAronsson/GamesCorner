@@ -89,6 +89,7 @@ else
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
+await app.SeedDatabase();
 
 app.UseHttpsRedirection();
 
@@ -101,9 +102,9 @@ app.UseIdentityServer();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 app.MapRazorPages();
 app.MapEndpoints();
+
 app.MapFallbackToFile("index.html");
 
 app.Run();
