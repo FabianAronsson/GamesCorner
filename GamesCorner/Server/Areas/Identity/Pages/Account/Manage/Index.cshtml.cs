@@ -59,6 +59,18 @@ namespace GamesCorner.Server.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Required]
+            [Display(Name = "Postal Code")]
+            public string PostalCode { get; set; }
+
+            [Required]
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+            [Required]
+            [Display(Name = "Address")]
+            public string Address { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
