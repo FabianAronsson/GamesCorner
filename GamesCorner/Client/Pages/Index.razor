@@ -2,8 +2,54 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudCarousel Class="mud-width-full" Style="height:400px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+	<MudCarouselItem Transition="transition" Color="@Color.Primary">
+		<div class="d-flex" style="height: 100%">
+			<img src="https://gaming-cdn.com/images/products/13298/616x353/the-last-of-us-part-i-pc-game-steam-cover.jpg?v=1680018236" style="width: 100%"/>
+			@*	<h2 Class="mx-auto my-auto">BEST GAME EVER!!!</h2>
+			https://gaming-cdn.com/images/products/13298/616x353/the-last-of-us-part-i-pc-game-steam-cover.jpg?v=1680018236*@
+		</div>
+	</MudCarouselItem>
+	<MudCarouselItem Transition="transition" Color="@Color.Secondary">
+		<div class="d-flex" style="height: 100%">
+			<img src="https://gaming-cdn.com/images/products/7072/616x353/hogwarts-legacy-pc-game-steam-europe-cover.jpg?v=1676112832" style="width: 100%" />
 
-Welcome to your new app.
+			@*<h2 Class="mx-auto my-auto">AWESOME GAME 2</h2>*@
+		</div>
+	</MudCarouselItem>
+	<MudCarouselItem Transition="transition">
+		<div class="d-flex" style="height: 100%">
+			<div Class="mx-auto my-auto">
+				<h2>EVENT</h2>
+				<h4>LAN</h4> 
+				<p> Kom och LAN'A</p>
+			</div>
+		</div>
+	</MudCarouselItem>
+</MudCarousel>
+<MudSelect @bind-Value="transition" Label="Transition" Class="ma-2">
+	<MudSelectItem Value="@Transition.Fade">Fade</MudSelectItem>
+	<MudSelectItem Value="@Transition.Slide">Slide</MudSelectItem>
+	<MudSelectItem Value="@Transition.None">None</MudSelectItem>
+</MudSelect>
+<MudSwitch @bind-Checked="@arrows" Color="Color.Primary">Show Arrows</MudSwitch>
+<MudSwitch @bind-Checked="@bullets" Color="Color.Primary">Show Bullets</MudSwitch>
+<MudSwitch @bind-Checked="@enableSwipeGesture" Color="Color.Primary">Enable Swap Gesture</MudSwitch>
+<MudSwitch @bind-Checked="@autocycle" Color="Color.Primary">Auto Cycle (Default: 5 secs)</MudSwitch>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+@*<Virtualize Items="DisplayList" context="displayItem">
+
+</Virtualize>*@
+
+@code{
+
+	private bool arrows = true;
+	private bool bullets = true;
+	private bool enableSwipeGesture = true;
+	private bool autocycle = true;
+	private Transition transition = Transition.Slide;
+
+	List<string> DisplayList { get; set; } = new();
+
+}
