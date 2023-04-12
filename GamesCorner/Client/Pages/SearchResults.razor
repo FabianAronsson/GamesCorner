@@ -1,0 +1,40 @@
+﻿@page "/SearchResults"
+@using GamesCorner.Shared.DTOs
+@inject IHttpClientFactory HttpClientFactory
+<h1>Results</h1>
+
+<div class="container d-grid justify-content-center align-items-center">
+	<div class="col-3"></div>
+	<div class="col-8">
+		<label class="text-light">Category:</label>
+		<select @onchange="FilterResultsByCategory" class="form-control">
+			<option>All</option>
+			@foreach (var category in categories)
+			{
+				<option value="@category">@category</option>
+			}
+		</select>
+	</div>
+	<div class="col-3"></div>
+</div>
+
+
+
+<div class="container d-flex justify-content-center align-items-center flex-wrap bg-dark pt-2 ">
+	
+		@foreach (var product in _filteredProducts)
+		{
+		
+			<div class="card border-0 m-2 col-10" style="width: 14rem;">
+				<a href="/productInfo/{@product.Id}">
+					<img src="@product.ImageUrl" class="card-img-top" width="100" height="100" alt="@product.Name image">
+				</a>
+				<div class="card-body bg-dark">
+					<h6 class="card-title text-light">@product.Name</h6>
+					<h8 class="card-text text-light">@product.Price Kr</h8>
+				</div>
+			</div>
+		
+		}
+	</div>
+

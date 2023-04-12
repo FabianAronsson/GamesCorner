@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesCorner.Client", "Games
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesCorner.Shared", "GamesCorner\Shared\GamesCorner.Shared.csproj", "{77029F63-D23F-4D50-9175-D9AAB0333415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{3EEB5EE9-67B7-455E-8368-79AD60C38DD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{3EEB5EE9-67B7-455E-8368-79AD60C38DD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesCorner.Tests", "GamesCorner.Tests\GamesCorner.Tests.csproj", "{27DE1BEA-633E-4486-85F7-6D66AD75E2EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3EEB5EE9-67B7-455E-8368-79AD60C38DD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EEB5EE9-67B7-455E-8368-79AD60C38DD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EEB5EE9-67B7-455E-8368-79AD60C38DD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27DE1BEA-633E-4486-85F7-6D66AD75E2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27DE1BEA-633E-4486-85F7-6D66AD75E2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27DE1BEA-633E-4486-85F7-6D66AD75E2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27DE1BEA-633E-4486-85F7-6D66AD75E2EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
