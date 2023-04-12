@@ -10,6 +10,7 @@ using DataAccess.Repositories.Interfaces;
 using Duende.IdentityServer.EntityFramework.Entities;
 using Duende.IdentityServer.Extensions;
 using IdentityModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories
 {
@@ -24,12 +25,12 @@ namespace DataAccess.Repositories
 
         public async Task<OrderModel?> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return _storeContext.Orders.Include(o => o.Products).FirstOrDefault(p => p.Id.Equals(id));
         }
 
         public async Task<IEnumerable<OrderModel>> GetAllAsync()
         {
-			return _storeContext.Orders.ToList();
+			return  _storeContext.Orders;
 		}
 
         public async Task<OrderModel> AddAsync(OrderModel entity)

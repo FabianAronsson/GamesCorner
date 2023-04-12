@@ -26,11 +26,11 @@ namespace DataAccess.Repositories
 
 		public async Task<List<ProductModel>> GetAllAsync(string name)
 		{
-			List<ProductModel> products = new();
+			IEnumerable<ProductModel> products;
 
-			products = _storeContext.Products.Where(x => x.Name.Contains(name)).ToList();
+			products =  _storeContext.Products.Where(x => x.Name.Contains(name));
 		
-			return products;
+			return products.ToList();
 		}
 
 		public async Task<ProductModel> AddAsync(ProductModel entity)

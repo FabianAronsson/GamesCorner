@@ -8,23 +8,63 @@
 }
 <h3>@ViewData["Title"]</h3>
 
-<div class="alert alert-warning" role="alert">
-	You have @Model.Orders.Count() orders
-	@foreach (var order in Model.Orders)
-	{
-		<div class="active">@order.CustomerEmail</div>
-		<div class="active">Products:
-			@if (@order.Products != null)
-			{
-				@foreach (var product in order.Products)
-				{
-					<div class="active">@product.ProductId</div>
-					<div>@Model.GetProductName(@product.ProductId)</div>
-					<div class="active">@product.Amount</div>
-
-			
-			}
-}
-		</div>
-	}
+<div class="alert alert-warning row mt-3" role="alert">
+	<div>
+		You have made @Model.Orders.Count() orders until now and are the following:
 	</div>
+</div>
+<br />
+<div>
+
+	<div class="accordion " id="accordionExample">
+		@{
+			var counter = 1;
+		}
+		@foreach (var order in Model.Orders)
+		{
+			var cssId = $"accordion-item-{++counter}";
+
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@cssId" aria-expanded="true" aria-controls="@cssId">
+						Order Id: @order.Id
+					</button>
+				</h2>
+				<div id="@cssId" class="accordion-collapse collapse show" aria-labelledby=@order.Id data-bs-parent="accordionExample">
+					<div class="accordion-body ">
+
+						@if (@order.Products != null)
+						{
+							@foreach (var product in @order.Products)
+							{
+								<div class="table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col">Name</th>
+												<th scope="col">Price</th>
+												<th scope="col">Category</th>
+												<th scope="col">Amount</th>
+												<th scope="col">Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="table-info">
+												<td class="text-center">@Model.GetProductModel(@product.ProductId).Name</td>
+												<td class="align-middle">@Model.GetProductModel(@product.ProductId).Price kr</td>
+												<td class="align-middle"> @Model.GetProductModel(@product.ProductId).Category</td>
+												<td class="align-middle"> @product.Amount</td>
+												<td class="align-middle">@Math.Round((decimal)(Model.GetProductModel(product.ProductId).Price * product.Amount), 2) kr</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							}
+							<div class="active">Order total price: @Math.Round((decimal)Model.GetOrderTotalPrice(order.Id), 2) kr </div>
+						}
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
