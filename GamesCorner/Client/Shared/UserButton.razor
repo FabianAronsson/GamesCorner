@@ -12,7 +12,7 @@
             class="btn dropdown-toggle user-button fs-5 p-0" style="color: white">
         <i class="oi oi-person"></i>
     </button>
-    <div class="dropdown-menu dropdown-menu-left @UserMenuCssClass" style="@($"display: {(showUserMenu ? "block" : "none")}")">
+    <div class="dropdown-menu dropdown-menu-left @UserMenuCssClass" style="@($"display: {(showUserMenu ? "block" : "none")}");">
         <AuthorizeView>
             <Authorized>
                 <a href="authentication/profile" class="dropdown-item">Profile</a>
