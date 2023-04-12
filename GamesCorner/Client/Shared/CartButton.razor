@@ -1,7 +1,15 @@
-﻿<a href="cart">
+﻿@using GamesCorner.Client.Services.CartService
+@inject ICartService CartService
+
+<a href="cart">
     <i class="oi oi-cart fs-4" style="color: white"></i>
     <span class="badge"></span>
 </a>
 @code {
-    
+
+    private async Task<int> LoadCart()
+    {
+        var cart = await CartService.GetCartItems();
+        return cart?.Count ?? 0;
+    }
 }
