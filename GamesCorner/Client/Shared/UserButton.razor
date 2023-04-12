@@ -1,25 +1,27 @@
 ﻿@using Blazored.LocalStorage
 @using GamesCorner.Client.Services.CartService
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject ILocalStorageService LocalStorage
 @inject ICartService CartService
+@inject NavigationManager Navigation
+
 <div class="dropdown">
     <button @onclick="ToggleUserMenu"
             @onfocusout="HideUserMenu"
             type="button"
-            class="btn dropdown-toggle user-button fs-5 p-0" style="color: white" >
+            class="btn dropdown-toggle user-button fs-5 p-0" style="color: white">
         <i class="oi oi-person"></i>
     </button>
     <div class="dropdown-menu dropdown-menu-left @UserMenuCssClass" style="@($"display: {(showUserMenu ? "block" : "none")}")">
         <AuthorizeView>
             <Authorized>
-                <a href="profile" class="dropdown-item">Profile</a>
-                <a href="orders" class="dropdown-item">Orders</a>
+                <a href="authentication/profile" class="dropdown-item">Profile</a>
                 <hr />
-                <button class="dropdown-item" >Logout</button>
+                <button class="btn nav-link" @onclick="BeginLogOut">Log out</button>
             </Authorized>
             <NotAuthorized>
-                <a href="login" class="dropdown-item">Login</a>
-                <a href="register" class="dropdown-item">Register</a>
+                <a href="authentication/login" class="dropdown-item">Login</a>
+                <a href="authentication/register" class="dropdown-item">Register</a>
             </NotAuthorized>
         </AuthorizeView>
     </div>
@@ -42,12 +44,8 @@
         showUserMenu = false;
     }
 
-    //private async Task Logout()
-    //{
-    //    await LocalStorage.RemoveItemAsync("authToken");
-    //    await AuthenticationStateProvider.GetAuthenticationStateAsync();
-    //    await CartService.ClearCart();
-    //    CartService.CartChanged += StateHasChanged;
-    //    NavigationManager.NavigateTo("");
-    //}
+    private void BeginLogOut()
+    {
+        Navigation.NavigateToLogout("authentication/logout");
+    }
 }

@@ -12,15 +12,14 @@ namespace GamesCorner.Client.Pages
 		private List<ProductModelDto>? _filteredProducts = new();
 		public List<string> categories = new();
 
+      
 
-
-		protected override async Task OnParametersSetAsync()
+        protected override async Task OnParametersSetAsync()
 		{
-			await Search();
-			await base.OnParametersSetAsync();
-		}
+            await GetAllProducts();
+        }
 
-		private async Task Search()
+        private async Task Search()
 		{
 
 			var client = HttpClientFactory.CreateClient("public");
@@ -52,17 +51,12 @@ namespace GamesCorner.Client.Pages
 			StateHasChanged();
 		}
 
-		protected override async Task OnInitializedAsync()
-		{
-			await GetAllProducts();
-			await base.OnInitializedAsync();
-		}
 
 		private async Task GetAllProducts()
 		{
 			var client = HttpClientFactory.CreateClient("public");
 
-			var response = await client.GetAsync($"search?name={""}");
+			var response = await client.GetAsync($"search?name={SearchTerm}");
 
 			if (response.IsSuccessStatusCode)
 			{
