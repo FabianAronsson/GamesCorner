@@ -1,0 +1,16 @@
+﻿﻿﻿.show-menu {
+      display: block !important;
+  }
+
+.user-button {
+    margin-left: 2em;
+    margin-right: 1rem;
+}
+
+.top-row a {
+    margin-left: 10px;
+}
+
+.dropdown-item:hover {
+    background-color: lightskyblue;
+}

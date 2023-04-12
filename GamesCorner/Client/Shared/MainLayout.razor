@@ -1,17 +1,25 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-   @* <div class="">
-        <NavMenu />
-    </div>*@
-
     <main>
-        <div class="top-row px-4 auth bg-dark">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        <div class="top-row px-4 auth bg-black">
+            <img src="static/logo.svg" alt="logo" class="logo" style="width: 5rem; padding-top:1rem"/>
+            <div class="search-bar-1 col-lg-8 col-md-8">
+                <SearchBar />
+            </div>
+            <div class="buttons">
+                <UserButton />
+                <CartButton />
+            </div>
+            
+            
         </div>
-	    <article class="content px-4 bg-dark">
+        <div class="search-bar-2">
+            <SearchBar />
+        </div>
+
+        <article class="content px-4">
             @Body
-	    </article>
+        </article>
     </main>
 </div>
