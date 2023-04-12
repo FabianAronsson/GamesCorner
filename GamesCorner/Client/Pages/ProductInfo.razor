@@ -9,7 +9,7 @@
 		<div class="row flex-wrap pb-4">
 			<div class="col-md-4">
 				<div class="card-img">
-					<img class="rounded-2" src="@Product.ImageUrl" alt="" />
+					<img class="rounded-2 img-fluid" src="@Product.ImageUrl" alt="" />
 				</div>
 			</div>
 			<div class="col-md-4"></div>
@@ -31,15 +31,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="row pt-5">
+		<div class="row p-5">
 			<div class=" text-light bg-dark rounded-3 p-4">
 				<h3>About the Game</h3>
 				<p>@Product.Description</p>
 			</div>
 		</div>
 		
-		<div class="row pt-5">
-			<div class="text-light bg-dark rounded-3 p-4">
+		<div class="row p-5">
+			<div class="text-light bg-black bg-opacity-25 rounded-3 p-4">
 				<h3>Reviews</h3>
 				<div class="justify-content-center align-content-center">
 					<p >Average Score Goes here</p>
@@ -47,22 +47,24 @@
 			</div>
 		</div>
 		
-		<div class="container d-flex justify-content-center align-items-start flex-wrap bg-dark pt-2 ">
+		<div class="container d-flex justify-content-center align-items-start flex-wrap p-5 ">
 	
 			@for(int i = 0; i < 3; i++)
 			{
-				<div class="card border-0 m-2 col-3">
-					<div class="card-header">Name of Reviewer</div>
-					<div class="card-body bg-dark">
-						<h6 class="card-title text-light">@_fakeReviews[i]</h6>
-						<h8 class="card-text text-light">Amount of stars</h8>
+				<div class="row">
+						<div class="card border-0 m-2 col-3 bg-black bg-opacity-25" style="width:auto">
+						<div class="h4 m-1 text-light">Name of Reviewer</div>
+						<div class="card-body">
+							<h6 class="card-title text-light overflow-scroll">@_fakeReviews[i]</h6>
+							<h8 class="card-text text-light">Amount of stars</h8>
+						</div>
 					</div>
 				</div>
-				<button class="btn"></button>
+
+			
 			}
 		</div>
-	</div>
 </div>
 
-
+</div>
 
