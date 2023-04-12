@@ -1,31 +1,68 @@
 ﻿@page "/ProductInfo/{productId}"
 @inject IHttpClientFactory HttpClientFactory
 
-<h3>ProductInfo</h3>
+<div class="page align-content-center justify-content-center" style="background-image: url(@Product.BannerUrl); background-repeat: no-repeat;">
+	<div class="container">
+		<div class="row pt-5"></div>
+		<div class="row pt-5"></div>
+		<div class="row pt-5"></div>
+		<div class="row flex-wrap pb-4">
+			<div class="col-md-4">
+				<div class="card-img">
+					<img class="rounded-2" src="@Product.ImageUrl" alt="" />
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4" style="height: 100%">
+				<div class="card bg-dark bg-opacity-75 rounded-2">
+					<div class="card-header border-0 h2 text-light">@Product.Name</div>
+					<div class="text-center h3 text-light">3/5 Stars</div>
+					@if (Product.InStock == true)
+					{
+						<div class="card-body text-light">In stock</div>
+						<div class="card-body h5 card-title text-light">@Product.Price Kr</div>
+						<a href="" class="btn" style="background-color: orangered">Add to Cart</a>
 
-<div class="card-header opacity-50">
-	<img class="col-12" src="@Product.BannerUrl" alt=""/>
-</div>
-
-<div class="container">
-	<div class="row">
-		<div class="col-6">
-			<img class="rounded-2" src="@Product.ImageUrl" alt="@Product.Description"/>
+					}
+					else
+					{
+						<div class="card-body text-light">Out of stock</div>
+					}
+				</div>
+			</div>
 		</div>
-		<div class="col-6 mt-4 card-group">
-			<div class="border-0 card-title">
-				<h2 class="text-light">@Product.Name</h2>
+		<div class="row pt-5">
+			<div class=" text-light bg-dark rounded-3 p-4">
+				<h3>About the Game</h3>
+				<p>@Product.Description</p>
 			</div>
-			<div class="card-body">
-				<h5 class="card-title text-light">@Product.Price Kr</h5>
-				<a href="#" class="btn" style="background-color: #ff5400">Add to cart</a>
+		</div>
+		
+		<div class="row pt-5">
+			<div class="text-light bg-dark rounded-3 p-4">
+				<h3>Reviews</h3>
+				<div class="justify-content-center align-content-center">
+					<p >Average Score Goes here</p>
+				</div>
 			</div>
+		</div>
+		
+		<div class="container d-flex justify-content-center align-items-start flex-wrap bg-dark pt-2 ">
+	
+			@for(int i = 0; i < 3; i++)
+			{
+				<div class="card border-0 m-2 col-3">
+					<div class="card-header">Name of Reviewer</div>
+					<div class="card-body bg-dark">
+						<h6 class="card-title text-light">_fakeReviews[i]</h6>
+						<h8 class="card-text text-light">Amount of stars</h8>
+					</div>
+				</div>
+				<button class="btn"></button>
+			}
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-6 mt-4">
-			<h4 class="text-light">About the Game</h4>
-			<p class="text-light">@Product.Description</p>
-		</div>
-	</div>
 </div>
+
+
+
