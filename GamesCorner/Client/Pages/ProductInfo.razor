@@ -1,0 +1,70 @@
+﻿@page "/ProductInfo/{productId}"
+@inject IHttpClientFactory HttpClientFactory
+
+<div class="page align-content-center justify-content-center" style="background-image: url(@Product.BannerUrl); background-repeat: no-repeat;">
+	<div class="container">
+		<div class="row pt-5"></div>
+		<div class="row pt-5"></div>
+		<div class="row pt-5"></div>
+		<div class="row flex-wrap pb-4">
+			<div class="col-md-4">
+				<div class="card-img">
+					<img class="rounded-2 img-fluid" src="@Product.ImageUrl" alt="" />
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4" style="height: 100%">
+				<div class="card bg-dark bg-opacity-75 rounded-2">
+					<div class="card-header border-0 h2 text-light">@Product.Name</div>
+					<div class="text-center h3 text-light">3/5 Stars</div>
+					@if (Product.InStock == true)
+					{
+						<div class="card-body text-light">In stock</div>
+						<div class="card-body h5 card-title text-light">@Product.Price Kr</div>
+						<a href="" class="btn" style="background-color: orangered">Add to Cart</a>
+
+					}
+					else
+					{
+						<div class="card-body text-light">Out of stock</div>
+					}
+				</div>
+			</div>
+		</div>
+		<div class="row p-5">
+			<div class=" text-light bg-dark rounded-3 p-4">
+				<h3>About the Game</h3>
+				<p>@Product.Description</p>
+			</div>
+		</div>
+		
+		<div class="row p-5">
+			<div class="text-light bg-black bg-opacity-25 rounded-3 p-4">
+				<h3>Reviews</h3>
+				<div class="justify-content-center align-content-center">
+					<p >Average Score Goes here</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container d-flex justify-content-center align-items-start flex-wrap p-5 ">
+	
+			@for(int i = 0; i < 3; i++)
+			{
+				<div class="row">
+						<div class="card border-0 m-2 col-3 bg-black bg-opacity-25" style="width:auto">
+						<div class="h4 m-1 text-light">Name of Reviewer</div>
+						<div class="card-body">
+							<h6 class="card-title text-light overflow-scroll">@_fakeReviews[i]</h6>
+							<h8 class="card-text text-light">Amount of stars</h8>
+						</div>
+					</div>
+				</div>
+
+			
+			}
+		</div>
+</div>
+
+</div>
+
