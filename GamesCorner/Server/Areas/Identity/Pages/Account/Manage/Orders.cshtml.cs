@@ -1,14 +1,10 @@
 using DataAccess.Models;
 using DataAccess.UnitOfWork;
-using GamesCorner.Server.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
-namespace GamesCorner.Server.Areas.Identity.Pages.order
+namespace GamesCorner.Server.Areas.Identity.Pages.Account.Manage
 {
 	public class OrdersModel : PageModel
 	{
