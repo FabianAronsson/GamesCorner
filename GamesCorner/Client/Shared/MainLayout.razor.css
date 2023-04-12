@@ -41,7 +41,6 @@ main {
     }
 
     .top-row ::deep a:first-child {
-        overflow: hidden;
         text-overflow: ellipsis;
     }
 

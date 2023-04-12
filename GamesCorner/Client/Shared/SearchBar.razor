@@ -1,19 +1,40 @@
-﻿<div class="input-group">
-    <input @*@bind-value=""*@
-           @*@bind-value:event="oninput"*@
+﻿@inject NavigationManager NavigationManager;
+<div class="input-group">
+    <input @bind-value="SearchText"
            type="search"
-           list="products"
-           @*@onkeyup=""*@
+           @onkeyup="KeyboardHandler"
            class="form-control"
            placeholder="Search here..."
-           @*@ref="" *@
            style="background-color: #ff5400; border-radius: 20px; border-color: #ff5400" />
     <div>
-        <button class="btn text-white">
+        <button class="btn text-white" @onclick="Search">
             <span class="oi oi-magnifying-glass"></span>
         </button>
     </div>
 </div>
 @code {
-    
+
+    public string SearchText { get; set; } = string.Empty;
+    private void Search()
+    {
+        if (SearchText.Length == 0)
+        {
+        NavigationManager.NavigateTo($"/SearchResults");
+
+        }
+        else
+        {
+            NavigationManager.NavigateTo($"/SearchResults/{SearchText}");
+        }
+
+    }
+
+    private void KeyboardHandler(KeyboardEventArgs arg)
+    {
+        if (arg.Key is "Enter")
+        {
+            Search();
+        }
+    }
+
 }

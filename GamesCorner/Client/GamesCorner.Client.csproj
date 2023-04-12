@@ -19,12 +19,4 @@
     <ProjectReference Include="..\Shared\GamesCorner.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Shared\NavBar.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Shared\NavBar.razor" />
-  </ItemGroup>
-
 </Project>
