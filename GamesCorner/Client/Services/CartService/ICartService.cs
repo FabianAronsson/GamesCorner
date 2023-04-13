@@ -10,5 +10,6 @@ namespace GamesCorner.Client.Services.CartService
         Task EmptyCart(string orderId);
         Task EmptyGuestCart();
 		Task<string> Checkout();
+        Task<string?> GetUserId();
     }
 }
