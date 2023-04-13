@@ -1,0 +1,81 @@
+﻿@page "/OrderSuccess/{session_id}"
+@using GamesCorner.Client.Services.CartService;
+@using GamesCorner.Shared.Dtos;
+@inject IHttpClientFactory HttpClientFactory
+@inject ICartService cartService
+
+<div class="progressbar">
+	<div class="circle1"></div>
+	<div class="content1">Shopping Cart</div>
+	<div class="line"></div>
+	<div class="circle2"></div>
+	<div class="content1">Order confirmation</div>
+</div>
+<div class="container d-flex align-content-center justify-content-center">
+	<div class="row">
+		<div class="col-12">
+			<div class="card border-0 bg-dark m-4 p-4">
+				@if(success == true){
+					<p class="successCheck">✓</p>
+					<h1 class="text-light">Success</h1>
+					<p class="text-light">We received your purchase request;<br /> we'll be in touch shortly!</p>
+
+				}
+				else if(success == false)
+				{
+					<p class="failedCheck mx-auto">❌</p>
+					<h1 class="text-light mx-auto">Something went wrong</h1>
+				}
+
+			</div>
+			
+		</div>
+    </div>
+ </div>
+
+
+
+
+
+
+@code {
+
+	[Parameter] public string? session_id { get; set; }
+	public bool success = false;
+	public OrderDto order { get; set; } = new();
+
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await CompleteSuccessfullOrder();
+	}
+
+	private async Task CompleteSuccessfullOrder()
+	{
+		var client = HttpClientFactory.CreateClient("public");
+
+		var orderResponse = await client.GetAsync("getActiveOrder");
+		if(orderResponse.IsSuccessStatusCode)
+		{
+			order = await orderResponse.Content.ReadFromJsonAsync<OrderDto>();
+			if(order != null)
+			{
+				var response = await client.PutAsJsonAsync($"orderSuccess?session_id={session_id}", order);
+
+				if (response.IsSuccessStatusCode)
+				{
+					cartService.EmptyGuestCart();
+					success = true;
+				}
+			}
+		}
+
+		else
+		{
+			success = false;
+		}
+
+	}
+		
+
+}
