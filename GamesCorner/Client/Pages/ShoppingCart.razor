@@ -29,7 +29,7 @@
                     <div class="card m-3 p-4 ">
                         <div class="row">
                             <div class="col-sm-4 d-flex justify-content-center align-items-center">
-                                <img src="´@cartItem.Product.ImageUrl" class="card-img img-fluid" alt="@cartItem.Product.Name">
+                                <img src="@cartItem.Product.ImageUrl" class="card-img img-fluid" alt="@cartItem.Product.Name">
                             </div>
                             <div class="col-sm-4 d-flex justify-content-center align-items-center flex-column">
                                 <div class="card-body d-flex flex-wrap justify-content-center align-items-center">
@@ -41,23 +41,24 @@
                                 <p class="card-text text-white fw-bolder fs-4 mt-4">@cartItem.Product.Price kr</p>
 
                                 <div class=" d-flex  h-25 align-items-center ">
-                                    <button class="btn btn-dark text-white" @onclick="()=> UpdateQuantity(cartItem, -1)">
+                                    <button class="btn btn-dark text-white" @onclick="async ()=> await UpdateQuantity(cartItem, -1)">
                                         <i class="oi oi-minus"></i>
                                     </button>
-                                    <div class="text-white px-4">3</div>
-                                    <button class="btn btn-dark text-white" @onclick="()=> UpdateQuantity(cartItem, +1)">
+                                    <div class="text-white px-4">@cartItem.Amount</div>
+                                    <button class="btn btn-dark text-white" @onclick="async ()=> await UpdateQuantity(cartItem, +1)">
                                         <i class="oi oi-plus"></i>
                                     </button>
                                 </div>
                             </div>
 
                         </div>
-                        <hr class="bg-light"/>
+                        <hr class="bg-light" />
                     </div>
+                    TotalPrice += (decimal)(cartItem.Amount * cartItem.Product.Price);
                 }
             }
-            </div>
-            <div class="col-lg-4 ">
+        </div>
+        <div class="col-lg-4 ">
             <h4 class="text-white fw-bolder">Summary</h4>
             <div class="card m-3 d-block">
                 <div class=" card-body d-flex justify-content-between">
@@ -82,17 +83,17 @@
             @foreach (var product in RecommandProducts)
             {
 
-            <div class="card">
-                <div class="d-flex flex-row justify-content-center align-items-center">
-                    <div class="card-header col-4"> <img src="@product.ImageUrl" /> </div>
-                    <div class="card-body d-block col-4">
-                        <h4 class="fw-bolder text-white">@product.Name</h4>
-                        <h6 class="text-white mb-5">@product.Category</h6>
-                        <h4 class="fw-bolder text-white"> @product.Price</h4>
-                    </div>
+                <div class="card">
+                    <div class="d-flex flex-row justify-content-center align-items-center">
+                        <div class="card-header col-4"> <img src="@product.ImageUrl" /> </div>
+                        <div class="card-body d-block col-4">
+                            <h4 class="fw-bolder text-white">@product.Name</h4>
+                            <h6 class="text-white mb-5">@product.Category</h6>
+                            <h4 class="fw-bolder text-white"> @product.Price</h4>
+                        </div>
                         <button class="btn text-white fs-5">Move to cart</button>
+                    </div>
                 </div>
-            </div>
             }
         </div>
     </div>
@@ -115,7 +116,7 @@
                 {
                     Amount = orderItem.Amount,
                     Id = orderItem.Id,
-                    Product = await client.GetFromJsonAsync<ProductModelDto>($"{client.BaseAddress}?Id={orderItem.ProductId}")
+                    Product = await client.GetFromJsonAsync<ProductModelDto>($"getProduct?Id={orderItem.ProductId}")
                 });
         }
     }
@@ -124,7 +125,7 @@
     {
         foreach (var cartItem in cartItems)
         {
-            if (cartItem.Id == dto.Product.Id)
+            if (cartItem.Product.Id.Equals(dto.Product.Id))
             {
                 var orderItemTemp = new OrderItemDto()
                     {
@@ -141,12 +142,20 @@
                     cartItems.Remove(cartItem);
                     break;
                 }
-                TotalPrice = (decimal)(cartItem.Amount * cartItem.Product.Price);
+                
                 cartItem.Amount += number;
-                orderItems.FirstOrDefault(o => o.Id.Equals(cartItem.Id)).Amount++;
-                await CartService.AddToCart(orderItemTemp, await CartService.GetUserId());
+                orderItems.FirstOrDefault(o => o.Id.Equals(cartItem.Id)).Amount += number;
+                if (number > 0)
+                {
+                    await CartService.AddToCart(orderItemTemp, await CartService.GetUserId());
+                }
+                else
+                {
+                    await CartService.DeleteItem(orderItemTemp);
+                }
             }
         }
+        
     }
 
 }
