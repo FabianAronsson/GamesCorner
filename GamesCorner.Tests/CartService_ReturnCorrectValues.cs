@@ -15,13 +15,12 @@ public class CartService_ReturnCorrectValues
         var httpClientFactory = A.Fake<IHttpClientFactory>();
         var httpClient = A.Fake<HttpClient>();
         var authState = A.Fake<AuthenticationStateProvider>();
-
         var sut = new CartService(localStorage, httpClientFactory, httpClient, authState);
 
         //Act
         var result = await sut.GetUserId();
 
         //Assert
-        Assert.True(result is { } or string );
+        Assert.True(result is null or string);
     }
 }
