@@ -27,7 +27,7 @@
 
 						<div class="card-body text-light">In stock</div>
 						<div class="card-body h5 card-title text-light">@Product.Price Kr</div>
-						<a href="/ShoppingCart" class="btn" style="background-color: orangered" onclick="@( async ()=> await CartService.AddToCart(new OrderItemDto(){Id = Guid.NewGuid().ToString() ,ProductId = Product.Id, Amount = 1}, await CartService.GetUserId()))">Add to Cart</a>
+						<button href="/ShoppingCart" class="btn" style="background-color: orangered" onclick="@(AddProductToCart())">Add to Cart</button>
 					}
 					else
 					{

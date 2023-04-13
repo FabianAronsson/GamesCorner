@@ -11,27 +11,28 @@
 	<div class="circle2"></div>
 	<div class="content1">Order confirmation</div>
 </div>
-<div class="container d-flex align-content-center justify-content-center">
+<div class="container d-flex flex-grow-1 align-content-center justify-content-center">
 	<div class="row">
 		<div class="col-12">
 			<div class="card border-0 bg-dark m-4 p-4">
-				@if(success == true){
+				@if (success == true)
+				{
 					<p class="successCheck">✓</p>
 					<h1 class="text-light">Success</h1>
 					<p class="text-light">We received your purchase request;<br /> we'll be in touch shortly!</p>
 
 				}
-				else if(success == false)
+				else if (success == false)
 				{
 					<p class="failedCheck mx-auto">❌</p>
 					<h1 class="text-light mx-auto">Something went wrong</h1>
 				}
 
 			</div>
-			
+
 		</div>
-    </div>
- </div>
+	</div>
+</div>
 
 
 
@@ -41,11 +42,11 @@
 @code {
 
 	[Parameter] public string? session_id { get; set; }
-	public bool success = false;
+	public bool success = true;
 	public OrderDto order { get; set; } = new();
 
 
-	protected override async Task OnParametersSetAsync()
+	protected override async Task OnInitializedAsync()
 	{
 		await CompleteSuccessfullOrder();
 	}
@@ -54,28 +55,28 @@
 	{
 		var client = HttpClientFactory.CreateClient("public");
 
-		var orderResponse = await client.GetAsync("getActiveOrder");
-		if(orderResponse.IsSuccessStatusCode)
+		var cart = await cartService.GetCartItems();
+		order.Products = new();
+		order.Products.AddRange(cart);
+		order.Id = Guid.NewGuid().ToString();
+
+		var response = await client.PutAsJsonAsync($"orderSuccess?session_id={session_id}", order);
+
+		Console.WriteLine(response);
+		if (response.IsSuccessStatusCode)
 		{
-			order = await orderResponse.Content.ReadFromJsonAsync<OrderDto>();
-			if(order != null)
-			{
-				var response = await client.PutAsJsonAsync($"orderSuccess?session_id={session_id}", order);
-
-				if (response.IsSuccessStatusCode)
-				{
-					cartService.EmptyGuestCart();
-					success = true;
-				}
-			}
+			await cartService.EmptyGuestCart();
+			success = true;
+			Console.WriteLine("success");
 		}
-
 		else
 		{
 			success = false;
+			Console.WriteLine("failure");
 		}
 
 	}
-		
+}
+
 
 }

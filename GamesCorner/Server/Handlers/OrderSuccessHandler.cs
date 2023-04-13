@@ -7,34 +7,35 @@ using Stripe.Checkout;
 
 namespace GamesCorner.Server.Handlers
 {
-	public class OrderSuccessHandler: IRequestHandler<OrderSuccessRequest, IResult>
+	public class OrderSuccessHandler : IRequestHandler<OrderSuccessRequest, IResult>
 	{
-	
+
 
 		public async Task<IResult> Handle(OrderSuccessRequest request, CancellationToken cancellationToken)
 		{
-			
+
 			var sessionService = new SessionService();
-			var session = new Session();
+			var customerEmail = "";
 
 			try
 			{
-				session = await sessionService.GetAsync(request.Session_Id);
+				var session = await sessionService.GetAsync(request.Session_Id);
+				customerEmail = session.CustomerDetails.Email;
+
 
 			}
 			catch (Exception e)
 			{
-				Results.BadRequest("Invalid Session Id");
+				Results.NotFound("Invalid Session Id");
 				throw;
 			}
 
-			var customerEmail = session.CustomerDetails.Email;
 
 			var allOrders = await request.UnitOfWork.OrderRepository.GetAllAsync();
 
 			var activeOrder = allOrders.FirstOrDefault(o => o.CustomerEmail.Equals(customerEmail) && o.IsActive == true);
 
-			if(activeOrder != null)
+			if (activeOrder != null)
 			{
 				activeOrder.IsActive = false;
 				activeOrder.PurchaseDate = DateTime.UtcNow;
@@ -45,7 +46,7 @@ namespace GamesCorner.Server.Handlers
 				activeOrder = request.OrderObject;
 				activeOrder.CustomerEmail = customerEmail;
 				activeOrder.IsActive = false;
-				activeOrder.PurchaseDate= DateTime.UtcNow;
+				activeOrder.PurchaseDate = DateTime.UtcNow;
 				await request.UnitOfWork.OrderRepository.AddAsync(activeOrder);
 			}
 			await request.UnitOfWork.Save();

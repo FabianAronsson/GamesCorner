@@ -25,9 +25,9 @@ namespace GamesCorner.Server.Handlers
                 .FirstOrDefault(o => o.CustomerEmail.Equals(email));
 
             var item = order.Products.FirstOrDefault(o => o.Id.Equals(request.OrderItemId));
-            if (item is not null && item.Amount != 0)
+            if (item is not null && item.Amount - 1 >= 0)
             {
-                item.Amount -= item.Amount;
+                item.Amount--;
             }
             else
             {

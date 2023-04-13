@@ -39,7 +39,7 @@ namespace GamesCorner.Client.Services.CartService
                 var existing = cart?.FirstOrDefault(i => i.ProductId.Equals(item.ProductId));
                 if (existing != null)
                 {
-                    existing.Amount += existing.Amount;
+                    existing.Amount++;
                 }
                 else
                 {
@@ -69,11 +69,21 @@ namespace GamesCorner.Client.Services.CartService
 
         public async Task DeleteItem(OrderItemDto item)
         {
-            if (GetUserId() is null)
+            if (await GetUserId() == null)
             {
                 var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
-                cart.Remove(item);
+                if (item.Amount - 1 <= 0)
+                {
+                    var res = cart.FirstOrDefault(o => o.ProductId.Equals(item.ProductId));
+                    cart.Remove(res);
+                }
+                else
+                {
+                    var product = cart.FirstOrDefault(p => p.ProductId.Equals(item.ProductId));
+                    product.Amount--;
+                }
                 await _localStorage.SetItemAsync("cart", cart);
+
             }
             else
             {

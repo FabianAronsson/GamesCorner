@@ -38,7 +38,7 @@
 
     <script>
         redirectToCheckout = function (sessionId) {
-            var stripe = Stripe('OUR PUBLIC TEST KEY HERE'); /*TODO: ADD PUBLIC STRIPE KEY*/
+            var stripe = Stripe('pk_test_51MtRi3E3iLgJQuf0IHKikidpbUtukPdO28uQYKVtLm2L7DTpmnJK8zEblFJ3wFWWLZtwDkd9Vc9Z5b0PlPlq7unL00n0HjTuQs');
             stripe.redirectToCheckout({
                 sessionId: sessionId
             }).then(function (result) {
