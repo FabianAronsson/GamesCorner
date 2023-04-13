@@ -37,7 +37,6 @@ namespace DataAccess.Repositories
         {
 
 			 _storeContext.Orders.Add(entity); 
-			 _storeContext.SaveChanges();
 			return entity;
         }
 

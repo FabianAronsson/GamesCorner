@@ -94,6 +94,12 @@ namespace GamesCorner.Client.Services.CartService
                 await _httpClient.DeleteAsync($"emptyCart/{orderId}");
             }
         }
+        public async Task EmptyGuestCart()
+        {
+            var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
+			cart.Clear();
+			await _localStorage.SetItemAsync("cart", cart);
+        }
 
         public async Task<string> Checkout()
         {
