@@ -36,8 +36,8 @@ namespace GamesCorner.Client.Services.CartService
             if (await GetUserId() is null)
             {
                 var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
-                var existing = cart?.FirstOrDefault(i => i.Id == item.Id);
-                if (existing is not null)
+                var existing = cart?.FirstOrDefault(i => i.ProductId.Equals(item.ProductId));
+                if (existing != null)
                 {
                     existing.Amount += existing.Amount;
                 }

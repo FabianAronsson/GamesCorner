@@ -24,10 +24,10 @@
 					<div class="text-center h3 text-light">3/5 Stars</div>
 					@if (Product.InStock == true)
 					{
-						
+
 						<div class="card-body text-light">In stock</div>
 						<div class="card-body h5 card-title text-light">@Product.Price Kr</div>
-						<a href="" class="btn" style="background-color: orangered" onclick="@(()=> CartService.AddToCart(new OrderItemDto(){ProductId = Product.Id, Amount = 1}, ""))">Add to Cart</a>
+						<a href="/ShoppingCart" class="btn" style="background-color: orangered" onclick="@( async ()=> await CartService.AddToCart(new OrderItemDto(){Id = Guid.NewGuid().ToString() ,ProductId = Product.Id, Amount = 1}, await CartService.GetUserId()))">Add to Cart</a>
 					}
 					else
 					{
@@ -42,22 +42,22 @@
 				<p>@Product.Description</p>
 			</div>
 		</div>
-		
+
 		<div class="row p-5">
 			<div class="text-light bg-black bg-opacity-25 rounded-3 p-4">
 				<h3>Reviews</h3>
 				<div class="justify-content-center align-content-center">
-					<p >Average Score Goes here</p>
+					<p>Average Score Goes here</p>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="container d-flex justify-content-center align-items-start flex-wrap p-5 ">
-	
-			@for(int i = 0; i < 3; i++)
+
+			@for (int i = 0; i < 3; i++)
 			{
 				<div class="row">
-						<div class="card border-0 m-2 col-3 bg-black bg-opacity-25" style="width:auto">
+					<div class="card border-0 m-2 col-3 bg-black bg-opacity-25" style="width:auto">
 						<div class="h4 m-1 text-light">Name of Reviewer</div>
 						<div class="card-body">
 							<h6 class="card-title text-light overflow-scroll">@_fakeReviews[i]</h6>
@@ -66,10 +66,10 @@
 					</div>
 				</div>
 
-			
+
 			}
 		</div>
-</div>
+	</div>
 
 </div>
 
