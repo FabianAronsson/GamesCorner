@@ -12,7 +12,7 @@ public class PaymentService : IPaymentService
     public PaymentService(IUnitOfWork unitOfWork)
     {
         StripeConfiguration.ApiKey =
-            "SECRET STRIPE KEY"; //TODO: ADD SK KEY IN KEYVAULT
+			"sk_test_51MtRi3E3iLgJQuf0ow0vbPN8EwjTdOoSTz4juIwvrZvGs9IVyK8RxFkn1PFmogIPD1QOCAYvC8NEC7dHdKXcAPiM00O0WjCYPL"; //TODO: ADD SK KEY IN KEYVAULT
         _unitOfWork = unitOfWork;
     }
 
@@ -49,9 +49,9 @@ public class PaymentService : IPaymentService
                 },
             LineItems = lineItems,
             Mode = "payment",
-            //TODO: CHANGE THE BELOW TO THE CORRESPONDING URL
-            SuccessUrl = "https://localhost:7098" + "/store/order-success?session_id={CHECKOUT_SESSION_ID}",
-            CancelUrl = "https://localhost:7098" + "/store/cart",
+            
+            SuccessUrl = "https://localhost:7126" + "/OrderSuccess/{CHECKOUT_SESSION_ID}",
+            CancelUrl = "https://localhost:7126" + "/ShoppingCart",
         };
 
 

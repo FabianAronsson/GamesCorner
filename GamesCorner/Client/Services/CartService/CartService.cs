@@ -74,15 +74,16 @@ namespace GamesCorner.Client.Services.CartService
                 var cart = await _localStorage.GetItemAsync<List<OrderItemDto>>("cart");
                 if (item.Amount - 1 <= 0)
                 {
-                    cart.Remove(item);
-                    await _localStorage.SetItemAsync("cart", cart);
+                    var res = cart.FirstOrDefault(o => o.ProductId.Equals(item.ProductId));
+                    cart.Remove(res);
                 }
                 else
                 {
                     var product = cart.FirstOrDefault(p => p.ProductId.Equals(item.ProductId));
                     product.Amount--;
                 }
-                
+                await _localStorage.SetItemAsync("cart", cart);
+
             }
             else
             {
