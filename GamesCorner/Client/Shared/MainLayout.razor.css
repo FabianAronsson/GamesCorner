@@ -107,4 +107,22 @@ main {
     }
 }
 
+.footer-cleaner {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    color: white;
+}
+
+.footer-orange {
+    color: orangered;
+    text-align: center;
+}
+
+.nav-scale:hover {
+    transform: scale(1.25);
+}
+
+
+
 
