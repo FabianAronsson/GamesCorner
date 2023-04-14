@@ -129,6 +129,16 @@
     "BannerUrl":"https://gaming-cdn.com/img/products/840/pcover/840.jpg?v=1663862900"
   },
   {
+    "Name": "Diablo 4",
+    "Description": "Diablo IV is the next-gen action RPG experience with endless evil to slaughter, countless abilities to master, nightmarish Dungeons, and legendary loot. Embark on the campaign solo or with friends, meeting memorable characters through beautifully dark settings and a gripping story, or go rogue through an expansive End Game and shared world where players will meet in towns to trade, team up to battle World Bosses, or descend into PVP zones to test their skills against other players - no lobbies necessary - with cross-play and cross-progression on all available platforms.",
+    "Price": 899.0,
+    "ImageUrl": "https://gaming-cdn.com/images/products/5680/616x353/diablo-iv-pc-game-battle-net-cover.jpg?v=1678273810",
+    "Category": "Action",
+    "AgeRestriction":18,
+    "InStock":true,
+    "BannerUrl":"https://gaming-cdn.com/img/products/5680/pcover/5680.jpg?v=1678273810"
+  },
+  {
     "Name": "Overwatch 2",
     "Description": "Overwatch 2 är en lagbaserad flerspelar-första persons shooter som utvecklats och publicerats av Blizzard Entertainment.",
     "Price": 299.0,
@@ -201,12 +211,7 @@
   },
   {
     "Name": "Stardew Valley",
-    "Description": "Create the farm of your dreams: Turn your overgrown fields into a lively and bountiful farm!
-Learn to live off the land: Raise animals, go fishing, tend to crops, craft items, or do it all! The choice is yours...
-Become a part of the local community: Pelican Town is home to over 30 residents you can befriend!
-Meet someone special: With 12 townsfolk to date, you may even find someone to start a family with!
-Explore vast, mysterious caves: Encounter dangerous monsters &amp; valuable treasures deep underground!
-Customize: There are hundreds of character &amp; home decoration options to choose from!.",
+    "Description": "Stardew Valley är ett lantbrukssimuleringsspel utvecklat av ConcernedApe.",
     "Price": 159.0,
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/7233/616x353/stardew-valley-xbox-one-xbox-series-x-s-xbox-one-xbox-series-x-s-game-microsoft-store-europe-cover.jpg?v=1654597880",
     "Category": "Action",
@@ -257,7 +262,7 @@ Customize: There are hundreds of character &amp; home decoration options to choo
   {
     "Name": "Counter-Strike: Global Offensive",
     "Description": "Counter-Strike: Global Offensive är ett förstapersonsskjutspel utvecklat av Valve Corporation.",
-    "Price": 0.0,
+    "Price": 69.0,
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/9459/616x353/counter-strike-global-offensive-pc-mac-game-steam-cover.jpg?v=1679502937",
     "Category": "Action",
     "AgeRestriction":18,
@@ -267,7 +272,7 @@ Customize: There are hundreds of character &amp; home decoration options to choo
   {
     "Name": "Genshin Impact",
     "Description": "Genshin Impact är ett actionrollspel utvecklat av miHoYo.",
-    "Price": 0.0,
+    "Price": 420.0,
     "ImageUrl": "https://s1.gaming-cdn.com/images/products/9471/616x353/genshin-impact-pc-game-epic-games-cover.jpg?v=1645029961",
     "Category": "Action",
     "AgeRestriction":18,
