@@ -23,7 +23,7 @@ namespace GamesCorner.Client.Pages
 
         private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
 
-
+        public string cartText { get; set; } = "Add to cart";
 
 
 
@@ -56,15 +56,20 @@ namespace GamesCorner.Client.Pages
         }
         private async Task AddProductToCart()
         {
+          
             await CartService.AddToCart(new OrderItemDto()
             {
                 Id = Guid.NewGuid().ToString(),
                 ProductId = Product.Id,
                 Amount = 1
             }, await CartService.GetUserId());
+            cartText = "Added to cart";
+            StateHasChanged();
 
+            await Task.Delay(1000); // wait for 2 seconds
+
+            cartText = "Add to cart";
+            StateHasChanged();
         }
     }
-
-
 }
