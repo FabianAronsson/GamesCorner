@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using System.Security.Claims;
+using System.Text.Json;
 using Blazored.LocalStorage;
 using GamesCorner.Shared.Dtos;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -27,7 +28,7 @@ namespace GamesCorner.Client.Services.CartService
         {
            
                 var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-                var id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+                var id = state.User.Claims.FirstOrDefault(c => c.Type == "name");
                 return id?.Value;
         }
 
@@ -50,21 +51,30 @@ namespace GamesCorner.Client.Services.CartService
             }
             else
             {
-                var result = await _httpClient.PostAsJsonAsync("addToCart", item);
-                await result.Content.ReadFromJsonAsync<OrderItemDto>();
+                var response = await _httpClient.PostAsJsonAsync("addToCart", item);
+                await response.Content.ReadFromJsonAsync<OrderItemDto>();
             }
         }
 
 
-        public async Task<List<OrderItemDto>> GetCartItems()
+        public async Task<List<OrderItemDto?>> GetCartItems()
         {
             if (await GetUserId() is null)
             {
                 return await _localStorage.GetItemAsync<List<OrderItemDto>>("cart") ?? new List<OrderItemDto>();
             }
 
-            var order = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
-            return order.Products;
+            var response = await _httpClient.GetAsync("getActiveOrder");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                if (!string.IsNullOrEmpty(json))
+                {
+                    var order = JsonSerializer.Deserialize<OrderDto>(json);
+                    return order?.Products ?? new List<OrderItemDto?>();
+                }
+            }
+            return new List<OrderItemDto?>();
         }
 
         public async Task DeleteItem(OrderItemDto item)

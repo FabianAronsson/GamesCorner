@@ -5,8 +5,7 @@ namespace DataAccess.UnitOfWork;
 
 public class UnitOfWork :IDisposable, IUnitOfWork
 {
-
-	private readonly StoreContext _context;
+    private readonly StoreContext _context;
 	private readonly IProductRepository? _productRepository;
 	private readonly IOrderRepository? _orderRepository;
 

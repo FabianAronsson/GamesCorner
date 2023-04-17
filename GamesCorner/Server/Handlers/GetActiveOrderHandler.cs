@@ -1,7 +1,9 @@
 ﻿using System.Security.Claims;
+using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
 using Duende.IdentityServer;
 using GamesCorner.Server.Requests;
+using GamesCorner.Shared.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using NuGet.Protocol;
@@ -9,11 +11,11 @@ using Stripe;
 
 namespace GamesCorner.Server.Handlers
 {
-    public class GetActiveOrderItemHandler : IRequestHandler<GetActiveOrderRequest, IResult>
+    public class GetActiveOrderHandler : IRequestHandler<GetActiveOrderRequest, IResult>
     {
         private readonly IUserRepository _userRepository;
 
-        public GetActiveOrderItemHandler(IUserRepository userRepository)
+        public GetActiveOrderHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -27,8 +29,7 @@ namespace GamesCorner.Server.Handlers
             var email = (await _userRepository.GetAsync(Guid.Parse(userId)))?.Email;
             var order = orders.Where(o => o.IsActive)
             .FirstOrDefault(o => o.CustomerEmail.Equals(email));
-
-            return order is null ? Results.NotFound("Order doesn't exist") : Results.Ok(order);
+            return order is null? Results.Ok(): Results.Ok(order);
         }
     }
 }
