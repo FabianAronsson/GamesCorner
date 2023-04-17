@@ -21,12 +21,13 @@ public class OrderRepository_VerifyChangedOrder
         var orderModel = A.Fake<OrderModel>();
         var orderRepository = A.Fake<IOrderRepository>();
         var productRepository = A.Fake<IProductRepository>();
+        var eventRepository = A.Fake<IEventRepository>();
         A.CallTo(() => orderRepository.UpdateAsync(orderModel)).Returns(orderModel);
 
 
         //Act
         await using var context = new StoreContext(options);
-        var sut = new UnitOfWork(context, productRepository, orderRepository);
+        var sut = new UnitOfWork(context, productRepository, orderRepository, eventRepository);
 
         var result = await sut.OrderRepository.UpdateAsync(orderModel);
 

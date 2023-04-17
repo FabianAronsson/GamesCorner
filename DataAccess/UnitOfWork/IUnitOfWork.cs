@@ -9,4 +9,5 @@ public interface IUnitOfWork
 	public void Dispose();
     public IProductRepository ProductRepository { get; }
     public IOrderRepository OrderRepository { get; }
+    public IEventRepository EventRepository { get; }
 }
