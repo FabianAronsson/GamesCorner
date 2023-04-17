@@ -27,7 +27,7 @@
 
 						<div class="card-body text-light">In stock</div>
 						<div class="card-body h5 card-title text-light">@Product.Price Kr</div>
-						<button href="/ShoppingCart" class="btn" style="background-color: orangered" onclick="@(AddProductToCart())">Add to Cart</button>
+						<button href="/ShoppingCart" class="btn btn-primary @(cartText == "Added to cart" ? "btn-lg" : "")" style="@(cartText == "Added to cart" ? "background-color: green;" : "background-color: orangered;")" @onclick="AddProductToCart">@cartText</button>
 					}
 					else
 					{
@@ -65,8 +65,6 @@
 						</div>
 					</div>
 				</div>
-
-
 			}
 		</div>
 	</div>
