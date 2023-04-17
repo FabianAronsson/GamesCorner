@@ -43,19 +43,18 @@ else
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Price</th>
                                                 <th scope="col">Description</th>
-                                                <th scope="col">Category</th>
+                                                <th scope="col">Age limit</th>
                                                 <th scope="col">In use</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-
                                                 <td>@product.Product.Id</td>
                                                 <td>@product.Product.Name</td>
                                                 <td>@product.Product.Price</td>
                                                 <td class="text-wrap">@product.Product.Description</td>
-                                                <td>@product.Product.ProductCategory</td>
-                                                <td>@product.Product.InUse</td>
+                                                <td>@product.Product.AgeRestriction</td>
+                                                <td>@product.Product.InStock</td>
                                             </tr>
                                         </tbody>
                                     </table>
