@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using GamesCorner.Shared.Dtos
+@using GamesCorner.Shared.DTOs
+@attribute [Authorize(Roles = "Administrator")]
+@inject HttpClient HttpClient
+
+@if (Orders.Count == 0)
+{
+    <div class="fs-3">@Status</div>
+}
+else
+{
+    <div>
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+
+            @{
+                var counter = 1;
+                var total = 0.0;
+            }
+            @foreach (var order in Orders)
+            {
+                var cssId = $"accordion-item-{counter}";
+                <div class="accordion-item mt-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@cssId" aria-expanded="true" aria-controls="@cssId">
+                            @order.Id - @order.PurchaseDate.Date
+                        </button>
+                    </h2>
+                    <div id="@cssId" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            @foreach (var product in order.Products)
+                            {
+                                total += product.Product.Price * product.Amount;
+                                <div class="fs-4">
+                                    Amount: @product.Amount
+                                </div>
+                                <div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+
+                                                <th scope="col">Product Id</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Description</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">In use</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+                                                <td>@product.Product.Id</td>
+                                                <td>@product.Product.Name</td>
+                                                <td>@product.Product.Price</td>
+                                                <td class="text-wrap">@product.Product.Description</td>
+                                                <td>@product.Product.ProductCategory</td>
+                                                <td>@product.Product.InUse</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <br />
+                                <hr />
+                                <br />
+                            }
+                            <div class="fs-3"><b>Total: @Math.Round(@total, 3) $</b></div>
+                        </div>
+                    </div>
+                </div>
+                counter++;
+            }
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public string Email { get; set; }
+
+    private List<OrderWithProductsDto> Orders { get; set; } = new();
+
+    private string Status { get; set; } = "Loading...";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchCustomer();
+    }
+
+
+    private async Task FetchCustomer()
+    {
+        var response = await HttpClient.GetFromJsonAsync<List<OrderWithProductsDto>>($"{HttpClient.BaseAddress}getOrders?query={Email}");
+        foreach (var orderModel in response)
+        {
+            foreach (var product in orderModel.Products)
+            {
+                var productResponse = await HttpClient.GetFromJsonAsync<ProductModelDto>($"{HttpClient.BaseAddress}getProduct?query={product.ProductId}");
+                product.Product = productResponse;
+            }
+        }
+        Orders = response;
+
+        if (Orders.Count == 0)
+        {
+            Status = "No orders.";
+        }
+    }
+}
