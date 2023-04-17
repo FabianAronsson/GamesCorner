@@ -1,2 +1,14 @@
-﻿body {
+﻿
+.field {
+    width: 20rem;
+    padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+    color: rgb(17 24 39);
+    background-color: rgb(249 250 251);
+    border: 1px solid rgb(209 213 219);
+    border-radius: 0.5rem;
+    outline-offset: 1px;
+}
+
+.field-wrapper {
+    margin: .3rem 0;
 }

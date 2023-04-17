@@ -1,2 +1,24 @@
-﻿body {
+﻿.nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
 }
+
+.nav-item ::deep a {
+    color: #ffffff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    line-height: 3rem;
+}
+
+.active {
+    background-color: #ffffff;
+    color: #000000 !important;
+}
+
+.nav-item ::deep a:hover {
+    background-color: #ffffff;
+    color: #000000;
+    cursor: pointer;
+}
+
