@@ -112,4 +112,16 @@
 			_products = await response.Content.ReadFromJsonAsync<List<ProductModelDto>>();
 		}
 	}
+
+	private async Task GetEvents()
+	{
+		var client = HttpClientFactory.CreateClient("public");
+
+		var response = await client.GetAsync($"events");
+
+		if (response.IsSuccessStatusCode)
+		{
+			_products = await response.Content.ReadFromJsonAsync<List<ProductModelDto>>();
+		}
+	}
 }
