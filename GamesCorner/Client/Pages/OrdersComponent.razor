@@ -97,7 +97,7 @@ else
         {
             foreach (var product in orderModel.Products)
             {
-                var productResponse = await HttpClient.GetFromJsonAsync<ProductModelDto>($"{HttpClient.BaseAddress}getProduct?query={product.ProductId}");
+                var productResponse = await HttpClient.GetFromJsonAsync<ProductModelDto>($"getProduct?Id={product.ProductId}");
                 product.Product = productResponse;
             }
         }
