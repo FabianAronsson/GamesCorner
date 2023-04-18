@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using GamesCorner.Shared.DTOs
 @using MudBlazor
+@using GamesCorner.Client.Services.AuthService
 
 @inject IHttpClientFactory HttpClientFactory
 
@@ -107,7 +108,7 @@
 	{
 		var client = HttpClientFactory.CreateClient("public");
 
-		var response = await client.GetAsync($"search?name={searchString}");
+	    var response = await client.GetAsync($"search?name={searchString}");
 
 		if (response.IsSuccessStatusCode)
 		{
