@@ -1,5 +1,6 @@
 using Blazored.LocalStorage;
 using GamesCorner.Client;
+using GamesCorner.Client.Services.AuthService;
 using GamesCorner.Client.Services.CartService;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -26,6 +27,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().Cre
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddMudServices();
 
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddApiAuthorization();

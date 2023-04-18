@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using DataAccess.Models;
+using GamesCorner.Server.Services.AuthService;
 using GamesCorner.Server.Services.PaymentService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,6 +56,7 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddRazorPages();
 
