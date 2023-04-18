@@ -32,6 +32,11 @@ namespace DataAccess.Repositories
         {
 			return  _storeContext.Orders;
 		}
+        public async Task<IEnumerable<OrderModel>> GetSpecificOrders(string email)
+        {
+            var result = await _storeContext.Orders.Include(x => x.Products).Where(c => c.CustomerEmail.Equals(email)).ToListAsync();
+            return result;
+        }
 
         public async Task<OrderModel> AddAsync(OrderModel entity)
         {
