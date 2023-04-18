@@ -6,7 +6,7 @@
 
 <div class="row py-2 px-3 justify-content-center align-items-center">
 
-	<div class="col-auto">
+	<div class="col-auto m-1">
 		<select @onchange="FilterResultsByCategory" class="form-select bg-black text-light border-secondary">
 			<option selected>Category...</option>
 			@foreach (var category in categories)
@@ -15,7 +15,7 @@
 			}
 		</select>
 	</div>
-	<div class="col-auto">
+	<div class="col-auto m-1">
 		<select @onchange="FilterResultsByAge" class="form-select bg-black text-light border-secondary">
 			<option selected>Age...</option>
 			@foreach (var age in ages)
@@ -24,7 +24,7 @@
 			}
 		</select>
 	</div>
-	<div class="col-auto">
+	<div class="col-auto m-1">
 		<select @onchange="FilterResultsByPrice" class="form-select bg-black text-light border-secondary">
 			<option selected>Price...</option>
 			@foreach (var price in prices)
@@ -33,7 +33,7 @@
 			}
 		</select>
 	</div>
-	<div class="col-auto">
+	<div class="col-auto m-1">
 		<select @onchange="OrderBy" class="form-select bg-black text-light border-secondary">
 			<option selected>Options...</option>
 			<option value="1">Price ⬆️</option>
