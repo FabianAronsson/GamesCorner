@@ -24,6 +24,7 @@ namespace GamesCorner.Server.Handlers
                 .GetAllAsync();
 
             var email = (await _userRepository.GetAsync(Guid.Parse(userId))).Email;
+
             var order = orders.Where(o => o.IsActive)
                 .FirstOrDefault(o => o.CustomerEmail.Equals(email));
 
@@ -37,18 +38,25 @@ namespace GamesCorner.Server.Handlers
                     Products = new List<OrderItem>(){request.item},
                     PurchaseDate = DateTime.UtcNow
                 });
-               await request.UnitOfWork.Save();
             }
             else
             {
-                var existing = order.Products.FirstOrDefault(o => o.Id.Equals(request.item.Id));
+                var existing = order.Products.FirstOrDefault(o => o.ProductId.Equals(request.item.ProductId));
                 if (existing is not null)
                 {
-                    existing.Amount += existing.Amount;
+                    existing.Amount++;
                 }
                 else
                 {
-                    order.Products.Add(request.item);
+                    var product = await request.UnitOfWork.ProductRepository.GetAsync(request.item.ProductId);
+                    var newProduct = new OrderItem()
+                    {
+                        Id = Guid.NewGuid(),
+                        Amount = 1,
+                        ProductId = product.Id
+                    };
+                    order.Products.Add(newProduct);
+                    await request.UnitOfWork.OrderRepository.UpdateAsync(order);
                 }
             }
             await request.UnitOfWork.Save();

@@ -23,18 +23,10 @@ namespace GamesCorner.Client.Pages
 
         private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
 
-
-
-
-
-
         protected override async Task OnParametersSetAsync()
         {
             await GetProduct();
         }
-
-
-
 
         private async Task GetProduct()
         {
@@ -42,10 +34,6 @@ namespace GamesCorner.Client.Pages
             var client = HttpClientFactory.CreateClient("public");
 
             var response = await client.GetAsync($"getProduct?id={GuidFromString}");
-
-
-
-
 
             if (response.IsSuccessStatusCode)
             {
@@ -62,7 +50,6 @@ namespace GamesCorner.Client.Pages
                 ProductId = Product.Id,
                 Amount = 1
             }, await CartService.GetUserId());
-
         }
     }
 
