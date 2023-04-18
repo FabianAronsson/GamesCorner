@@ -26,7 +26,6 @@ namespace GamesCorner.Client.Pages
 		private void FilterResultsByAge(ChangeEventArgs obj)
 		{
 			var filter = obj.Value;
-			var checkType = obj.GetType();
 
 			int.TryParse(filter.ToString(), out selectedAge);
 
@@ -36,7 +35,7 @@ namespace GamesCorner.Client.Pages
 				selectedAge = 100;
 			}
 
-			_filteredProducts = _products.Where(p => p.Category.Contains(selectedCategory) && p.Price <= selectedPrice && p.AgeRestriction <= selectedAge).ToList();
+			_filteredProducts = FilteredList();
 
 			StateHasChanged();
 		}
@@ -51,8 +50,8 @@ namespace GamesCorner.Client.Pages
 			{
 				selectedPrice = int.MaxValue;
 			}
-			_filteredProducts = _products.Where(p => p.Category.Contains(selectedCategory) && p.Price <= selectedPrice && p.AgeRestriction <= selectedAge).ToList();
 
+			_filteredProducts = FilteredList();
 
 			StateHasChanged();
 		}
@@ -68,8 +67,7 @@ namespace GamesCorner.Client.Pages
 				selectedCategory = "";
 			}
 
-			_filteredProducts = _products.Where(p => p.Category.Contains(selectedCategory) && p.Price <= selectedPrice && p.AgeRestriction <= selectedAge).ToList();
-
+			_filteredProducts = FilteredList();
 
 			StateHasChanged();
 		}
@@ -83,18 +81,28 @@ namespace GamesCorner.Client.Pages
 			switch (switchValue)
 			{
 				case 1:
-					_filteredProducts = _products.Where(p => p.Category.Contains(selectedCategory) && p.Price <= selectedPrice && p.AgeRestriction <= selectedAge).OrderBy(x => x.Price).ToList();
+					_filteredProducts = FilteredList().OrderBy(x => x.Price).ToList();
 					break;
 				case 2:
-					_filteredProducts = _products.Where(p => p.Category.Contains(selectedCategory) && p.Price <= selectedPrice && p.AgeRestriction <= selectedAge).OrderByDescending(x => x.Price).ToList();
+					_filteredProducts = FilteredList().OrderByDescending(x => x.Price).ToList();
 					break;
 				case 3:
-					_filteredProducts = _products.Where(p => p.Category.Contains(selectedCategory) && p.Price <= selectedPrice && p.AgeRestriction <= selectedAge).OrderBy(x => x.Name).ToList();
+					_filteredProducts = FilteredList().OrderBy(x => x.Name).ToList();
+					break;
+				default:
+					_filteredProducts = FilteredList();
 					break;
 			}
 			StateHasChanged();
 		}
-		
+
+		public List<ProductModelDto> FilteredList()
+		{
+			var filteredList = _filteredProducts = _products.Where(p => p.Category.Contains(selectedCategory) && p.Price <= selectedPrice && p.AgeRestriction <= selectedAge).ToList();
+
+			return filteredList;
+		}
+
 		private async Task GetAllProducts()
 		{
 			var client = HttpClientFactory.CreateClient("public");
