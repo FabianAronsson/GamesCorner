@@ -31,7 +31,7 @@ else
                             @foreach (var product in order.Products)
                             {
                                 total += product.Product.Price * product.Amount;
-                                <div class="fs-4">
+                                <div class="fs-4 text-black">
                                     Amount: @product.Amount
                                 </div>
                                 <div>
@@ -64,7 +64,7 @@ else
                                 <hr />
                                 <br />
                             }
-                            <div class="fs-3"><b>Total: @Math.Round(@total, 3) $</b></div>
+                            <div class="fs-3 text-black"><b>Total: @Math.Round(@total, 3) $</b></div>
                         </div>
                     </div>
                 </div>
