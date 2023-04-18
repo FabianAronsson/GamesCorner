@@ -2,28 +2,55 @@
 @page "/SearchResults/{SearchTerm}"
 @using GamesCorner.Shared.DTOs
 @using System.Security.Cryptography
+@using GamesCorner.Client.Services.AuthService
 @inject IHttpClientFactory HttpClientFactory
 
-<div class="container d-grid justify-content-center align-items-center">
-    <div class="col-3"></div>
-    <div class="col-8">
-        <label class="text-light">Category:</label>
-        <select @onchange="FilterResultsByCategory" class="form-control">
-            <option>All</option>
-            @foreach (var category in categories)
-            {
-                <option value="@category">@category</option>
-            }
-        </select>
-    </div>
-    <div class="col-3"></div>
+<div class="row py-2 px-3 justify-content-center align-items-center">
+
+	<div class="col-auto m-1">
+		<select @onchange="FilterResultsByCategory" class="form-select bg-black text-light border-secondary">
+			<option selected>Category...</option>
+			@foreach (var category in categories)
+			{
+				<option value="@category">@category</option>
+			}
+		</select>
+	</div>
+	<div class="col-auto m-1">
+		<select @onchange="FilterResultsByAge" class="form-select bg-black text-light border-secondary">
+			<option selected>Age...</option>
+			@foreach (var age in ages)
+			{
+				<option value="@age">@age</option>
+			}
+		</select>
+	</div>
+	<div class="col-auto m-1">
+		<select @onchange="FilterResultsByPrice" class="form-select bg-black text-light border-secondary">
+			<option selected>Price...</option>
+			@foreach (var price in prices)
+			{
+				<option value="@price">@price</option>
+			}
+		</select>
+	</div>
+	<div class="col-auto m-1">
+		<select @onchange="OrderBy" class="form-select bg-black text-light border-secondary">
+			<option selected>Options...</option>
+			<option value="1">Price ⬆️</option>
+			<option value="2">Price ⬇️</option>
+			<option value="3">Name</option>
+		</select>
+	</div>
+	
 </div>
+
 
 
 
 <div class="container d-flex justify-content-center align-items-center flex-wrap bg-dark pt-2 ">
 
-    @foreach (var product in _products)
+    @foreach (var product in _filteredProducts)
     {
 
         <div class="card border-0 m-2 col-10" style="width: 14rem;">
@@ -38,7 +65,7 @@
 
     }
 </div>
-@if (_products.Count == 0)
+@if (_filteredProducts.Count == 0)
 {
     <h2 class="text-center">No matches...</h2>
 }

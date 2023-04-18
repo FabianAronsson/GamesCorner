@@ -108,7 +108,7 @@
 	{
 		var client = HttpClientFactory.CreateClient("public");
 
-		var response = await client.GetAsync($"search?name={searchString}");
+	    var response = await client.GetAsync($"search?name={searchString}");
 
 		if (response.IsSuccessStatusCode)
 		{
