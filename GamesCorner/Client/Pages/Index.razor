@@ -109,20 +109,6 @@
 
 	private async Task GetEvents()
 	{
-		EventDto event1 = new EventDto()
-			{
-				Id = new Guid().ToString(),
-				Name = "Deus ex",
-				ImageUrl = "",
-				Price = 1000,
-				Date = new DateTime(),
-				Description = "Incredible",
-				Location = "Göteborg"
-			};
-
-		var client2 = HttpClientFactory.CreateClient("public");
-		var response2 = await client2.PostAsJsonAsync($"addEvent", event1);
-
 		var client = HttpClientFactory.CreateClient("public");
 
 		var response = await client.GetAsync($"events");
