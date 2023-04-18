@@ -29,7 +29,9 @@ namespace DataAccess.Repositories
 
         public async Task<EventModel> AddAsync(EventModel entity)
         {
-            throw new NotImplementedException();
+            _storeContext.Events.Add(entity);
+            await _storeContext.SaveChangesAsync();
+            return entity;
         }
 
         public async Task<EventModel> UpdateAsync(EventModel entity)

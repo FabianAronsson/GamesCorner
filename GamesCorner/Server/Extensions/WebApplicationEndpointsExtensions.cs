@@ -17,6 +17,7 @@ public static class WebApplicationEndpointsExtensions
         app.MediateGet<GetAllProductsRequest>("search");
         app.MediatePost<CreateSessionIdRequest>("checkout");
         app.MediateGet<GetAllEventsRequest>("events");
+        app.MediatePost<AddEventRequest>("addEvent");
         return app;
     }
 }
