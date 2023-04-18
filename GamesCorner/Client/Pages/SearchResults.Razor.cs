@@ -106,6 +106,7 @@ namespace GamesCorner.Client.Pages
 		private async Task GetAllProducts()
 		{
 			var client = HttpClientFactory.CreateClient("public");
+            var temp = await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
 			var response = await client.GetAsync($"search?name={SearchTerm}");
 
