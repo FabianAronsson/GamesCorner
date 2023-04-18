@@ -37,6 +37,7 @@ namespace GamesCorner.Server.Handlers
                     Products = new List<OrderItem>(){request.item},
                     PurchaseDate = DateTime.UtcNow
                 });
+               await request.UnitOfWork.Save();
             }
             else
             {
