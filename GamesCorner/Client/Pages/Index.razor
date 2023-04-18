@@ -1,22 +1,21 @@
 ﻿@page "/"
 @using GamesCorner.Shared.DTOs
+@using GamesCorner.Shared.Dtos
 @using MudBlazor
-@using GamesCorner.Client.Services.AuthService
-
 @inject IHttpClientFactory HttpClientFactory
 
 <PageTitle>Index</PageTitle>
 
-<MudCarousel Class="mud-width-full" Style="height:400px;"  ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
-	
-	@foreach (var itemToShow in _carouselProducts)
+<MudCarousel Class="mud-width-full" Style="height:400px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+
+	@foreach (var itemToShow in _events)
 	{
 		<MudCarouselItem Transition="transition" Color="@Color.Primary">
-			<div class="d-flex align-items-center justify-content-center bg-dark" style="height: 100%" >
+			<div class="d-flex align-items-center justify-content-center bg-dark" style="height: 100%">
 				@*<img src="@itemToShow.ImageUrl" style="width: 100%"/>*@
-				
+
 				<a href="/ProductInfo/@itemToShow.Id">
-					<MudImage ObjectFit="ObjectFit.Cover" Src="@itemToShow.BannerUrl" Class="rounded-lg"  />
+					<MudImage ObjectFit="ObjectFit.Cover" Src="@itemToShow.ImageUrl" Class="rounded-lg" />
 				</a>
 			</div>
 		</MudCarouselItem>
@@ -26,7 +25,7 @@
 		<div class="d-flex" style="height: 100%">
 			<div Class="mx-auto my-auto">
 				<h1>EVENT</h1>
-				<h3>LAN Coming soon</h3> 
+				<h3>LAN Coming soon</h3>
 				<p> Kom och LAN'A</p>
 				@*	<img src="@_products[20].ImageUrl" />*@
 			</div>
@@ -56,7 +55,7 @@
 </div>
 
 
-@code{
+@code {
 
 	// Carousel
 	private bool arrows = true;
@@ -65,7 +64,7 @@
 	private bool autocycle = true;
 	private Transition transition = Transition.Slide;
 	private int defaultNrOfCarouselsToShow = 5;
-	//private int _nrOfCarouselsToShow = defaultNrOfCarouselsToShow;		// possible use when adding events 
+	//private int _nrOfCarouselsToShow = defaultNrOfCarouselsToShow;		// possible use when adding events
 	static Random rnd = new Random();
 
 	// show nr of titles
@@ -74,6 +73,7 @@
 
 
 	private List<ProductModelDto> _products = new();
+	private List<EventDto> _events = new();
 	public string searchString { get; set; } = "";
 
 	private List<ProductModelDto> _carouselProducts = new();
@@ -99,6 +99,7 @@
 
 	protected override async Task OnInitializedAsync()
 	{
+		await GetEvents();
 		await GetProducts();
 		await GetCarouselItemsRandom();
 		await base.OnInitializedAsync();
@@ -113,6 +114,18 @@
 		if (response.IsSuccessStatusCode)
 		{
 			_products = await response.Content.ReadFromJsonAsync<List<ProductModelDto>>();
+		}
+	}
+
+	private async Task GetEvents()
+	{
+		var client = HttpClientFactory.CreateClient("public");
+
+		var response = await client.GetAsync($"events");
+
+		if (response.IsSuccessStatusCode)
+		{
+			_events = await response.Content.ReadFromJsonAsync<List<EventDto>>();
 		}
 	}
 }

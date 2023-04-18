@@ -20,6 +20,8 @@ public static class WebApplicationEndpointsExtensions
 
         app.MediateGet<GetSpecificUsersRequest>("getUsers");
 
+        app.MediateGet<GetAllEventsRequest>("events");
+        app.MediatePost<AddEventRequest>("addEvent");
         return app;
     }
 }
