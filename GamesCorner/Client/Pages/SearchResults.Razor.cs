@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Json;
 using GamesCorner.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
 
@@ -106,8 +107,9 @@ namespace GamesCorner.Client.Pages
 		private async Task GetAllProducts()
 		{
 			var client = HttpClientFactory.CreateClient("public");
-
-			var response = await client.GetAsync($"search?name={SearchTerm}");
+       
+          
+            var response = await client.GetAsync($"search?name={SearchTerm}");
 
 			if (response.IsSuccessStatusCode)
 			{

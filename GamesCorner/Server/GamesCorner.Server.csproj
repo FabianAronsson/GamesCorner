@@ -43,6 +43,7 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Requests\Interface\" />
+    <Folder Include="Services\AuthService\" />
   </ItemGroup>
 
   <ItemGroup>
