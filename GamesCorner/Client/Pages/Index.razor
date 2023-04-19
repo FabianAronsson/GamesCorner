@@ -103,7 +103,6 @@
 	{
 		await GetEvents();
 		await GetProducts();
-		await DeleteEvent();
 		await GetCarouselItemsRandom();
 		await base.OnInitializedAsync();
 	}
@@ -131,16 +130,6 @@
 		{
 			_events = await response.Content.ReadFromJsonAsync<List<EventDto>>();
 		}
-	}
-
-
-	private async Task DeleteEvent()
-	{
-		var client2 = HttpClientFactory.CreateClient("public");
-		var id = "74f43e27-c431-4bad-954d-13cf322667c5";
-		var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-		var token = AuthService.GenerateToken(state);
-		await client2.DeleteAsync($"deleteEvent?EventId={id}&token={token}");
 	}
 
 }
