@@ -25,6 +25,7 @@ public static class WebApplicationEndpointsExtensions
         app.MediatePost<AddEventRequest>("addEvent");
         app.MediateDelete<DeleteEventRequest>("deleteEvent");
 
+        app.MediatePost<CreateProductRequest>("createProduct");
         app.MediateDelete<DeleteProductRequest>("deleteProduct");
         return app;
     }
