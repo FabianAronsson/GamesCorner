@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataContext\Data\Migrations\**" />
+    <EmbeddedResource Remove="DataContext\Data\Migrations\**" />
+    <None Remove="DataContext\Data\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -20,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataContext\Data\Migrations\" />
     <Folder Include="UnitOfWork\" />
   </ItemGroup>
 

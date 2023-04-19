@@ -7,9 +7,7 @@ namespace GamesCorner.Server.Requests
 {
     public class AddToCartRequest : IHttpRequest
     {
-
         public OrderItem item { get; set; }
         public HttpContext HttpContext { get; set; }
-        public IUnitOfWork UnitOfWork { get; set; }
     }
 }

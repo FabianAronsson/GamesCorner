@@ -10,7 +10,7 @@ namespace DataAccess.Models
 	{
 			public Guid Id { get; set; }
 			public string CustomerEmail { get; set; }
-            public List<OrderItem> Products { get; set; }
+            public virtual ICollection<OrderItem> Products { get; set; }
             public DateTime PurchaseDate { get; set; }
             public bool IsActive { get; set; }
 	}

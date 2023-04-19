@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
+using DataAccess.UnitOfWork;
 using GamesCorner.Server.Requests;
 using MediatR;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,26 +12,27 @@ namespace GamesCorner.Server.Handlers
     public class AddToCartHandler : IRequestHandler<AddToCartRequest, IResult>
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AddToCartHandler(IUserRepository userRepository)
+        public AddToCartHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
             _userRepository = userRepository;   
+            _unitOfWork = unitOfWork;
         }
         public async Task<IResult> Handle(AddToCartRequest request, CancellationToken cancellationToken)
         {
             var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            var orders = await request
-                .UnitOfWork.OrderRepository
+            var orders = await _unitOfWork.OrderRepository
                 .GetAllAsync();
 
             var email = (await _userRepository.GetAsync(Guid.Parse(userId))).Email;
 
-            var order = orders.Where(o => o.IsActive)
-                .FirstOrDefault(o => o.CustomerEmail.Equals(email));
+            var order = orders
+                .FirstOrDefault(o => o.IsActive && o.CustomerEmail.Equals(email));
 
             if (order is null)
             {
-               await request.UnitOfWork.OrderRepository.AddAsync(new OrderModel()
+               await _unitOfWork.OrderRepository.AddAsync(new OrderModel()
                 {
                     CustomerEmail = (await _userRepository.GetAsync(Guid.Parse(userId))).Email,
                     Id = Guid.NewGuid(),
@@ -48,7 +50,7 @@ namespace GamesCorner.Server.Handlers
                 }
                 else
                 {
-                    var product = await request.UnitOfWork.ProductRepository.GetAsync(request.item.ProductId);
+                    var product = await _unitOfWork.ProductRepository.GetAsync(request.item.ProductId);
                     if (product != null)
                     {
                         var newProduct = new OrderItem()
@@ -61,7 +63,7 @@ namespace GamesCorner.Server.Handlers
                     }
                 }
             }
-            await request.UnitOfWork.Save();
+            await _unitOfWork.Save();
             return Results.Ok("Item added");
         }
     }

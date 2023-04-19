@@ -18,6 +18,6 @@ namespace DataAccess.DataContext.Data
 		public DbSet<OrderModel> Orders { get; set; }
 		public DbSet<ProductModel> Products { get; set; }
 		
-
+		public DbSet<OrderItem> OrderItems { get; set; }
 	}
 }
