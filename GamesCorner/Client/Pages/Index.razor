@@ -101,6 +101,7 @@
 	{
 		await GetEvents();
 		await GetProducts();
+		await DeleteEvent();
 		await GetCarouselItemsRandom();
 		await base.OnInitializedAsync();
 	}
@@ -123,9 +124,21 @@
 
 		var response = await client.GetAsync($"events");
 
+
 		if (response.IsSuccessStatusCode)
 		{
 			_events = await response.Content.ReadFromJsonAsync<List<EventDto>>();
 		}
 	}
+
+	
+	private async Task DeleteEvent()
+	{
+		var client2 = HttpClientFactory.CreateClient("public");
+		var id = "03d3e888-f3fe-4d4d-b5bd-ee867c1c627f";
+
+		 await client2.DeleteAsync($"deleteEvent?id={id}");
+		
+	}
+	
 }
