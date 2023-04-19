@@ -55,5 +55,11 @@ namespace DataAccess.Repositories
 		{
 			throw new NotImplementedException();
 		}
+
+        public async Task<IEnumerable<ReviewModel>> GetReviewsFromProduct(Guid productId)
+        {
+            var product = await _storeContext.Products.FirstOrDefaultAsync(p => p.Id.Equals(productId));
+            return product.Reviews;
+        }
 	}
 }
