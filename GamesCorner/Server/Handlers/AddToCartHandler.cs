@@ -49,14 +49,16 @@ namespace GamesCorner.Server.Handlers
                 else
                 {
                     var product = await request.UnitOfWork.ProductRepository.GetAsync(request.item.ProductId);
-                    var newProduct = new OrderItem()
+                    if (product != null)
                     {
-                        Id = Guid.NewGuid(),
-                        Amount = 1,
-                        ProductId = product.Id
-                    };
-                    order.Products.Add(newProduct);
-                    await request.UnitOfWork.OrderRepository.UpdateAsync(order);
+                        var newProduct = new OrderItem()
+                        {
+                            Id = Guid.NewGuid(),
+                            Amount = 1,
+                            ProductId = product.Id
+                        };
+                        order.Products.Add(newProduct);
+                    }
                 }
             }
             await request.UnitOfWork.Save();

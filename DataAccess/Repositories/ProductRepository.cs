@@ -21,7 +21,7 @@ namespace DataAccess.Repositories
         }
         public async Task<ProductModel?> GetAsync(Guid id)
         {
-			var product = await _storeContext.Products.FindAsync(id);
+			var product = await _storeContext.Products.FirstOrDefaultAsync(p=>p.Id.Equals(id));
 			return product;
         }
 
