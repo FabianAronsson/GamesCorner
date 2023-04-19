@@ -1,4 +1,5 @@
-﻿using GamesCorner.Server.Requests;
+﻿using DataAccess.Models;
+using GamesCorner.Server.Requests;
 
 namespace GamesCorner.Server.Extensions;
 using MediatR;
@@ -23,6 +24,8 @@ public static class WebApplicationEndpointsExtensions
         app.MediateGet<GetAllEventsRequest>("events");
         app.MediatePost<AddEventRequest>("addEvent");
         app.MediateDelete<DeleteEventRequest>("deleteEvent");
+
+        app.MediateDelete<DeleteProductRequest>("deleteProduct");
         return app;
     }
 }
