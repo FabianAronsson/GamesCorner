@@ -16,7 +16,7 @@ namespace GamesCorner.Server.Handlers
             var product = await request.UnitOfWork.ProductRepository.GetAsync(request.productId);
             await request.UnitOfWork.ProductRepository.DeleteAsync(product);
             await request.UnitOfWork.Save();
-            return Results.Ok("Event deleted");
+            return Results.Ok("product deleted");
         }
     }
 }
