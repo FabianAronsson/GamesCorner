@@ -2,8 +2,10 @@
 @using GamesCorner.Shared.DTOs
 @using GamesCorner.Shared.Dtos
 @using MudBlazor
+@using GamesCorner.Client.Services.AuthService
 @inject IHttpClientFactory HttpClientFactory
-
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IAuthService AuthService
 <PageTitle>Index</PageTitle>
 
 <MudCarousel Class="mud-width-full" Style="height:400px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
@@ -110,7 +112,7 @@
 	{
 		var client = HttpClientFactory.CreateClient("public");
 
-	    var response = await client.GetAsync($"search?name={searchString}");
+		var response = await client.GetAsync($"search?name={searchString}");
 
 		if (response.IsSuccessStatusCode)
 		{
@@ -120,10 +122,10 @@
 
 	private async Task GetEvents()
 	{
+
 		var client = HttpClientFactory.CreateClient("public");
 
 		var response = await client.GetAsync($"events");
-
 
 		if (response.IsSuccessStatusCode)
 		{
@@ -131,14 +133,14 @@
 		}
 	}
 
-	
+
 	private async Task DeleteEvent()
 	{
 		var client2 = HttpClientFactory.CreateClient("public");
-		var id = "03d3e888-f3fe-4d4d-b5bd-ee867c1c627f";
-
-		 await client2.DeleteAsync($"deleteEvent?id={id}");
-		
+		var id = "74f43e27-c431-4bad-954d-13cf322667c5";
+		var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+		var token = AuthService.GenerateToken(state);
+		await client2.DeleteAsync($"deleteEvent?EventId={id}&token={token}");
 	}
-	
+
 }
