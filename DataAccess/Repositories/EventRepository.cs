@@ -29,8 +29,12 @@ namespace DataAccess.Repositories
 
         public async Task<EventModel> AddAsync(EventModel entity)
         {
-            _storeContext.Events.Add(entity);
-            await _storeContext.SaveChangesAsync();
+            var eventToAdd = _storeContext.Events.FirstOrDefault(x => x.Id == entity.Id);
+            if (eventToAdd == null)
+            {
+	            _storeContext.Events.Add(entity);
+	            await _storeContext.SaveChangesAsync();
+            }
             return entity;
         }
 

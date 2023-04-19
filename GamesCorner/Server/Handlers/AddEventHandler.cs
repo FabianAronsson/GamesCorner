@@ -10,17 +10,6 @@ namespace GamesCorner.Server.Handlers;
 
 public class AddEventHandler : IRequestHandler<AddEventRequest, IResult>
 {
-	private readonly IEventRepository _eventRepository;
-
-	private readonly IUserRepository _userRepository;
-
-	private readonly UserManager<ApplicationUser> _userManager;
-
-	public AddEventHandler(IEventRepository eventRepository, IUserRepository userRepository)
-	{
-		_eventRepository = eventRepository;
-		_userRepository = userRepository;
-	}
 	public async Task<IResult> Handle(AddEventRequest request, CancellationToken cancellationToken)
 	{
 
@@ -29,7 +18,6 @@ public class AddEventHandler : IRequestHandler<AddEventRequest, IResult>
 		{
 			return Results.Unauthorized();
 		}
-
 		await request.UnitOfWork.EventRepository.AddAsync(new EventModel()
 		{
 			Id = Guid.NewGuid(),
