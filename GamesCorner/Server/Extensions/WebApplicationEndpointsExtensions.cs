@@ -22,6 +22,7 @@ public static class WebApplicationEndpointsExtensions
 
         app.MediateGet<GetAllEventsRequest>("events");
         app.MediatePost<AddEventRequest>("addEvent");
+        app.MediateDelete<DeleteEventRequest>("deleteEvent");
         return app;
     }
 }

@@ -41,7 +41,10 @@ namespace DataAccess.Repositories
 
         public async Task<EventModel> DeleteAsync(EventModel entity)
         {
-            throw new NotImplementedException();
+            var eventToDelete = _storeContext.Events.FirstOrDefault(x => x.Id == entity.Id);
+            _storeContext.Events.Remove(eventToDelete);
+			await _storeContext.SaveChangesAsync();
+			return entity;
         }
 
         public async Task<List<EventModel>> GetAllAsync(string name)
