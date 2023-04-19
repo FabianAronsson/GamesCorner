@@ -21,8 +21,7 @@ public class UnitOfWork :IDisposable, IUnitOfWork
 
 	public IProductRepository ProductRepository => _productRepository;
 	public IOrderRepository OrderRepository => _orderRepository;
-
-	public IEventRepository EventRepository => _eventRepository;
+    public IEventRepository EventRepository => _eventRepository;
 
     public async Task<int> Save()
 	{
