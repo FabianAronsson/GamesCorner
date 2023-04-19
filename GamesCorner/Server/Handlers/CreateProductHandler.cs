@@ -15,7 +15,7 @@ namespace GamesCorner.Server.Handlers
 
             await request.UnitOfWork.ProductRepository.AddAsync(request.newProduct);
             await request.UnitOfWork.Save();
-            return Results.Ok("Event deleted");
+            return Results.Ok("product created");
         }
     }
 }
