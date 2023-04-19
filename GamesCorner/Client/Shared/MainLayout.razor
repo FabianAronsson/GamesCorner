@@ -23,6 +23,13 @@
         <div class="search-bar-2">
             <SearchBar />
         </div>
+        <AuthorizeView Roles="Administrator">
+            <div class="nav-item px-3 col-12 text-center" style="background-color:white">
+                <NavLink class="nav-link" href="admin/dashboard">
+                    <span class="oi oi-key" aria-hidden="true"></span> Admin Panel
+                </NavLink>
+            </div>
+        </AuthorizeView>
 
 	    <article class="content px-4 bg-dark">
 		    @Body
