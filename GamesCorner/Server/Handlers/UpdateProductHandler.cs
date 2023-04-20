@@ -8,13 +8,7 @@ namespace GamesCorner.Server.Handlers
 	{
 		public async Task<IResult> Handle(UpdateProductRequest request, CancellationToken cancellationToken)
 		{
-			if (!request.HttpContextAccessor.HttpContext.User.IsInRole("Administrator") &&
-			    !request.AuthService.ValidateToken(request.Token))
-			{
-				return Results.Unauthorized();
-			}
-
-
+		
 			await request.UnitOfWork.ProductRepository.UpdateAsync(request.productId, request.Product);
 			await request.UnitOfWork.Save();
 

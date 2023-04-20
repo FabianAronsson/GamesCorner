@@ -9,9 +9,6 @@ namespace GamesCorner.Server.Requests
 	{
 		public Guid productId { get; set; }
 		public ProductModel Product { get; set; }
-		public IAuthService AuthService { get; set; }
-		public IHttpContextAccessor HttpContextAccessor { get; set; }
-		public string Token { get; set; }
 		public IUnitOfWork UnitOfWork { get; set; }
 	}
 }
