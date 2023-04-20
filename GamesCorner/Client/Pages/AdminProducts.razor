@@ -4,19 +4,28 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using GamesCorner.Shared.DTOs
-@using GamesCorner.Client.Services.AuthService
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IAuthService AuthService
 @attribute [Authorize(Roles = "Administrator")]
 <PageTitle>Product Manager</PageTitle>
 
+<style>
+	.form-input {
+		width: 20rem;
+		padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+		color: rgb(17 24 39);
+		background-color: rgb(249 250 251);
+		border: 1px solid rgb(209 213 219);
+		border-radius: 0.5rem;
+		outline-offset: 1px;
+	}
+</style>
 
-
+<div class=" d-flex justify-content-center align-items-center">
 <EditForm Model="@SelectedProduct" OnSubmit="@UpdateProduct">
 	<div class="my-1 row d-flex justify-content-center align-items-center">
 		<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1 ">
 			<label for="id">Id:</label> <br>
-			<InputText id="id" type="input" class="" @bind-Value="SelectedProduct.Id" placeholder="Id" disabled />
+				<InputText id="id" type="input" class="form-input" @bind-Value="SelectedProduct.Id" placeholder="Id" disabled />
 		</div>
 		<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
 			<label for="name">Name:</label> <br>
@@ -35,23 +44,28 @@
 			<InputNumber id="price" type="input" class="form-input" @bind-Value="SelectedProduct.Price" placeholder="Price" required />
 		</div>
 		<div class=" col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
-			<label for="active">In use</label> <br>
-			<InputCheckbox id="active" type="input" class="form-input" @bind-Value="SelectedProduct.InStock" placeholder="In use" />
+			<label for="InStock">In Stock</label> <br>
+			<InputCheckbox id="InStock" type="input" class="form-input" @bind-Value="SelectedProduct.InStock" />
 		</div>
 		<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
-			<label for="imageUrl">Image Url:</label> <br>
-			<InputText id="imageUrl" type="input" class="form-input" @bind-Value="SelectedProduct.ImageUrl" placeholder="Image Url" required />
+			<label for="ImageUrl">Image Url:</label> <br>
+			<InputText id="ImageUrl" type="input" class="form-input" @bind-Value="SelectedProduct.ImageUrl"  required />
 		</div>
 		<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
-			<label for="imageUrl">Banner-Image Url:</label> <br>
-			<InputText id="BannerimageUrl" type="input" class="form-input" @bind-Value="SelectedProduct.BannerUrl" placeholder="Image Url" required />
+			<label for="BannerUrl">Banner-Image Url:</label> <br>
+			<InputText id="BannerUrl" type="input" class="form-input" @bind-Value="SelectedProduct.BannerUrl" required />
 		</div>
+			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
+				<label for="AgeRestriction">Age restriction:</label> <br>
+				<InputNumber id="AgeRestriction" type="input" class="form-input" @bind-Value="SelectedProduct.AgeRestriction" required />
+			</div>
 		<div class="d-flex justify-content-center align-items-center my-3">
 			<button type="button" class="btn btn-danger mx-2" @onclick="@(ResetValues)">Reset values</button>
 			<button class="btn btn-success mx-2" type="submit">@EditStatus</button>
 		</div>
 	</div>
-	</EditForm>
+</EditForm>
+</div>
 
 <div class="my-2 d-flex justify-content-center flex-column align-items-center">
 	<div class="inline-block mr-4 my-1">
@@ -62,7 +76,7 @@
 		Total: <strong>@numResults results found</strong>
 	</div>
 </div>
-<div class="grid d-flex justify-content-center" tabindex="-1">
+<div class="grid d-flex justify-content-center bg-light" tabindex="-1">
 	<QuickGrid ItemsProvider="@_productProvider" Virtualize="true" @ref="grid">
 		<PropertyColumn Property="@(c => c.Id)" />
 		<PropertyColumn Property="@(c => c.Name)" />
@@ -81,6 +95,7 @@
 	public ProductModelDto SelectedProduct { get; set; } = new();
 	string EditStatus = "Create Product";
 	string searchQuery;
+	public List<ProductModelDto> _products { get; set; } = new();
 	int numResults;
 
 	protected override Task OnInitializedAsync()
@@ -89,19 +104,29 @@
 
 		_productProvider = async req =>
 		{
-			var response = await Http.GetFromJsonAsync<IEnumerable<ProductModelDto>>($"search?name={SearchQuery}");
-			if (response is null)
+			var response = await Http.GetAsync($"search?name={SearchQuery}");
+
+			if (response.IsSuccessStatusCode)
 			{
-				return GridItemsProviderResult.From(Array.Empty<ProductModelDto>(), 0);
+				_products = await response.Content.ReadFromJsonAsync<List<ProductModelDto>>();
 			}
 
-			if (numResults != response.Count())
+			else
 			{
-				numResults = response.Count();
+				numResults = 0;
+				StateHasChanged();
+				return GridItemsProviderResult.From(Array.Empty<ProductModelDto>(), 0);
+
+			}
+
+			if (numResults != _products.Count())
+			{
+				numResults = _products.Count();
 				StateHasChanged();
 			}
+			
 
-			return GridItemsProviderResult.From((ICollection<ProductModelDto>)response, response.Count());
+			return GridItemsProviderResult.From(_products, _products.Count());
 
 		};
 		return Task.CompletedTask;
@@ -120,12 +145,11 @@
 
 	private async Task DeleteProduct(ProductModelDto product)
 	{
-		var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-		var token = AuthService.GenerateToken(state);
-
+		
 		var id = product.Id;
 
-		var response = await Http.DeleteAsync($"deleteProduct?productId={id}&token={token}");
+		var response = await Http.DeleteAsync($"deleteProduct?productId={id}");
+		_ = grid.RefreshDataAsync();
 
 	}
 
@@ -135,14 +159,31 @@
 		EditStatus = "Edit Product";
 	}
 
-	private void UpdateProduct()
+	private async Task UpdateProduct()
 	{
-		throw new NotImplementedException();
+		if (SelectedProduct.Price == 0 )
+		{
+			return;
+		}
+ 
+		if (EditStatus == "Edit Product")
+		{
+			await Http.PutAsJsonAsync($"updateProduct?productId={SelectedProduct.Id}", SelectedProduct);
+		}
+		else
+		{
+			SelectedProduct.Id = Guid.NewGuid().ToString();
+			await Http.PostAsJsonAsync($"createProduct", SelectedProduct);
+		}
+ 
+		_ = grid.RefreshDataAsync();
+		ResetValues();
 	}
 
 	private void ResetValues()
 	{
-		throw new NotImplementedException();
+		SelectedProduct = new ProductModelDto();
+		EditStatus = "Create Product";
 	}
 
 }
