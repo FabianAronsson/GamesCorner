@@ -46,9 +46,10 @@ namespace DataAccess.Repositories
 		}
 
 		public async Task<ProductModel> DeleteAsync(ProductModel entity)
-		{
-			throw new NotImplementedException();
-		}
+        {
+            _storeContext.Products.Remove(entity);
+            return entity;
+        }
 
 		public Task<IEnumerable<ProductModel>> GetAllAsync()
 		{
