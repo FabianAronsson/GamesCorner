@@ -4,9 +4,9 @@ using GamesCorner.Server.Requests.Interface;
 
 namespace GamesCorner.Server.Requests
 {
-    public class DeleteProductRequest : IHttpRequest
+    public class CreateProductRequest : IHttpRequest
     {
-        public Guid productId { get; set; }
+        public ProductModel newProduct { get; set; }
         public IUnitOfWork UnitOfWork { get; set; }
     }
 }

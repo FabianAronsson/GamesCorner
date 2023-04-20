@@ -1,6 +1,5 @@
 ﻿using DataAccess.UnitOfWork;
 using GamesCorner.Server.Requests.Interface;
-using GamesCorner.Server.Services.AuthService;
 using MediatR;
 
 namespace GamesCorner.Server.Requests

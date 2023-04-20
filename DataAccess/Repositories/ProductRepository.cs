@@ -45,6 +45,22 @@ namespace DataAccess.Repositories
 			throw new NotImplementedException();
 		}
 
+		public async Task<ProductModel> UpdateAsync(Guid id, ProductModel entity)
+		{
+			var oldProduct = _storeContext.Products.FirstOrDefault(x => x.Id == id);
+
+			oldProduct.Name = entity.Name;
+			oldProduct.BannerUrl = entity.BannerUrl;
+			oldProduct.ImageUrl = entity.ImageUrl;
+			oldProduct.Price = entity.Price;
+			oldProduct.Category = entity.Category;
+			oldProduct.Description = entity.Description;
+			oldProduct.AgeRestriction = entity.AgeRestriction;
+			oldProduct.InStock = entity.InStock;
+
+			return oldProduct;
+		}
+
 		public async Task<ProductModel> DeleteAsync(ProductModel entity)
         {
             _storeContext.Products.Remove(entity);
