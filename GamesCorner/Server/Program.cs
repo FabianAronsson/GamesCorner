@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using DataAccess.Models;
-using GamesCorner.Server.Services.AuthService;
 using GamesCorner.Server.Services.PaymentService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +48,14 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 	})
 	.AddIdentityServerJwt();
 
+builder.Services.AddAuthorization(op =>
+{
+    op.AddPolicy("admin", pb =>
+    {
+        pb.RequireAssertion(context => context.User.IsInRole("Administrator"));
+    });
+});
+
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -56,7 +63,6 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 
 

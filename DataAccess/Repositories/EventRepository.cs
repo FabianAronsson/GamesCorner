@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataAccess.DataContext.Data;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace DataAccess.Repositories
 {
@@ -54,6 +55,17 @@ namespace DataAccess.Repositories
         public async Task<List<EventModel>> GetAllAsync(string name)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IResult> DeleteByIdAsync(string id)
+        {
+	        var eventToDelete = _storeContext.Events.FirstOrDefault(e => e.Id.ToString() == id);
+	        if (eventToDelete == null)
+	        {
+		        return Results.NotFound();
+	        }
+            _storeContext.Events.Remove(eventToDelete);
+            return Results.Ok("Event deleted");
         }
     }
 }

@@ -19,14 +19,15 @@ public static class WebApplicationEndpointsExtensions
         app.MediatePost<CreateSessionIdRequest>("checkout");
         app.MediateGet<OrderRequest>("getOrders");
 
-        app.MediateGet<GetSpecificUsersRequest>("getUsers");
+        app.MediateAuthenticateGet<GetSpecificUsersRequest>("getUsers");
 
         app.MediateGet<GetAllEventsRequest>("events");
-        app.MediatePost<AddEventRequest>("addEvent");
-        app.MediateDelete<DeleteEventRequest>("deleteEvent");
+        app.MediateAuthenticatePost<AddEventRequest>("addEvent");
+        app.MediateAuthenticateDelete<DeleteEventRequest>("deleteEvent");
 
-        app.MediatePost<CreateProductRequest>("createProduct");
-        app.MediateDelete<DeleteProductRequest>("deleteProduct");
+        app.MediateAuthenticatePost<CreateProductRequest>("createProduct");
+        app.MediateAuthenticateDelete<DeleteProductRequest>("deleteProduct");
+
         app.MediateAuthenticatePut<UpdateProductRequest>("updateProduct");
         return app;
     }

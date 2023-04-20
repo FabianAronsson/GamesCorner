@@ -13,14 +13,10 @@ public class AddEventHandler : IRequestHandler<AddEventRequest, IResult>
 	public async Task<IResult> Handle(AddEventRequest request, CancellationToken cancellationToken)
 	{
 
-		if (!request.HttpContextAccessor.HttpContext.User.IsInRole("Administrator") && 
-		    !request.AuthService.ValidateToken(request.Token))
-		{
-			return Results.Unauthorized();
-		}
+		
 		await request.UnitOfWork.EventRepository.AddAsync(new EventModel()
 		{
-			Id = Guid.NewGuid(),
+			Id = request.Event.Id,
 			Name = request.Event.Name,
 			Location = request.Event.Location,
 			Date = request.Event.Date,
