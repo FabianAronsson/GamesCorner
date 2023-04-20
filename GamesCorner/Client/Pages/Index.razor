@@ -2,10 +2,10 @@
 @using GamesCorner.Shared.DTOs
 @using GamesCorner.Shared.Dtos
 @using MudBlazor
-@using GamesCorner.Client.Services.AuthService
+
 @inject IHttpClientFactory HttpClientFactory
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject IAuthService AuthService
+
 <PageTitle>Index</PageTitle>
 
 <MudCarousel Class="mud-width-full" Style="height:400px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
