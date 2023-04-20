@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.Models.Enums;
 
 namespace DataAccess.Models
 {
@@ -13,5 +14,6 @@ namespace DataAccess.Models
             public List<OrderItem> Products { get; set; }
             public DateTime PurchaseDate { get; set; }
             public bool IsActive { get; set; }
+            public Status Status { get; set; }
 	}
 }

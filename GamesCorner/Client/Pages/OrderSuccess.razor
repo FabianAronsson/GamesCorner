@@ -1,6 +1,7 @@
 ﻿@page "/OrderSuccess/{session_id}"
 @using GamesCorner.Client.Services.CartService;
 @using GamesCorner.Shared.Dtos;
+@using DataAccess.Models.Enums
 @inject IHttpClientFactory HttpClientFactory
 @inject ICartService cartService
 
@@ -59,6 +60,7 @@
 		order.Products = new();
 		order.Products.AddRange(cart);
 		order.Id = Guid.NewGuid().ToString();
+		order.Status = Status.Completed;
 
 		var response = await client.PutAsJsonAsync($"orderSuccess?session_id={session_id}", order);
 
