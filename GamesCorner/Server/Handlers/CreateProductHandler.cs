@@ -7,9 +7,7 @@ namespace GamesCorner.Server.Handlers
     {
         public async Task<IResult> Handle(CreateProductRequest request, CancellationToken cancellationToken)
         {
-          
-
-            await request.UnitOfWork.ProductRepository.AddAsync(request.newProduct);
+	        await request.UnitOfWork.ProductRepository.AddAsync(request.newProduct);
             await request.UnitOfWork.Save();
             return Results.Ok("product created");
         }
