@@ -29,6 +29,8 @@ public static class WebApplicationEndpointsExtensions
         app.MediateAuthenticateDelete<DeleteProductRequest>("deleteProduct");
 
         app.MediateAuthenticatePut<UpdateProductRequest>("updateProduct");
+
+        app.MediateGet<GetProductRecommendationsRequest>("getRecommendations");
         return app;
     }
 }
