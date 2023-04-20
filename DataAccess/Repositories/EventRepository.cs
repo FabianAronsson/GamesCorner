@@ -67,5 +67,21 @@ namespace DataAccess.Repositories
             _storeContext.Events.Remove(eventToDelete);
             return Results.Ok("Event deleted");
         }
+
+        public async Task<EventModel> UpdateAsync(Guid id, EventModel entity)
+        {
+	       var eventToUpdate = _storeContext.Events.FirstOrDefault(x => x.Id == id);
+	       if (eventToUpdate == null)
+	       {
+		       return entity;
+	       }
+           eventToUpdate.Name = entity.Name;
+           eventToUpdate.ImageUrl = entity.ImageUrl;
+           eventToUpdate.Price = entity.Price;
+           eventToUpdate.Location = entity.Location;
+           eventToUpdate.Description = entity.Description;
+           eventToUpdate.Date = entity.Date;
+           return eventToUpdate;
+        }
     }
 }
