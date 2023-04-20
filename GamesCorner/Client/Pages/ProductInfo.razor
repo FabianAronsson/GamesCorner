@@ -1,11 +1,10 @@
 ﻿@page "/ProductInfo/{ProductId}"
-@using GamesCorner.Shared.DTOs
-@using GamesCorner.Shared.Dtos
 @using GamesCorner.Client.Services.CartService
-@using System.Security.Claims
 @inject IHttpClientFactory HttpClientFactory
 @inject ICartService CartService
 @inject AuthenticationStateProvider AuthenticationStateProvider
+
+
 <div class="page align-content-center justify-content-center" style="background-image: url(@Product.BannerUrl); background-repeat: no-repeat;">
 	<div class="container">
 		<div class="row pt-5"></div>
@@ -18,7 +17,7 @@
 				</div>
 			</div>
 			<div class="col-md-4"></div>
-			<div class="col-md-4" style="height: 100%">
+			<div class="col-md-4" style="height: 100%"> 
 				<div class="card bg-dark bg-opacity-75 rounded-2">
 					<div class="card-header border-0 h2 text-light">@Product.Name</div>
 					<div class="text-center h3 text-light">3/5 Stars</div>
@@ -53,19 +52,43 @@
 		</div>
 
 		<div class="container d-flex justify-content-center align-items-start flex-wrap p-5 ">
-
-			@for (int i = 0; i < 3; i++)
+			
+			@if (Reviews is null)
 			{
-				<div class="row">
-					<div class="card border-0 m-2 col-3 bg-black bg-opacity-25" style="width:auto">
-						<div class="h4 m-1 text-light">Name of Reviewer</div>
-						<div class="card-body">
-							<h6 class="card-title text-light">@_fakeReviews[i]</h6>
-							<h8 class="card-text text-light">Amount of stars</h8>
-						</div>
-					</div>
-				</div>
+				<div>Leave your review here!</div>
 			}
+			else
+			{
+			    @foreach (var review in Reviews)
+			    {
+@*			        <div class="row">
+                        <div class="card border-0 m-2 col-3 bg-black bg-opacity-25">
+                            <div class="card-header d-flex m-1 text-light">@review.UserEmail @review.CreatedDateTime</div>
+                            <div class="card-body">
+                                <h6 class="card-title text-light">@review.Content</h6>
+                                <h8 class="card-text text-light">Amount of stars</h8>
+                            </div>
+                        </div>
+                    </div>*@
+
+
+			        <div class="row text-center">
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <div class="card">
+								<div class="card-header">@review.UserEmail    @review.CreatedDateTime</div>
+                                <div class="card-body py-4 mt-2">
+                                    <div>@GetStarRating(@review.Rating)</div>
+                                    <p class="mb-2">
+                                        <i class="fas fa-quote-left pe-2"></i>@review.Content
+                                        <i class="fas fa-quote-right pe-2"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+			    }  
+			}
+                
 		</div>
 	</div>
 
