@@ -2,7 +2,9 @@
 @using GamesCorner.Shared.DTOs
 @using GamesCorner.Shared.Dtos
 @using MudBlazor
+
 @inject IHttpClientFactory HttpClientFactory
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Index</PageTitle>
 
@@ -109,7 +111,7 @@
 	{
 		var client = HttpClientFactory.CreateClient("public");
 
-	    var response = await client.GetAsync($"search?name={searchString}");
+		var response = await client.GetAsync($"search?name={searchString}");
 
 		if (response.IsSuccessStatusCode)
 		{
@@ -119,6 +121,7 @@
 
 	private async Task GetEvents()
 	{
+
 		var client = HttpClientFactory.CreateClient("public");
 
 		var response = await client.GetAsync($"events");
@@ -128,4 +131,5 @@
 			_events = await response.Content.ReadFromJsonAsync<List<EventDto>>();
 		}
 	}
+
 }
