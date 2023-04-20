@@ -17,6 +17,5 @@ namespace DataAccess.Models
         public string Description { get; set; }
         public int AgeRestriction { get; set; }
         public bool InStock { get; set; }
-        public virtual List<ReviewModel> Reviews { get; set; }
     }
 }

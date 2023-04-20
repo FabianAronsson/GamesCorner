@@ -1,0 +1,17 @@
+﻿.card {
+    background-color: #323232;
+    border-radius: 10px
+}
+.customer {
+    font-size: 13px;
+    margin-left: 1rem
+}
+.footer {
+    font-size: 8px
+}
+.oi-person {
+    color: white
+}
+.star-rating {
+    color: orangered;
+}

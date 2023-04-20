@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GamesCorner.Shared.Dtos
 {
-    public class ReviewsDto : IEnumerable
+    public class ReviewsDto
     {
         public string Id { get; set; }
         public string Content { get; set; }
@@ -15,9 +15,5 @@ namespace GamesCorner.Shared.Dtos
         public string ProductId { get; set; }
         public double Rating { get; set; }
         public DateTime CreatedDateTime { get; set; }
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

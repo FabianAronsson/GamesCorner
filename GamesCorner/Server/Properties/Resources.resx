@@ -126,51 +126,7 @@
     "Category": "Action Sci-Fi FPS",
     "AgeRestriction":18,
     "InStock":true,
-    "BannerUrl":"https://gaming-cdn.com/img/products/840/pcover/840.jpg?v=1663862900",
-  "Reviews": [
-        {
-            "Content": "Awesome game!",
-            "UserEmail": "user1@example.com",
-            "ProductId": "1",
-            "Rating": 5,
-            "CreatedDateTime": "2023-04-20T12:00:00Z"
-        },
-        {
-            "Content": "Great graphics",
-            "UserEmail": "user2@example.com",
-            "ProductId": "1",
-            "Rating": 4.5,
-            "CreatedDateTime": "2023-04-21T14:00:00Z"
-        },
-        {
-            "Content": "The story is amazing",
-            "UserEmail": "user3@example.com",
-            "ProductId": "1",
-            "Rating": 4,
-            "CreatedDateTime": "2023-04-22T16:00:00Z"
-        },
-        {
-            "Content": "Controls are difficult",
-            "UserEmail": "user4@example.com",
-            "ProductId": "1",
-            "Rating": 3,
-            "CreatedDateTime": "2023-04-23T18:00:00Z"
-        },
-        {
-            "Content": "Not as good as expected",
-            "UserEmail": "user5@example.com",
-            "ProductId": "1",
-            "Rating": 2,
-            "CreatedDateTime": "2023-04-24T20:00:00Z"
-        },
-        {
-            "Content": "Disappointing",
-            "UserEmail": "user6@example.com",
-            "ProductId": "1",
-            "Rating": 1,
-            "CreatedDateTime": "2023-04-25T22:00:00Z"
-        }
-    ]},
+    "BannerUrl":"https://gaming-cdn.com/img/products/840/pcover/840.jpg?v=1663862900"
   {
     "Name": "Diablo 4",
     "Description": "Diablo IV is the next-gen action RPG experience with endless evil to slaughter, countless abilities to master, nightmarish Dungeons, and legendary loot. Embark on the campaign solo or with friends, meeting memorable characters through beautifully dark settings and a gripping story, or go rogue through an expansive End Game and shared world where players will meet in towns to trade, team up to battle World Bosses, or descend into PVP zones to test their skills against other players - no lobbies necessary - with cross-play and cross-progression on all available platforms.",

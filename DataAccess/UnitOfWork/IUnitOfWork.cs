@@ -10,4 +10,5 @@ public interface IUnitOfWork
     public IProductRepository ProductRepository { get; }
     public IOrderRepository OrderRepository { get; }
     public IEventRepository EventRepository { get; }
+    public IReviewRepository ReviewRepository { get; }
 }
