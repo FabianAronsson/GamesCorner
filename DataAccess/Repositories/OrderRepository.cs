@@ -51,7 +51,17 @@ namespace DataAccess.Repositories
             return entity;
         }
 
-        public async Task<OrderModel> DeleteAsync(OrderModel entity)
+        public async Task<OrderModel> UpdateStatusAsync(Guid id, OrderModel entity)
+        {
+	        var oldOrder = _storeContext.Orders.FirstOrDefault(x => x.Id == id);
+	        
+            oldOrder.Status = entity.Status;
+	        
+            return oldOrder;
+
+        }
+
+		public async Task<OrderModel> DeleteAsync(OrderModel entity)
         {
             throw new NotImplementedException();
         }
