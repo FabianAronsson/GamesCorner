@@ -11,7 +11,7 @@ namespace DataAccess.Migrations.Store
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "Status",
+                name: "OrderStatus",
                 table: "Orders",
                 type: "int",
                 nullable: false,
@@ -22,7 +22,7 @@ namespace DataAccess.Migrations.Store
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Status",
+                name: "OrderStatus",
                 table: "Orders");
         }
     }

@@ -14,6 +14,6 @@ namespace DataAccess.Models
             public List<OrderItem> Products { get; set; }
             public DateTime PurchaseDate { get; set; }
             public bool IsActive { get; set; }
-            public Status Status { get; set; }
+            public OrderStatus OrderStatus { get; set; }
 	}
 }

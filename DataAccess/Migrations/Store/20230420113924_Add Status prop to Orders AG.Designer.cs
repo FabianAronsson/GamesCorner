@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations.Store
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20230420113924_Add Status prop to Orders AG")]
+    [Migration("20230420113924_Add OrderStatus prop to Orders AG")]
     partial class AddStatusproptoOrdersAG
     {
         /// <inheritdoc />
@@ -96,7 +96,7 @@ namespace DataAccess.Migrations.Store
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("OrderStatus")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

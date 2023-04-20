@@ -60,7 +60,7 @@
 		order.Products = new();
 		order.Products.AddRange(cart);
 		order.Id = Guid.NewGuid().ToString();
-		order.Status = Status.Completed;
+		order.OrderStatus = OrderStatus.Completed;
 
 		var response = await client.PutAsJsonAsync($"orderSuccess?session_id={session_id}", order);
 

@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Models.Enums
 {
-	public enum Status
+	public enum OrderStatus
 	{
 		Shipped,
 		Processing,

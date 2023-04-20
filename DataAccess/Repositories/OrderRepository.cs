@@ -55,7 +55,7 @@ namespace DataAccess.Repositories
         {
 	        var oldOrder = _storeContext.Orders.FirstOrDefault(x => x.Id == id);
 	        
-            oldOrder.Status = entity.Status;
+            oldOrder.OrderStatus = entity.OrderStatus;
 	        
             return oldOrder;
 
