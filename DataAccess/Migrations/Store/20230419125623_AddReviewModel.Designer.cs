@@ -4,6 +4,7 @@ using DataAccess.DataContext.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations.Store
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20230419125623_AddReviewModel")]
+    partial class AddReviewModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,9 +96,6 @@ namespace DataAccess.Migrations.Store
                     b.Property<DateTime>("PurchaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
@@ -157,14 +157,19 @@ namespace DataAccess.Migrations.Store
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ProductModelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductModelId");
 
                     b.ToTable("Reviews");
                 });
@@ -176,9 +181,21 @@ namespace DataAccess.Migrations.Store
                         .HasForeignKey("OrderModelId");
                 });
 
+            modelBuilder.Entity("DataAccess.Models.ReviewModel", b =>
+                {
+                    b.HasOne("DataAccess.Models.ProductModel", null)
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductModelId");
+                });
+
             modelBuilder.Entity("DataAccess.Models.OrderModel", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ProductModel", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

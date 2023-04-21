@@ -30,6 +30,8 @@ public static class WebApplicationEndpointsExtensions
 
         app.MediateGet<GetProductRecommendationsRequest>("getRecommendations");
         app.MediateAuthenticatePut<UpdateOrderStatusRequest>("updateOrderStatus");
+        app.MediateGet<GetReviewsOfProductRequest>("productReviews");
+        app.MediatePost<AddReviewRequest>("addReview");
         return app;
     }
 }
