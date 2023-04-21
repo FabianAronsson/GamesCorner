@@ -9,83 +9,83 @@
 @using System.Diagnostics
 
 <div class="container">
-	<div class="progressbar">
-		<div class="circle1"></div>
-		<div class="content1">Shopping Cart</div>
-		<div class="line"></div>
-		<div class="circle2"></div>
-		<div class="content1">Order confirmation</div>
-	</div>
+    <div class="progressbar">
+        <div class="circle1"></div>
+        <div class="content1">Shopping Cart</div>
+        <div class="line"></div>
+        <div class="circle2"></div>
+        <div class="content1">Order confirmation</div>
+    </div>
 </div>
 <div class="">
-	<div class="row m-4">
-		<div class="col-lg-8 ">
-			<h3 class="text-white fw-bolder">Cart</h3>
-			@if (orderItems.Count == 0)
-			{
-				<div class="align-items-center justify-content-center fs-4 text-white">Your cart is empty!</div>
-			}
-			else
-			{
-				@foreach (var cartItem in cartItems)
-				{
-					<div class="card m-3 p-4 ">
-						<div class="row">
-							<div class="col-sm-4 d-flex justify-content-center align-items-center">
-								<img src="@cartItem.Product.ImageUrl" class="card-img img-fluid" alt="@cartItem.Product.Name">
-							</div>
-							<div class="col-sm-4 d-flex justify-content-center align-items-center flex-column">
-								<div class="card-body d-flex flex-wrap justify-content-center align-items-center">
-									<h5 class="card-title fw-bolder text-white fs-2">@cartItem.Product.Name</h5>
-									@*<i class="oi oi-trash" style="color: white"><button class="btn"></button></i>*@
-								</div>
-							</div>
-							<div class="col-sm-4  d-flex flex-column justify-content-center align-items-center">
-								<p class="card-text text-white fw-bolder fs-4 mt-4">@cartItem.Product.Price kr</p>
-
-								<div class=" d-flex  h-25 align-items-center ">
-									<button class="btn btn-dark text-white" @onclick="async ()=> await UpdateQuantity(cartItem, -1)">
-										<i class="oi oi-minus"></i>
-									</button>
-									<div class="text-white px-4">@cartItem.Amount</div>
-									<button class="btn btn-dark text-white" @onclick="async ()=> await UpdateQuantity(cartItem, +1)">
-										<i class="oi oi-plus"></i>
-									</button>
-								</div>
-							</div>
-
-						</div>
-						<hr class="bg-light" />
-					</div>
-				}
-			}
-		</div>
-		<div class="col-lg-4 ">
-			<h4 class="text-white fw-bolder">Summary</h4>
-			<div class="card m-3 d-block">
-				<div class=" card-body d-flex justify-content-between">
-					<h5 class="text-white">Total</h5>
-					<h4 class="fw-bolder text-white">@Math.Round(TotalPrice,2) kr</h4>
-				</div>
-				<div class="d-flex justify-content-center align-items-center flex-column m-2">
-					<div class="m-4"><button class="btn checkout-button text-white fs-4" @onclick="async () => await Checkout()"> Go to payment ></button></div>
-					<div class="d-flex justify-content-evenly align-items-center">
-
-						<h5 class="text-white m-2">or</h5>
-
-					</div>
-					<div class="m-3 text-center"><a href="/" class="text-white fs-5 text-decoration-none"> Continue Shopping </a></div>
-				</div>
-			</div>
-		</div>
-	</div>
-    <div class="row">
+    <div class="row m-4">
         <div class="col-lg-8 ">
+            <h3 class="text-white fw-bolder">Cart</h3>
+            @if (orderItems.Count == 0)
+            {
+                <div class="align-items-center justify-content-center fs-4 text-white">Your cart is empty!</div>
+            }
+            else
+            {
+                @foreach (var cartItem in cartItems)
+                {
+                    <div class="card m-3 p-4 ">
+                        <div class="row">
+                            <div class="col-sm-4 d-flex justify-content-center align-items-center">
+                                <img src="@cartItem.Product.ImageUrl" class="card-img img-fluid" alt="@cartItem.Product.Name">
+                            </div>
+                            <div class="col-sm-4 d-flex justify-content-center align-items-center flex-column">
+                                <div class="card-body d-flex flex-wrap justify-content-center align-items-center">
+                                    <h5 class="card-title fw-bolder text-white fs-2">@cartItem.Product.Name</h5>
+                                    @*<i class="oi oi-trash" style="color: white"><button class="btn"></button></i>*@
+                                </div>
+                            </div>
+                            <div class="col-sm-4  d-flex flex-column justify-content-center align-items-center">
+                                <p class="card-text text-white fw-bolder fs-4 mt-4">@cartItem.Product.Price kr</p>
+
+                                <div class=" d-flex  h-25 align-items-center ">
+                                    <button class="btn btn-dark text-white" @onclick="async ()=> await UpdateQuantity(cartItem, -1)">
+                                        <i class="oi oi-minus"></i>
+                                    </button>
+                                    <div class="text-white px-4">@cartItem.Amount</div>
+                                    <button class="btn btn-dark text-white" @onclick="async ()=> await UpdateQuantity(cartItem, +1)">
+                                        <i class="oi oi-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr class="bg-light" />
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-lg-4 ">
+            <h4 class="text-white fw-bolder">Summary</h4>
+            <div class="card m-3 d-block">
+                <div class=" card-body d-flex justify-content-between">
+                    <h5 class="text-white">Total</h5>
+                    <h4 class="fw-bolder text-white">@Math.Round(TotalPrice,2) kr</h4>
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-column m-2">
+                    <div class="m-4"><button class="btn checkout-button text-white fs-4" @onclick="async () => await Checkout()"> Go to payment ></button></div>
+                    <div class="d-flex justify-content-evenly align-items-center">
+
+                        <h5 class="text-white m-2">or</h5>
+
+                    </div>
+                    <div class="m-3 text-center"><a href="/" class="text-white fs-5 text-decoration-none"> Continue Shopping </a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-4">
+
         <h4 class="text-white fw-bolder m-4">Recommended</h4>
         <div class="row">
             @foreach (var product in RecommandProducts)
             {
-                <div class="card m-3 p-4 ">
+                <div class="card m-3 p-4 col-lg-7 ">
                     <div class="row">
                         <div class="col-sm-4 d-flex justify-content-center align-items-center">
                             <img src="@product.ImageUrl" class="card-img img-fluid" alt="@product.Name">
@@ -100,48 +100,54 @@
 
                             <div class=" d-flex  h-25 align-items-center ">
                                 <button class="btn btn-dark text-white" @onclick="async () => await AddToCart(product)">
-                                   Add to cart
+                                    Add to cart
                                 </button>
-                            
+
                             </div>
                         </div>
-						    
+
                     </div>
-                    <hr class="bg-light"/>
+                    <hr class="bg-light" />
                 </div>
             }
         </div>
-        </div>
+
     </div>
 </div>
 
 
 @code {
 
-	public List<OrderItemDto> orderItems { get; set; } = new();
-	private List<CartProductDto> cartItems { get; } = new();
-	private List<ProductModelDto> RecommandProducts = new();
-	public decimal TotalPrice { get; set; } = 0;
-	protected override async Task OnInitializedAsync()
-	{
-	    GetRecommendedProducts();
-		orderItems = await CartService.GetCartItems();
-		var client = HttpClientFactory.CreateClient("public");
-		foreach (var orderItem in orderItems)
-		{
-			cartItems.Add(new CartProductDto()
-				{
-					Amount = orderItem.Amount,
-					Id = orderItem.Id,
-					Product = await client.GetFromJsonAsync<ProductModelDto>($"getProduct?Id={orderItem.ProductId}")
-				});
-		}
+    public List<OrderItemDto> orderItems { get; set; } = new();
+    private List<CartProductDto> cartItems { get; set; } = new();
+    private List<ProductModelDto> RecommandProducts = new();
+    public decimal TotalPrice { get; set; } = 0;
+    protected override async Task OnInitializedAsync()
+    {
+        GetRecommendedProducts();
+        await GetCartItems();
 
-		foreach (var item in cartItems)
-		{
-			TotalPrice += (decimal)(item.Amount * item.Product.Price);
-		}
-	}
+    }
+
+    private async Task GetCartItems()
+    {
+        orderItems = await CartService.GetCartItems();
+        var client = HttpClientFactory.CreateClient("public");
+        foreach (var orderItem in orderItems)
+        {
+            cartItems.Add(new CartProductDto()
+            {
+                Amount = orderItem.Amount,
+                Id = orderItem.Id,
+                Product = await client.GetFromJsonAsync<ProductModelDto>($"getProduct?Id={orderItem.ProductId}")
+            });
+        }
+
+        foreach (var item in cartItems)
+        {
+            TotalPrice += (decimal)(item.Amount * item.Product.Price);
+        }
+    }
 
     private async Task GetRecommendedProducts()
     {
@@ -155,59 +161,68 @@
         var client = HttpClientFactory.CreateClient("public");
         var products = await client.GetFromJsonAsync<IEnumerable<ProductModelDto>>($"getRecommendations?Id={email}");
         RecommandProducts.AddRange(products!);
-		StateHasChanged();
+        StateHasChanged();
     }
 
-	private async Task UpdateQuantity(CartProductDto dto, int number)
-	{
-		foreach (var cartItem in cartItems)
-		{
-			if (cartItem.Product.Id.Equals(dto.Product.Id))
-			{
-				var orderItemTemp = new OrderItemDto()
-					{
-						Amount = cartItem.Amount,
-						Id = cartItem.Id,
-						ProductId = cartItem.Product.Id
-					};
+    private async Task UpdateQuantity(CartProductDto dto, int number)
+    {
+        foreach (var cartItem in cartItems)
+        {
+            if (cartItem.Product.Id.Equals(dto.Product.Id))
+            {
+                var orderItemTemp = new OrderItemDto()
+                    {
+                        Amount = cartItem.Amount,
+                        Id = cartItem.Id,
+                        ProductId = cartItem.Product.Id
+                    };
 
-				if (number < 0 && cartItem.Amount - 1 == 0)
-				{
+                if (number < 0 && cartItem.Amount - 1 == 0)
+                {
 
-					await CartService.DeleteItem(orderItemTemp);
-					orderItems.Remove(orderItemTemp);
-					cartItems.Remove(cartItem);
-					TotalPrice -= (decimal)cartItem.Product.Price;
-					break;
-				}
+                    await CartService.DeleteItem(orderItemTemp);
+                    orderItems.Remove(orderItemTemp);
+                    cartItems.Remove(cartItem);
+                    TotalPrice -= (decimal)cartItem.Product.Price;
+                    break;
+                }
 
-				cartItem.Amount += number;
-				orderItems.FirstOrDefault(o => o.Id.Equals(cartItem.Id)).Amount += number;
-				if (number > 0)
-				{
-					await CartService.AddToCart(orderItemTemp, await CartService.GetUserId());
-					TotalPrice += (decimal)cartItem.Product.Price;
+                cartItem.Amount += number;
+                orderItems.FirstOrDefault(o => o.Id.Equals(cartItem.Id)).Amount += number;
+                if (number > 0)
+                {
+                    await CartService.AddToCart(orderItemTemp, await CartService.GetUserId());
+                    TotalPrice += (decimal)cartItem.Product.Price;
 
-				}
-				else
-				{
-					await CartService.DeleteItem(orderItemTemp);
-					TotalPrice -= (decimal)cartItem.Product.Price;
-				}
-			}
-		}
+                }
+                else
+                {
+                    await CartService.DeleteItem(orderItemTemp);
+                    TotalPrice -= (decimal)cartItem.Product.Price;
+                }
+            }
+        }
 
-	}
+    }
 
-	private async Task Checkout()
-	{
-		var url = await CartService.Checkout();
-		await jsInterop.InvokeVoidAsync("redirectToCheckout", url.Replace("\"", ""));
-	}
+    private async Task Checkout()
+    {
+        var url = await CartService.Checkout();
+        await jsInterop.InvokeVoidAsync("redirectToCheckout", url.Replace("\"", ""));
+    }
 
     private async Task AddToCart(ProductModelDto product)
     {
-        throw new NotImplementedException();
+        var orderItemTemp = new OrderItemDto()
+        {
+            Amount = 1,
+            Id = Guid.NewGuid().ToString(),
+            ProductId = product.Id
+        };
+        await CartService.AddToCart(orderItemTemp, await CartService.GetUserId());
+        cartItems = new List<CartProductDto>();
+        await GetCartItems();
+        StateHasChanged();
     }
 
 }
