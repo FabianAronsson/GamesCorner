@@ -53,7 +53,7 @@ namespace DataAccess.Repositories
 
         public async Task<OrderModel> UpdateStatusAsync(Guid id, OrderModel entity)
         {
-	        var oldOrder = _storeContext.Orders.FirstOrDefault(x => x.Id == id);
+	        var oldOrder = _storeContext.Orders.FirstOrDefault(x => x.Id.Equals(id));
 	        
             oldOrder.OrderStatus = entity.OrderStatus;
 	        
