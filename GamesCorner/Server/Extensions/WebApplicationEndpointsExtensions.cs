@@ -26,6 +26,8 @@ public static class WebApplicationEndpointsExtensions
         app.MediateAuthenticatePost<CreateProductRequest>("createProduct");
         app.MediateAuthenticateDelete<DeleteProductRequest>("deleteProduct");
         app.MediateAuthenticatePut<UpdateProductRequest>("updateProduct");
+        app.MediatePost<AddUserToEventRequest>("addUserToEvent");
+        app.MediateGet<GetEventRequest>("getEvent");
         return app;
     }
 }

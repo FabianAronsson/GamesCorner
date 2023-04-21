@@ -20,7 +20,8 @@ namespace DataAccess.Repositories
         }
         public async Task<EventModel?> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var Event = _storeContext.Events.FirstOrDefault(x => x.Id == id);
+            return Event;
         }
 
         public async Task<IEnumerable<EventModel>> GetAllAsync()
