@@ -13,8 +13,9 @@ namespace GamesCorner.Client.Pages
         [Parameter] public string ProductId { get; set; }
 
         public ProductModelDto Product { get; set; } = new();
-        public List<ReviewsDto> Reviews { get; set; } = new();
-        public ReviewsDto newReview { get; set; } = new ();
+        public List<ReviewsDto> DisplayedReviews { get; set; } = new();
+        public List<ReviewsDto> ActualReviews { get; set; } = new();
+        public ReviewsDto newReview { get; set; } = new();
         private int ProductScore = 0;
 
         private bool IsSubmitted { get; set; }
@@ -28,9 +29,9 @@ namespace GamesCorner.Client.Pages
 
         private int GetProductScore()
         {
-            if (Reviews.Count != 0)
+            if (ActualReviews.Count != 0)
             {
-                ProductScore = Reviews.Sum(x => x.Rating) / Reviews.Count;
+                ProductScore = ActualReviews.Sum(x => x.Rating) / ActualReviews.Count;
             }
             else
             {
@@ -45,7 +46,7 @@ namespace GamesCorner.Client.Pages
             3 => "Sufficient",
             4 => "Good",
             5 => "Awesome!",
-            _ => "Rate our product!"
+            _ => "Rate the game!"
         };
 
 
@@ -58,7 +59,8 @@ namespace GamesCorner.Client.Pages
         private async Task GetReviews()
         {
             var client = HttpClientFactory.CreateClient("public");
-            Reviews = await client.GetFromJsonAsync<List<ReviewsDto>>($"productReviews?productId={Guid.Parse(ProductId)}");
+            ActualReviews = await client.GetFromJsonAsync<List<ReviewsDto>>($"productReviews?productId={Guid.Parse(ProductId)}");
+            DisplayedReviews = new List<ReviewsDto>(ActualReviews.Take(3));
             ProductScore = GetProductScore();
         }
 
@@ -78,7 +80,7 @@ namespace GamesCorner.Client.Pages
         }
         private async Task AddProductToCart()
         {
-          
+
             await CartService.AddToCart(new OrderItemDto()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -98,7 +100,7 @@ namespace GamesCorner.Client.Pages
             var client = HttpClientFactory.CreateClient("public");
             var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var id = state.User.Claims.FirstOrDefault(c => c.Type == "name")?.Value ?? "anonymous";
-            
+
             await client.PostAsJsonAsync("addReview", new ReviewsDto()
             {
                 Content = newReview.Content,
@@ -125,6 +127,12 @@ namespace GamesCorner.Client.Pages
         private void ChangeVisibility()
         {
             shouldCollapse = !shouldCollapse;
+        }
+
+        private void LoadReviews()
+        {
+            DisplayedReviews.AddRange(ActualReviews.Skip(DisplayedReviews.Count).Take(3));
+            StateHasChanged();
         }
     }
 }

@@ -52,7 +52,7 @@
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <h4 class="align-self-center">Game review score</h4>
                     <MudRating @bind-SelectedValue="@ProductScore" ReadOnly="true" />
-                    <div>based on @Reviews.Count reviews</div>
+                    <div>based on @DisplayedReviews.Count reviews</div>
                     <button class="btn col-3 text-white fw-bolder" type="button" @onclick="@ChangeVisibility">Review this game</button>
                     <div class="@CollapseReviewMenu mt-5 col-sm-6">
                         <EditForm Model="@newReview" OnSubmit="CreateNewReview">
@@ -74,7 +74,7 @@
 
         <div class="row p-5 bg-dark">
 
-            @if (Reviews is null || Reviews.Count == 0)
+            @if (DisplayedReviews is null || DisplayedReviews.Count == 0)
             {
                 <div class="rate col-12 py-3 text-white mb-5">
                    <div>There is no review for this game yet!</div>
@@ -82,10 +82,11 @@
             }
             else
             {
+
                 <h3 class="text-white">Comments</h3>
                 <div class="row  text-center align-items-center justify-content-center m-0">
-                    <div class="row m-2 d-flex flex-column-reverse m-3 align-items-center justify-content-evenly">
-                        @foreach (var review in Reviews)
+                    <div class="row m-2 d-flex m-3 align-items-center justify-content-evenly">
+                        @foreach (var review in DisplayedReviews)
                         {
                             <div class="card m-2 col-12 col-sm-12 ">
                                 <div class="card-header d-flex">
@@ -102,6 +103,14 @@
                         }
                     </div>
                 </div>
+                if (DisplayedReviews.Count < ActualReviews.Count)
+                {
+                    <div class="d-flex justify-content-center my-1">
+                        <button class="btn buttons text-white" @onclick="LoadReviews">
+                            Load more
+                        </button>
+                    </div>
+                }
             }
         </div>
     </div>
