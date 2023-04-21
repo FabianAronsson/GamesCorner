@@ -11,7 +11,7 @@ public class GetProductRecommendationsHandler : IRequestHandler<GetProductRecomm
     public async Task<IResult> Handle(GetProductRecommendationsRequest request, CancellationToken cancellationToken)
     {
         
-        if (request.Id == null)
+        if (request.Id == null || request.Id.Length <= 0)
         {
             return Results.Ok((await request.UnitOfWork.ProductRepository.GetAllAsync("")).Take(12));
         }
