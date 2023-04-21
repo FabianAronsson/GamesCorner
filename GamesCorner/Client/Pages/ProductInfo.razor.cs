@@ -13,19 +13,53 @@ namespace GamesCorner.Client.Pages
         [Parameter] public string ProductId { get; set; }
 
         public ProductModelDto Product { get; set; } = new();
-        private int i = 0;
-        public List<ReviewsDto>? Reviews { get; set; } = new();
-        private ReviewsDto newReview { get; set; } = new ();
-        private string _authMessage;
+        public List<ReviewsDto> Reviews { get; set; } = new();
+        public ReviewsDto newReview { get; set; } = new ();
+        private int ProductScore = 0;
 
         private bool IsSubmitted { get; set; }
-
         public string cartText { get; set; } = "Add to cart";
+
+
+        private int selectedVal = 0;
+
+        private int? activeVal;
+        private void HandleHoveredValueChanged(int? val) => activeVal = val;
+
+        private int GetProductScore()
+        {
+            if (Reviews.Count != 0)
+            {
+                ProductScore = Reviews.Sum(x => x.Rating) / Reviews.Count;
+            }
+            else
+            {
+                ProductScore = 0;
+            }
+            return ProductScore;
+        }
+        private string LabelText => (activeVal ?? selectedVal) switch
+        {
+            1 => "Very bad",
+            2 => "Bad",
+            3 => "Sufficient",
+            4 => "Good",
+            5 => "Awesome!",
+            _ => "Rate our product!"
+        };
+
 
         protected override async Task OnInitializedAsync()
         {
-	        var client = HttpClientFactory.CreateClient("public");
-	        Reviews = await client.GetFromJsonAsync<List<ReviewsDto>>($"productReviews?productId={Guid.Parse(ProductId)}");
+            GetReviews();
+            GetProductScore();
+        }
+
+        private async Task GetReviews()
+        {
+            var client = HttpClientFactory.CreateClient("public");
+            Reviews = await client.GetFromJsonAsync<List<ReviewsDto>>($"productReviews?productId={Guid.Parse(ProductId)}");
+            ProductScore = GetProductScore();
         }
 
 
@@ -63,47 +97,34 @@ namespace GamesCorner.Client.Pages
         {
             var client = HttpClientFactory.CreateClient("public");
             var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var id = state.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-
-            IsSubmitted = true;
-            StateHasChanged();
-            await client.PostAsJsonAsync<ReviewsDto>("addReview", new ReviewsDto()
+            var id = state.User.Claims.FirstOrDefault(c => c.Type == "name")?.Value ?? "anonymous";
+            
+            await client.PostAsJsonAsync("addReview", new ReviewsDto()
             {
                 Content = newReview.Content,
                 CreatedDateTime = DateTime.UtcNow,
                 Id = Guid.NewGuid().ToString(),
                 ProductId = ProductId,
-                Rating = newReview.Rating,
+                Rating = selectedVal,
                 UserEmail = id
             });
-        }
-        public static string GetStarRating(double rating)
-        {
-            string fullStar = "★";
-            string emptyStar = "<span class='empty'>☆</span>";
-            int numberOfFullStars = (int)Math.Floor(rating);
-            bool hasHalfStar = (rating - numberOfFullStars) >= 0.5;
 
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < numberOfFullStars; i++)
-            {
-                sb.Append(fullStar);
-            }
-            if (hasHalfStar)
-            {
-                sb.Append(emptyStar);
-                numberOfFullStars++;
-            }
-            for (int i = numberOfFullStars; i < 5; i++)
-            {
-                sb.Append(emptyStar);
-            }
-
-            return sb.ToString();
+            newReview = new();
+            selectedVal = 0;
+            await GetReviews();
+            StateHasChanged();
         }
+
         protected override async Task OnParametersSetAsync()
         {
             await GetProduct();
+        }
+
+        private bool shouldCollapse = true;
+        public string CollapseReviewMenu => shouldCollapse ? "collapse" : null;
+        private void ChangeVisibility()
+        {
+            shouldCollapse = !shouldCollapse;
         }
     }
 }

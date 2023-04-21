@@ -12,6 +12,23 @@
 .oi-person {
     color: white
 }
-.star-rating {
-    color: orangered;
+
+.review {
+    background-color: #323232;
+}
+
+.text-area {
+    background-color: white;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+.btn {
+    background-color: orangered;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+
+.CollapseReviewMenu {
+    display: none;
 }
