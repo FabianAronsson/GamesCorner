@@ -1,6 +1,7 @@
 ﻿@page "/admin/dashboard/manage/events"
 @using Microsoft.AspNetCore.Authorization
 @using GamesCorner.Shared.DTOs
+@using GamesCorner.Shared.Dtos
 @inject IHttpClientFactory HttpClientFactory
 
 
@@ -10,23 +11,23 @@
 
 <hr />
 <div class="d-flex justify-content-center align-items-center">
-	<EditForm Model="@_currentEvent" OnSubmit="@OnClickCreate">
+	<EditForm Model="@_currentEvent" >
 		<div class=" my-1 row d-flex justify-content-center align-items-center">
 
 
 
 			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1 ">
 				<label for="name">Name:</label> <br>
-				<InputText id="name" type="input" class="form-input" @bind-Value="_currentEvent.Name" placeholder="Event Name" required />
+				<InputText id="name" type="input" class="form-input" @bind-Value="@_currentEvent.Name" placeholder="Event Name" required />
 			</div>
 			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
 				<label for="location">Location:</label> <br>
-				<InputText id="Location" type="input" class="form-input" @bind-Value="_currentEvent.Location" placeholder="Location" required />
+				<InputText id="Location" type="input" class="form-input" @bind-Value="@_currentEvent.Location" placeholder="Location" required />
 			</div>
 
 			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
 				<label for="time">Time:</label> <br>
-				<InputDate id="time" Type="InputDateType.DateTimeLocal" class="form-input" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="_currentEvent.Date" required />
+				<InputDate id="time" Type="InputDateType.DateTimeLocal" class="form-input" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="@_currentEvent.Date" required />
 			</div>
 
 
@@ -50,7 +51,7 @@
 				@if (!_isEditing)
 				{
 					<button type="button" class="btn btn-danger mx-2" @onclick="OnClickReset">Reset values</button>
-					<button class="btn btn-success mx-2" type="submit" >Create Event</button>
+					<button class="btn btn-success mx-2" type="submit" @onclick="OnClickCreate">Create Event</button>
 				}else
 				{
 					<div class="col-sm-1">
@@ -134,8 +135,9 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 @code {
 
-	TempEvent? _currentEvent { get; set; } = new TempEvent("", "", "", DateTime.Today, "", 0);
-	private List<TempEvent> _events { get; set; } = new();
+	//TempEvent? _currentEvent { get; set; } = new TempEvent("", "", "", DateTime.Today, "", 0);
+	public EventDto? _currentEvent { get; set; } = new EventDto { Id = Guid.NewGuid().ToString(), Name = "", Description = "", Location = "", Date = DateTime.Today, ImageUrl = "", Price = 0 };
+	private List<EventDto> _events { get; set; } = new();
 	public string searchString { get; set; } = "";			// needed for get list ?
 
 	private string _adminCurrentActivity = "Create an Event!";
@@ -143,12 +145,13 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	//Editing stuff
 	private bool _isEditing = false;
 	private string _editingEventName = "invailid object";
-	private Guid _editingCurrentGuid = new();
+	private string _editingCurrentGuid = "";
 
 	// Create Button
-	private void OnClickCreate()
+	private async Task OnClickCreate()
 	{
-		_events.Add(_currentEvent);
+		//_events.Add(_currentEvent);
+		 await AddEvent(_currentEvent);
 		StartCleanEvent();
 	}
 
@@ -159,7 +162,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	}
 
 	// Edit Button
-	private void OnClickEdit(Guid currentGUID)
+	private void OnClickEdit(string currentGUID)
 	{
 		// Load in the current event to be edited
 		_editingCurrentGuid = currentGUID;
@@ -196,7 +199,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 	private void StartCleanEvent()
 	{
-		_currentEvent = new TempEvent("", "", "", DateTime.Today, "", 0);
+		_currentEvent = new EventDto { Id = Guid.NewGuid().ToString(), Name = "", Description = "", Location = "", Date = DateTime.Today, ImageUrl = "", Price = 0 };
 		_isEditing = false;
 		SetActivityString();
 	}
@@ -205,7 +208,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	{
 		foreach (var item in _events)
 		{
-			if (item.Id == _editingCurrentGuid)
+			if (item.Id == _editingCurrentGuid.ToString())
 			{
 				//_currentEvent = item;
 				_currentEvent.Id = item.Id;
@@ -221,38 +224,32 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 	private void UpdateCurrentEvent()
 	{
-		foreach (var item in _events)
-		{
-			if (item.Id == _editingCurrentGuid)
-			{
-				item.Name = _currentEvent.Name;
-				item.Description = _currentEvent.Description;
-				item.Location = _currentEvent.Location;
-				item.Price = _currentEvent.Price;
-				item.Date = _currentEvent.Date;
-				item.ImageUrl = _currentEvent.ImageUrl;
-			}
-		}
+		UpdateEvent(_currentEvent);
+	//foreach (var item in _events)
+	//{
+	//	if (item.Id == _editingCurrentGuid.ToString())
+	//	{
+	//		item.Name = _currentEvent.Name;
+	//		item.Description = _currentEvent.Description;
+	//		item.Location = _currentEvent.Location;
+	//		item.Price = _currentEvent.Price;
+	//		item.Date = _currentEvent.Date;
+	//		item.ImageUrl = _currentEvent.ImageUrl;
+	//	}
+	//}
 	}
 
 	private void RemoveEvent()
 	{
-		//foreach (var item in _events)
+		//for (int i = 0; i < _events.Count; i++)
 		//{
-		//	if (item.Id == _editingCurrentGuid)
+		//	if (_events[i].Id == _editingCurrentGuid.ToString())
 		//	{
-		//		_events.Remove(item);
+		//		_events.RemoveAt(i);
+		//		break;
 		//	}
 		//}
-
-		for (int i = 0; i < _events.Count; i++)
-		{
-			if (_events[i].Id == _editingCurrentGuid)
-			{
-				_events.RemoveAt(i);
-				break;
-			}
-		}
+		DeleteEvent(_currentEvent);
 	}
 
 	private void SetActivityString()
@@ -261,22 +258,67 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	}
 
 
-	//protected override async Task OnInitializedAsync()
-	//{
-	//	await GetEvents();
-	//	await base.OnInitializedAsync();
-	//}
+	protected override async Task OnInitializedAsync()
+	{
+		await GetEvents();
+		await base.OnInitializedAsync();
+	}
 
-	//private async Task GetEvents()
-	//{
-	//	var client = HttpClientFactory.CreateClient("public");
 
-	//	var response = await client.GetAsync($"search?name={searchString}");
+	private async Task GetEvents()
+	{
 
-	//	if (response.IsSuccessStatusCode)
-	//	{
-	//		_events = await response.Content.ReadFromJsonAsync<List<EventModelDto>>();
-	//	}
-	//}
+		var client = HttpClientFactory.CreateClient("public");
 
+		var response = await client.GetAsync($"events");
+
+		if (response.IsSuccessStatusCode)
+		{
+			_events = await response.Content.ReadFromJsonAsync<List<EventDto>>();
+		}
+	}
+
+	private async Task AddEvent(EventDto currentEvent)
+	{
+		var newEvent = currentEvent;
+
+
+		var client = HttpClientFactory.CreateClient("public");
+
+		var response = await client.PostAsJsonAsync($"addEvent", newEvent);
+
+		if (response.IsSuccessStatusCode)
+		{
+			GetEvents();
+		}
+	}
+
+	private async Task DeleteEvent(EventDto currentEvent)
+	{
+		var id = currentEvent.Id;
+
+		var client = HttpClientFactory.CreateClient("public");
+
+		var response = await client.DeleteAsync($"deleteEvent?EventId={id}");
+
+		if (response.IsSuccessStatusCode)
+		{
+			///
+		}
+	}
+
+	private async Task UpdateEvent(EventDto currentEvent)
+	{
+		var id = currentEvent.Id;
+
+		var client = HttpClientFactory.CreateClient("public");
+
+		var response = await client.DeleteAsync($"updateEvent?EventId={id}");
+
+		if (response.IsSuccessStatusCode)
+		{
+			///
+		}
+		
+	}
 }
