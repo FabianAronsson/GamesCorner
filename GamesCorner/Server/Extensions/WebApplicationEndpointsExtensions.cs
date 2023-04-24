@@ -20,7 +20,7 @@ public static class WebApplicationEndpointsExtensions
         app.MediateGet<OrderRequest>("getOrders");
         app.MediateAuthenticateGet<GetSpecificUsersRequest>("getUsers");
         app.MediateGet<GetAllEventsRequest>("events");
-        app.MediateAuthenticatePost<AddEventRequest>("addEvent");
+        app.MediatePost<AddEventRequest>("addEvent");
         app.MediateAuthenticateDelete<DeleteEventRequest>("deleteEvent");
         app.MediateAuthenticatePut<UpdateEventRequest>("updateEvent");
         app.MediateAuthenticatePost<CreateProductRequest>("createProduct");
