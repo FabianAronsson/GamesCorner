@@ -1,0 +1,282 @@
+﻿@page "/AdminEvent"
+@using Microsoft.AspNetCore.Authorization
+@using GamesCorner.Shared.DTOs
+@inject IHttpClientFactory HttpClientFactory
+
+
+@*@attribute [Authorize(Roles = "Administrator")]*@
+
+<h3 class="my-orange-text">Admin Event - @_adminCurrentActivity</h3>
+
+<hr />
+<div class="d-flex justify-content-center align-items-center">
+	<EditForm Model="@_currentEvent" OnSubmit="@OnClickCreate">
+		<div class=" my-1 row d-flex justify-content-center align-items-center">
+
+
+
+			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1 ">
+				<label for="name">Name:</label> <br>
+				<InputText id="name" type="input" class="form-input" @bind-Value="_currentEvent.Name" placeholder="Event Name" required />
+			</div>
+			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
+				<label for="location">Location:</label> <br>
+				<InputText id="Location" type="input" class="form-input" @bind-Value="_currentEvent.Location" placeholder="Location" required />
+			</div>
+
+			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
+				<label for="time">Time:</label> <br>
+				<InputDate id="time" Type="InputDateType.DateTimeLocal" class="form-input" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="_currentEvent.Date" required />
+			</div>
+
+
+			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
+				<label for="description">Description:</label> <br>
+				<InputTextArea id="description" type="input" class="form-control" @bind-Value="_currentEvent.Description" placeholder="Description" required />
+			</div>
+			
+			<div class="col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
+				<label for="imageUrl">Image Url:</label> <br>
+				<InputText id="imageUrl" type="input" class="form-input" @bind-Value="_currentEvent.ImageUrl" placeholder="Image Url" required />
+			</div>
+
+			<div class=" col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
+				<label for="price">Price</label> <br>
+				<InputNumber id="price" type="input" min="0" class="form-input" @bind-Value="_currentEvent.Price" placeholder="Price" required />
+			</div>
+
+			<div class="d-flex justify-content-center align-items-center my-3">
+
+				@if (!_isEditing)
+				{
+					<button type="button" class="btn btn-danger mx-2" @onclick="OnClickReset">Reset values</button>
+					<button class="btn btn-success mx-2" type="submit" >Create Event</button>
+				}else
+				{
+					<div class="col-sm-1">
+						<button class="btn btn-danger mx-2 align-items-center" type="submit" @onclick="OnClickDelete">DELETE</button>
+					</div>
+					<div class="col-sm-1">
+						<button class="btn btn-warning mx-2 align-items-center" type="submit" @onclick="OnClickCancel">Cancel</button>
+					</div>
+					<div class="col-sm-1">
+						<button class="btn btn-success mx-2 align-items-center" type="submit" @onclick="OnClickSave">Save</button>
+					</div>
+				}
+				
+			</div>
+		</div>
+
+	</EditForm>
+
+</div>
+<hr />
+
+
+<h3 class="my-orange-text">All Events</h3>
+
+
+<Virtualize Items="_events" Context="thisEvent">
+	<div class="d-flex justify-content-center align-items-center p-1">
+		<div class="card border col-9">
+			<div class="card-header my-orange">
+				<Strong>EVENT NAME:</Strong> @thisEvent.Name
+			</div>
+			<div class="row">
+
+				<div class="col-sm-3">
+					<div class="my-image">
+						<img src="@thisEvent.ImageUrl" class="rounded-circle mx-auto d-block mt-3 img-fluid" />
+					</div>
+				</div>
+
+				<div class="col-sm-9">
+					<div class="card border">
+						<div class="my-Card-Info">
+							@*<div class="card-header">
+							<strong>Card header</strong>
+							</div>*@
+							<ul class="list-group list-group-flush d-flex flex-wrap">
+								<li class="list-group-item"><strong>Description:<br /> </strong>@thisEvent.Description</li>
+
+								<li class="list-group-item"><strong>Location:<br /> </strong>@thisEvent.Location </li>
+								<li class="list-group-item"><strong>Date: </strong>@thisEvent.Date.ToString("dd MMMM -yyyy kl: HH:mm ") <strong>Price: </strong>@thisEvent.Price</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-sm-1">
+			<button class="btn btn-success mx-2 align-items-center" type="submit" @onclick="() => OnClickEdit(thisEvent.Id)">Edit</button>
+		</div>
+	</div>
+
+</Virtualize>
+<!--
+d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
+-->
+
+<style>
+		.form-input {
+				width: 20rem;
+				/*padding: 0.75rem 0.75rem 0.75rem 2.5rem;*/
+				padding: 0.75rem 0.75rem 0.75rem 0.5rem;
+				color: rgb(17 24 39);
+				background-color: rgb(249 250 251);
+				border: 1px solid rgb(209 213 219);
+				border-radius: 0.5rem;
+				outline-offset: 1px;
+
+	}
+</style>
+
+@code {
+
+	TempEvent? _currentEvent { get; set; } = new TempEvent("", "", "", DateTime.Today, "", 0);
+	private List<TempEvent> _events { get; set; } = new();
+	public string searchString { get; set; } = "";			// needed for get list ?
+
+	private string _adminCurrentActivity = "Create an Event!";
+
+	//Editing stuff
+	private bool _isEditing = false;
+	private string _editingEventName = "invailid object";
+	private Guid _editingCurrentGuid = new();
+
+	// Create Button
+	private void OnClickCreate()
+	{
+		_events.Add(_currentEvent);
+		StartCleanEvent();
+	}
+
+	// Reset Button
+	private void OnClickReset()
+	{
+		StartCleanEvent();
+	}
+
+	// Edit Button
+	private void OnClickEdit(Guid currentGUID)
+	{
+		// Load in the current event to be edited
+		_editingCurrentGuid = currentGUID;
+		_isEditing = true;
+
+		SetCurrentEventForEdit();
+
+		_editingEventName = _currentEvent.Name;
+		SetActivityString();
+
+	}
+
+	// Save Button
+	private void OnClickSave()
+	{
+		// Save						TO DO: Uppdate changes to the event
+		UpdateCurrentEvent();
+		StartCleanEvent();
+	}
+
+	// Cancel Button
+	private void OnClickCancel()
+	{
+		StartCleanEvent();
+	}
+
+	// Delete Button
+	private void OnClickDelete()
+	{
+		// Delete					TO DO:	the current GUID from list
+		RemoveEvent();
+		StartCleanEvent();
+	}
+
+	private void StartCleanEvent()
+	{
+		_currentEvent = new TempEvent("", "", "", DateTime.Today, "", 0);
+		_isEditing = false;
+		SetActivityString();
+	}
+
+	private void SetCurrentEventForEdit()
+	{
+		foreach (var item in _events)
+		{
+			if (item.Id == _editingCurrentGuid)
+			{
+				//_currentEvent = item;
+				_currentEvent.Id = item.Id;
+				_currentEvent.Name = item.Name;
+				_currentEvent.Description = item.Description;
+				_currentEvent.Location = item.Location;
+				_currentEvent.Price = item.Price;
+				_currentEvent.Date = item.Date;
+				_currentEvent.ImageUrl = item.ImageUrl;
+			}
+		}
+	}
+
+	private void UpdateCurrentEvent()
+	{
+		foreach (var item in _events)
+		{
+			if (item.Id == _editingCurrentGuid)
+			{
+				item.Name = _currentEvent.Name;
+				item.Description = _currentEvent.Description;
+				item.Location = _currentEvent.Location;
+				item.Price = _currentEvent.Price;
+				item.Date = _currentEvent.Date;
+				item.ImageUrl = _currentEvent.ImageUrl;
+			}
+		}
+	}
+
+	private void RemoveEvent()
+	{
+		//foreach (var item in _events)
+		//{
+		//	if (item.Id == _editingCurrentGuid)
+		//	{
+		//		_events.Remove(item);
+		//	}
+		//}
+
+		for (int i = 0; i < _events.Count; i++)
+		{
+			if (_events[i].Id == _editingCurrentGuid)
+			{
+				_events.RemoveAt(i);
+				break;
+			}
+		}
+	}
+
+	private void SetActivityString()
+	{
+		_adminCurrentActivity = _isEditing ? "Edit Event Name: " + _editingEventName : "Create an Event!";
+	}
+
+
+	//protected override async Task OnInitializedAsync()
+	//{
+	//	await GetEvents();
+	//	await base.OnInitializedAsync();
+	//}
+
+	//private async Task GetEvents()
+	//{
+	//	var client = HttpClientFactory.CreateClient("public");
+
+	//	var response = await client.GetAsync($"search?name={searchString}");
+
+	//	if (response.IsSuccessStatusCode)
+	//	{
+	//		_events = await response.Content.ReadFromJsonAsync<List<EventModelDto>>();
+	//	}
+	//}
+
+}
