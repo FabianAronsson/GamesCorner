@@ -3,6 +3,7 @@
 @using GamesCorner.Shared.DTOs
 @using GamesCorner.Shared.Dtos
 @inject IHttpClientFactory HttpClientFactory
+@inject HttpClient HttpClient
 
 
 @*@attribute [Authorize(Roles = "Administrator")]*@
@@ -268,13 +269,13 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	private async Task GetEvents()
 	{
 
-		var client = HttpClientFactory.CreateClient("public");
-
-		var response = await client.GetAsync($"events");
+		
+		var response = await HttpClient.GetAsync($"events");
 
 		if (response.IsSuccessStatusCode)
 		{
 			_events = await response.Content.ReadFromJsonAsync<List<EventDto>>();
+			StateHasChanged();
 		}
 	}
 
@@ -284,10 +285,10 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 
 		var client = HttpClientFactory.CreateClient("public");
-
+	    var response2 = await HttpClient.PostAsJsonAsync("addEvent", newEvent);
 		var response = await client.PostAsJsonAsync($"addEvent", newEvent);
 
-		if (response.IsSuccessStatusCode)
+		if (response2.IsSuccessStatusCode)
 		{
 			GetEvents();
 		}
@@ -297,9 +298,8 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	{
 		var id = currentEvent.Id;
 
-		var client = HttpClientFactory.CreateClient("public");
-
-		var response = await client.DeleteAsync($"deleteEvent?EventId={id}");
+		
+		var response = await HttpClient.DeleteAsync($"deleteEvent?EventId={id}");
 
 		if (response.IsSuccessStatusCode)
 		{
