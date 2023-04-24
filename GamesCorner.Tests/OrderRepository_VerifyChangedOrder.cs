@@ -22,7 +22,7 @@ public class OrderRepository_VerifyChangedOrder
         var orderRepository = A.Fake<IOrderRepository>();
         var productRepository = A.Fake<IProductRepository>();
         var eventRepository = A.Fake<IEventRepository>();
-        var intrestedUserEvent = A.Fake<IIntrestedUserEventRepository>();
+        var intrestedUserEvent = A.Fake<IInterestedUserEventRepository>();
         A.CallTo(() => orderRepository.UpdateAsync(orderModel)).Returns(orderModel);
 
 

@@ -10,21 +10,21 @@ public class UnitOfWork :IDisposable, IUnitOfWork
 	private readonly IProductRepository? _productRepository;
 	private readonly IOrderRepository? _orderRepository;
 	private readonly IEventRepository _eventRepository;
-	private readonly IIntrestedUserEventRepository _intrestedUserEventRepository;
+	private readonly IInterestedUserEventRepository _interestedUserEventRepository;
 
-    public UnitOfWork(StoreContext context, IProductRepository productRepository, IOrderRepository orderRepository, IEventRepository eventRepository, IIntrestedUserEventRepository intrestedUserEventRepository)
+    public UnitOfWork(StoreContext context, IProductRepository productRepository, IOrderRepository orderRepository, IEventRepository eventRepository, IInterestedUserEventRepository intrestedUserEventRepository)
 	{
 		_context = context;
 		_productRepository = productRepository;
 		_orderRepository = orderRepository;
 		_eventRepository = eventRepository;
-		_intrestedUserEventRepository = intrestedUserEventRepository;
+		_interestedUserEventRepository = intrestedUserEventRepository;
     }
 
 	public IProductRepository ProductRepository => _productRepository;
 	public IOrderRepository OrderRepository => _orderRepository;
     public IEventRepository EventRepository => _eventRepository;
-    public IIntrestedUserEventRepository IntrestedUserEventRepository => _intrestedUserEventRepository;
+    public IInterestedUserEventRepository InterestedUserEventRepository => _interestedUserEventRepository;
 
     public async Task<int> Save()
 	{

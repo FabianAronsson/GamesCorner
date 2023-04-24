@@ -7,21 +7,15 @@ namespace GamesCorner.Client.Pages;
 public partial class EventInfo : ComponentBase
 {
 	[Parameter] public string EventId { get; set; }
-
 	public EventDto Event { get; set; } = new();
-
 	private string EmailUser { get; set; }
-
 	private string PhoneUser { get; set; }
 	private string NameUser { get; set; }
 	private bool showSuccesPage { get; set; } = false;
-	
 	protected override async Task OnParametersSetAsync()
 	{
 		await GetEvent();
 	}
-
-
 	private async Task GetEvent()
 	{
 		var GuidFromString = new Guid(EventId);
@@ -34,8 +28,6 @@ public partial class EventInfo : ComponentBase
 		}
 		StateHasChanged();
 	}
-
-
 	private async Task HandleSubmit()
 	{
 		var userEvent = new UserEventDto

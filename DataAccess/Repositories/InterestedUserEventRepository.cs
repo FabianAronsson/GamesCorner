@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace DataAccess.Repositories;
 
-public class IntrestedUserEventRepository : IIntrestedUserEventRepository
+public class InterestedUserEventRepository : IInterestedUserEventRepository
 {
 	private readonly StoreContext _storeContext;
 
-	public IntrestedUserEventRepository(StoreContext storeContext)
+	public InterestedUserEventRepository(StoreContext storeContext)
 	{
 		_storeContext = storeContext;
 	}
@@ -42,7 +42,9 @@ public class IntrestedUserEventRepository : IIntrestedUserEventRepository
 
 	public async Task<IResult> AddUserEventAsync(UserEventModel userEventModel)
 	{
-		var userToAdd = _storeContext.EventUsers.FirstOrDefault(x => x.Email == userEventModel.Email && x.EventId == userEventModel.EventId);
+		var userToAdd = _storeContext.EventUsers.FirstOrDefault(x => 
+			x.Email.Equals(userEventModel.Email) && 
+			x.EventId.Equals(userEventModel.EventId));
 
 		if (userToAdd == null)
 		{

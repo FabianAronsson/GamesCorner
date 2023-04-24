@@ -8,7 +8,7 @@ public class AddUserToEventHandler : IRequestHandler<AddUserToEventRequest, IRes
 {
 	public async Task<IResult> Handle(AddUserToEventRequest request, CancellationToken cancellationToken)
 	{
-		await request.UnitOfWork.IntrestedUserEventRepository.AddUserEventAsync( new UserEventModel()
+		await request.UnitOfWork.InterestedUserEventRepository.AddUserEventAsync( new UserEventModel()
 		{
 			Id = request.UserEvent.Id,
 			Email = request.UserEvent.Email,
