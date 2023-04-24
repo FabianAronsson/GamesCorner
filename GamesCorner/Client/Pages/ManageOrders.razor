@@ -1,112 +1,58 @@
 ﻿@page "/admin/dashboard/manage/orders"
 @using Microsoft.AspNetCore.Authorization
-@using MudBlazor
+
 @using GamesCorner.Shared.Dtos
+@using MudBlazor
 @inject HttpClient httpClient
 @attribute [Authorize(Roles = "Administrator")]
 
-
-<MudDataGrid T="OrderDto" Items="@Orders" Filterable="true" FilterMode="@DataGridFilterMode.ColumnFilterRow">
-    <Columns>
-        <PropertyColumn Property="x => x.Id" Title="Nr" Filterable="false" />
-        <PropertyColumn Property="x => x.OrderStatus">
-            <FilterTemplate>
-                <MudIconButton OnClick="@OpenFilter" Icon="@_icon" Size="@Size.Small" />
-                <MudOverlay Visible="@_filterOpen" OnClick="@(() => _filterOpen = false)" />
-                <MudPopover Open="@_filterOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter"
-                    Style="width:150px">
-		           <MudStack Spacing="0">
-                       <MudCheckBox T="bool" Label="Select All" Size="@Size.Small" Checked="@_selectAll" CheckedChanged="@SelectAll" />
-                       <MudStack Spacing="0" Style="overflow-y:auto;max-height:250px">
-                           @foreach (var item in context.Items)
-                           {
-                               <MudCheckBox T="bool" Label="@($"orderstatus")" Size="@Size.Small" Checked="@(_selectedItems.Contains(item))"
-                                   CheckedChanged="@((value) => SelectedChanged(value, item))" />
-                           }
-                       </MudStack>
-                       <MudStack Row="true">
-                            <MudButton OnClick="@(() => ClearFilterAsync(context))">Clear</MudButton>
-                            <MudButton Color="@Color.Primary" OnClick="@(() => ApplyFilterAsync(context))">Filter</MudButton>
-                       </MudStack>
-                   </MudStack>
-	            </MudPopover>
-            </FilterTemplate>
-        </PropertyColumn>
-        <PropertyColumn Property="x => x.CustomerEmail" />
-        <PropertyColumn Property="x => x.PurchaseDate" />
-        <PropertyColumn Property="x => x.IsActive" Title="Molar mass" />
-    </Columns>
-    <PagerContent>
-        <MudDataGridPager T="OrderDto" />
-    </PagerContent>
-</MudDataGrid>
+<div style="background: white">
+    <MudDataGrid MultiSelection="true" Items="@Orders" Filterable="true"
+                 Hideable="true" Groupable="true" GroupExpanded="false" GroupClassFunc="GroupClassFunc">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Periodic Elements</MudText>
+            <MudSpacer />
+        </ToolBarContent>
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="Nr" Filterable="false" Groupable="false" />
+            <PropertyColumn Property="x => x.CustomerEmail" />
+            <PropertyColumn Property="x => x.PurchaseDate" />
+            <PropertyColumn Property="x => x.IsActive" />
+            <PropertyColumn Property="x => x.OrderStatus" Title="Category" Grouping GroupBy="@_groupBy">
+                <GroupTemplate>
+                    <span style="font-weight:bold">Group: @context.Grouping.Key <MudChip Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Small">total @context.Grouping.Count()</MudChip></span>
+                </GroupTemplate>
+            </PropertyColumn>
+        </Columns>
+        <PagerContent>
+            <MudDataGridPager T="OrderDto" />
+        </PagerContent>
+    </MudDataGrid>
+</div>
 @code {
     IEnumerable<OrderDto> Orders = new List<OrderDto>();
-    HashSet<OrderDto> _selectedItems = new();
-    HashSet<OrderDto> _filterItems = new();
-    FilterDefinition<OrderDto> _filterDefinition;
-    bool _selectAll = true;
-    string _icon = Icons.Material.Outlined.FilterAlt;
+    bool _customizeGroupTemplate;
+    static bool _customizeGroupBy;
+    Func<OrderDto, object> _groupBy = x =>
+    {
+        //if (_customizeGroupBy)
+        //    return _nonmetals.Contains(x.) ? "Nonmetal":  "Metal";
+        return x.OrderStatus;
+    };
 
-    bool _filterOpen = false;
+    private string GroupClassFunc(GroupDefinition<OrderDto> item)
+    {
+        return item.Grouping.Key?.ToString() == "Nonmetal" || item.Grouping.Key?.ToString() == "Other"
+            ? "mud-theme-warning"
+            : string.Empty;
+    }
 
     protected override async Task OnInitializedAsync()
     {
         Orders = await httpClient.GetFromJsonAsync<List<OrderDto>>("getAllOrders");
-        _selectedItems = Orders.ToHashSet();
-        _filterItems = Orders.ToHashSet();
-        _filterDefinition = new FilterDefinition<OrderDto>
-        {
-            FilterFunction = x => _filterItems.Contains(x)
-        };
+
     }
 
-    void OpenFilter()
-    {
-        _filterOpen = true;
-    }
 
-    private void SelectedChanged(bool value, OrderDto item)
-    {
-        if (value)
-            _selectedItems.Add(item);
-        else
-            _selectedItems.Remove(item);
 
-        if (_selectedItems.Count == Orders.Count())
-            _selectAll = true;
-        else
-            _selectAll = false;
-    }
-
-    private async Task ClearFilterAsync(FilterContext<OrderDto> context)
-    {
-        _selectedItems = Orders.ToHashSet();
-        _filterItems = Orders.ToHashSet();
-        _icon = Icons.Material.Outlined.FilterAlt;
-        //await context.Actions.ClearFilterAsync(_filterDefinition);
-        _filterOpen = false;
-    }
-
-    private async Task ApplyFilterAsync(FilterContext<OrderDto> context)
-    {
-        _filterItems = _selectedItems.ToHashSet();
-        _icon = _filterItems.Count == Orders.Count() ? Icons.Material.Outlined.FilterAlt : Icons.Material.Filled.FilterAlt;
-       // await context.Actions.ApplyFilterAsync(_filterDefinition);
-        _filterOpen = false;
-    }
-
-    private void SelectAll(bool value)
-    {
-        _selectAll = value;
-
-        if (value)
-        {
-            _selectedItems = Orders.ToHashSet();
-        }
-        else
-        {
-            _selectedItems.Clear();
-        }
-    }
 }
