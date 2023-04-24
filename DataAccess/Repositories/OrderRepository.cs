@@ -30,7 +30,7 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<OrderModel>> GetAllAsync()
         {
-			return  _storeContext.Orders;
+			return  _storeContext.Orders.Include(x => x.Products);
 		}
         public async Task<IEnumerable<OrderModel>> GetSpecificOrders(string email)
         {

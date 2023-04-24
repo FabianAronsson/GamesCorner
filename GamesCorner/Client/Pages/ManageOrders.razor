@@ -1,0 +1,63 @@
+﻿@page "/admin/dashboard/manage/orders"
+@using Microsoft.AspNetCore.Authorization
+@using GamesCorner.Shared.Dtos
+@using MudBlazor
+@using DataAccess.Models.Enums
+@inject HttpClient HttpClient
+@attribute [Authorize(Roles = "Administrator")]
+
+<div style="background: white">
+    <MudDataGrid MultiSelection="true" Items="@Orders" Filterable="true"
+                 Hideable="true" Groupable="true" GroupExpanded="false" Hover="true" Bordered="true">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Orders</MudText>
+            <MudSpacer />
+        </ToolBarContent>
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="Id" Filterable="false" Groupable="false" Sortable="false" />
+            <PropertyColumn Property="x => x.CustomerEmail" Filterable="false" Groupable="false" Sortable="false"/>
+            <PropertyColumn Property="x => x.PurchaseDate" Filterable="false" Groupable="false" Sortable="false"/>
+            <PropertyColumn Property="x => x.IsActive" Filterable="false" Groupable="false" Sortable="false" />
+            <PropertyColumn Property="x => x.OrderStatus" Title="Category"  Filterable="false" Sortable="false" Grouping GroupBy="@_groupBy">
+                <GroupTemplate>
+                    <span style="font-weight:bold">Group: @context.Grouping.Key <MudChip Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Small">total @context.Grouping.Count()</MudChip></span>
+                </GroupTemplate>
+            </PropertyColumn>
+            <TemplateColumn Filterable="false" Groupable="false" Sortable="false">
+                <CellTemplate>
+                    <MudStack Row>
+                        <select @bind="@context.Item.OrderStatus" class="form-select border-secondary">
+                            <option selected>...</option>
+                            <option>@OrderStatus.Cancelled</option>
+                            <option>@OrderStatus.Completed</option>
+                            <option>@OrderStatus.Failed</option>
+                            <option>@OrderStatus.Processing</option>
+                            <option>@OrderStatus.Refunded</option>
+                            <option>@OrderStatus.Shipped</option>
+                        </select>
+                        <button class="btn btn-primary m-1" @onclick="@(()=>UpdateStatus(context.Item))">Update Status</button>
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+        <PagerContent>
+            <MudDataGridPager T="OrderDto" />
+        </PagerContent>
+    </MudDataGrid>
+</div>
+
+@code {
+    IEnumerable<OrderDto> Orders = new List<OrderDto>();
+    bool _customizeGroupTemplate;
+    Func<OrderDto, object> _groupBy = x => x.OrderStatus;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Orders = await HttpClient.GetFromJsonAsync<List<OrderDto>>("getAllOrders");
+    }
+
+    private async Task UpdateStatus(OrderDto order)
+    {
+        await HttpClient.PutAsJsonAsync($"updateOrderStatus?orderId={order.Id}", order);
+    }
+}

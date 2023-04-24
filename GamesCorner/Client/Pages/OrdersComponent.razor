@@ -31,7 +31,7 @@ else
 	                    <div class="accordion-body">
 		                    <div class="fs-3 text-black">
 			                    Order Status: @order.OrderStatus
-			                    <select @bind="OrderStatus" class="form-select border-secondary">
+			                    <select @bind="order.OrderStatus" class="form-select border-secondary">
 				                    <option selected>...</option>
 				                    <option>@OrderStatus.Cancelled</option>
 				                    <option>@OrderStatus.Completed</option>
@@ -97,9 +97,6 @@ else
 
     private string Status { get; set; } = "Loading...";
 
-	private OrderStatus OrderStatus { get; set; } = new();
-
-
     protected override async Task OnInitializedAsync()
     {
         await FetchCustomer();
@@ -127,13 +124,6 @@ else
 
 	private async Task UpdateStatus(OrderWithProductsDto order)
 	{
-
-        order.OrderStatus = OrderStatus;
-
         await HttpClient.PutAsJsonAsync($"updateOrderStatus?orderId={order.Id}", order);
-
-		
-		
 	}
-
 }
