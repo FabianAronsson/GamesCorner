@@ -1,14 +1,14 @@
 ﻿@page "/admin/dashboard/manage/orders"
 @using Microsoft.AspNetCore.Authorization
-
 @using GamesCorner.Shared.Dtos
 @using MudBlazor
-@inject HttpClient httpClient
+@using DataAccess.Models.Enums
+@inject HttpClient HttpClient
 @attribute [Authorize(Roles = "Administrator")]
 
 <div style="background: white">
     <MudDataGrid MultiSelection="true" Items="@Orders" Filterable="true"
-                 Hideable="true" Groupable="true" GroupExpanded="false" GroupClassFunc="GroupClassFunc">
+                 Hideable="true" Groupable="true" GroupExpanded="false" Hover="true" Bordered="true">
         <ToolBarContent>
             <MudText Typo="Typo.h6">Orders</MudText>
             <MudSpacer />
@@ -26,7 +26,16 @@
             <TemplateColumn Filterable="false" Groupable="false" Sortable="false">
                 <CellTemplate>
                     <MudStack Row>
-                        <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary">Hire</MudButton>
+                        <select @bind="@context.Item.OrderStatus" class="form-select border-secondary">
+                            <option selected>...</option>
+                            <option>@OrderStatus.Cancelled</option>
+                            <option>@OrderStatus.Completed</option>
+                            <option>@OrderStatus.Failed</option>
+                            <option>@OrderStatus.Processing</option>
+                            <option>@OrderStatus.Refunded</option>
+                            <option>@OrderStatus.Shipped</option>
+                        </select>
+                        <button class="btn btn-primary m-1" @onclick="@(()=>UpdateStatus(context.Item))">Update Status</button>
                     </MudStack>
                 </CellTemplate>
             </TemplateColumn>
@@ -36,30 +45,19 @@
         </PagerContent>
     </MudDataGrid>
 </div>
+
 @code {
     IEnumerable<OrderDto> Orders = new List<OrderDto>();
     bool _customizeGroupTemplate;
-    static bool _customizeGroupBy;
-    Func<OrderDto, object> _groupBy = x =>
-    {
-        //if (_customizeGroupBy)
-        //    return _nonmetals.Contains(x.) ? "Nonmetal":  "Metal";
-        return x.OrderStatus;
-    };
-
-    private string GroupClassFunc(GroupDefinition<OrderDto> item)
-    {
-        return item.Grouping.Key?.ToString() == "Nonmetal" || item.Grouping.Key?.ToString() == "Other"
-            ? "mud-theme-warning"
-            : string.Empty;
-    }
+    Func<OrderDto, object> _groupBy = x => x.OrderStatus;
 
     protected override async Task OnInitializedAsync()
     {
-        Orders = await httpClient.GetFromJsonAsync<List<OrderDto>>("getAllOrders");
-
+        Orders = await HttpClient.GetFromJsonAsync<List<OrderDto>>("getAllOrders");
     }
 
-
-
+    private async Task UpdateStatus(OrderDto order)
+    {
+        await HttpClient.PutAsJsonAsync($"updateOrderStatus?orderId={order.Id}", order);
+    }
 }
