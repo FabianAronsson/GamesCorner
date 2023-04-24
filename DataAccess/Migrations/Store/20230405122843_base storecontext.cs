@@ -45,7 +45,7 @@ namespace DataAccess.Migrations.Store
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItem",
+                name: "OrderItems",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -65,7 +65,7 @@ namespace DataAccess.Migrations.Store
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_OrderModelId",
-                table: "OrderItem",
+                table: "OrderItems",
                 column: "OrderModelId");
         }
 
@@ -73,7 +73,7 @@ namespace DataAccess.Migrations.Store
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderItem");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
                 name: "Products");

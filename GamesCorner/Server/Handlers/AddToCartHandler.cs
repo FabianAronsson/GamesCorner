@@ -5,7 +5,6 @@ using DataAccess.Repositories.Interfaces;
 using DataAccess.UnitOfWork;
 using GamesCorner.Server.Requests;
 using MediatR;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GamesCorner.Server.Handlers
 {
@@ -22,34 +21,31 @@ namespace GamesCorner.Server.Handlers
         public async Task<IResult> Handle(AddToCartRequest request, CancellationToken cancellationToken)
         {
             var userId = request.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var email = (await _userRepository.GetAsync(Guid.Parse(userId))).Email;
+
             var orders = await _unitOfWork.OrderRepository
                 .GetAllAsync();
-
-            var email = (await _userRepository.GetAsync(Guid.Parse(userId))).Email;
 
             var order = orders
                 .FirstOrDefault(o => o.IsActive && o.CustomerEmail.Equals(email));
 
-            var product = await _unitOfWork.ProductRepository.GetAsync(request.item.ProductId);
+            
 
             if (order is null)
             {
-               
-               await _unitOfWork.OrderRepository.AddAsync(new OrderModel()
+                await _unitOfWork.OrderRepository.AddAsync(new OrderModel
                 {
                     CustomerEmail = (await _userRepository.GetAsync(Guid.Parse(userId))).Email,
                     Id = Guid.NewGuid(),
                     IsActive = true,
-                    Products = new List<OrderItem>(){new OrderItem()
-                    {
-                        Id = Guid.NewGuid(),
-                        Amount = 1,
-                        ProductId = product.Id}},
+                    Products = new List<OrderItem> { request.item},
                     PurchaseDate = DateTime.UtcNow
                 });
             }
             else
             {
+                var product = await _unitOfWork.ProductRepository.GetAsync(request.item.ProductId);
+
                 var existing = order.Products.FirstOrDefault(o => o.ProductId.Equals(product.Id));
                 if (existing is not null)
                 {
@@ -57,7 +53,6 @@ namespace GamesCorner.Server.Handlers
                 }
                 else
                 {
-                    //var product = await _unitOfWork.ProductRepository.GetAsync(request.item.ProductId);
                     if (product != null)
                     {
                         var newProduct = new OrderItem()

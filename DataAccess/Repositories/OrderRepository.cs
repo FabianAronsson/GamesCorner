@@ -30,7 +30,7 @@ namespace DataAccess.Repositories
 
         public async Task<IEnumerable<OrderModel>> GetAllAsync()
         {
-			return  _storeContext.Orders.Include(x => x.Products);
+			return await _storeContext.Orders.Include(x => x.Products).ToListAsync();
 		}
         public async Task<IEnumerable<OrderModel>> GetSpecificOrders(string email)
         {
@@ -41,8 +41,8 @@ namespace DataAccess.Repositories
         public async Task<OrderModel> AddAsync(OrderModel entity)
         {
 
-			 _storeContext.Orders.Add(entity); 
-			return entity;
+            await _storeContext.Orders.AddAsync(entity);
+             return entity;
         }
 
         public async Task<OrderModel> UpdateAsync(OrderModel entity)
