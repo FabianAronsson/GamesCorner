@@ -10,50 +10,54 @@
 
 <MudCarousel Class="mud-width-full" Style="height:400px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
 
-	@foreach (var itemToShow in _events)
-	{
-		<MudCarouselItem Transition="transition" Color="@Color.Primary">
-			<div class="d-flex align-items-center justify-content-center bg-dark" style="height: 100%">
-				@*<img src="@itemToShow.ImageUrl" style="width: 100%"/>*@
+    @foreach (var itemToShow in _events)
+    {
+        <MudCarouselItem Transition="transition" Color="@Color.Primary">
+            <div class="d-flex align-items-center justify-content-center bg-dark" style="height: 100%">
+                @*<img src="@itemToShow.ImageUrl" style="width: 100%"/>*@
 
-				<a href="/ProductInfo/@itemToShow.Id">
-					<MudImage ObjectFit="ObjectFit.Cover" Src="@itemToShow.ImageUrl" Class="rounded-lg" />
-				</a>
-			</div>
-		</MudCarouselItem>
-	}
+                <a href="/ProductInfo/@itemToShow.Id">
+                    <MudImage ObjectFit="ObjectFit.Cover" Src="@itemToShow.ImageUrl" Class="rounded-lg" />
+                </a>
+            </div>
+        </MudCarouselItem>
+    }
 
-	<MudCarouselItem Transition="transition" Color="@Color.Primary">
-		<div class="d-flex" style="height: 100%">
-			<div Class="mx-auto my-auto">
-				<h1>EVENT</h1>
-				<h3>LAN Coming soon</h3>
-				<p> Kom och LAN'A</p>
-				@*	<img src="@_products[20].ImageUrl" />*@
-			</div>
-		</div>
-	</MudCarouselItem>
+    <MudCarouselItem Transition="transition" Color="@Color.Primary">
+        <div class="d-flex" style="height: 100%">
+            <div Class="mx-auto my-auto">
+                <h1>EVENT</h1>
+                <h3>LAN Coming soon</h3>
+                <p> Kom och LAN'A</p>
+                @*	<img src="@_products[20].ImageUrl" />*@
+            </div>
+        </div>
+    </MudCarouselItem>
 
 </MudCarousel>
 
-<div class="container d-flex justify-content-center align-items-center flex-wrap bg-dark pt-1 ">
 
-	@foreach (var product in _products)
-	{
-		if (showingTitle < showTitles)
-		{
-			<div class="card border-0 m-2 col-10" style="width: 14rem;">
-				<a href="/ProductInfo/@product.Id">
-					<img src="@product.ImageUrl" class="card-img-top rounded-2" width="100" height="100" alt="@product.Name image">
-				</a>
-				<div class="card-body bg-dark">
-					<h6 class="card-title text-light">@product.Name</h6>
-					<h8 class="card-text text-light">@product.Price Kr</h8>
-				</div>
-			</div>
-			showingTitle++;
-		}
-	}
+<div class="container text-white fw-bolder fs-5 d-flex mt-5 mb-3">Feature Products</div>
+
+<div class="container d-flex justify-content-evenly align-items-center flex-wrap bg-dark pt-1 ">
+
+
+    @foreach (var product in _products)
+    {
+        if (showingTitle < showTitles)
+        {
+            <div class="card border-0 m-2 col-10" style="width: 14rem;">
+                <a href="/ProductInfo/@product.Id">
+                    <img src="@product.ImageUrl" class="card-img-top rounded-2" width="100" height="100" alt="@product.Name image">
+                </a>
+                <div class="card-body bg-dark">
+                    <h6 class="card-title text-light">@product.Name</h6>
+                    <h8 class="card-text text-light">@product.Price Kr</h8>
+                </div>
+            </div>
+            showingTitle++;
+        }
+    }
 </div>
 
 
