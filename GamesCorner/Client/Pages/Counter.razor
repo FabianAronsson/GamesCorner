@@ -1,4 +1,7 @@
 ﻿@page "/counter"
+@using System.Security.Claims
+@inject IHttpClientFactory http
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Counter</PageTitle>
 
@@ -11,8 +14,12 @@
 @code {
     private int currentCount = 0;
 
-    private void IncrementCount()
+    private async Task IncrementCount()
     {
+        var temp = http.CreateClient("public");
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var id = state.User.Claims.FirstOrDefault(c => c.Type == "name");
+        var res = await temp.GetAsync($"getRecommendations?Id={id.Value}");
         currentCount++;
     }
 }

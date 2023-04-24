@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GamesCorner.Shared.Dtos;
 
 namespace GamesCorner.Shared.DTOs
 {
@@ -17,5 +18,6 @@ namespace GamesCorner.Shared.DTOs
 		public string Description { get; set; }
 		public int AgeRestriction { get; set; }
 		public bool InStock { get; set; }
+		public List<ReviewsDto> Reviews { get; set; }
 	}
 }

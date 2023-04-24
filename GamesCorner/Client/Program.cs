@@ -1,5 +1,6 @@
 using Blazored.LocalStorage;
 using GamesCorner.Client;
+
 using GamesCorner.Client.Services.CartService;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;

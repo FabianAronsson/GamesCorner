@@ -1,0 +1,83 @@
+﻿@page "/admin/dashboard/manage/users/user-manager/{Query}"
+@using Microsoft.AspNetCore.Authorization
+@using GamesCorner.Client.Pages.Enums
+@attribute [Authorize(Roles = "Administrator")]
+<PageTitle>User Manager</PageTitle>
+
+<h2 class="text-center text-white">Manage User</h2>
+
+<div class="row text-white">
+
+    <div class="d-flex flex-column col-12 col-sm-12 col-md-2 ">
+        <NavLink class="mb-2 text-muted" href="admin/dashboard/manage/users">
+            Return to dashboard
+        </NavLink>
+        @foreach (var link in NavLinks)
+        {
+            <div class="nav-item">
+                <a class="nav-link @(link.IsActive ? "active" : "")"
+               @onclick="@(e => { foreach (var l in NavLinks) { l.IsActive = false; } link.IsActive = true; UpdateComponent(link.ComponentType); })">
+                    @link.Text
+                </a>
+            </div>
+        }
+    </div>
+    <div class="d-flex justify-content-center align-items-center col-12 col-sm-12 col-md-10 ">
+        <DynamicComponent Type="@ComponentName" Parameters="componentParameters[ComponentName.ToString().Split('.')[^1]]"></DynamicComponent>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Query { get; set; }
+
+
+    private Type ComponentName { get; set; } = typeof(UserComponent);
+
+    List<NavLink> NavLinks { get; } = new() {
+        new NavLink { Text = "Customer Information", ComponentType = ComponentType.Profile, IsActive = true },
+        new NavLink { Text = "Orders", ComponentType = ComponentType.Orders, IsActive = false },
+    };
+
+    private Dictionary<string, Dictionary<string, object>> componentParameters
+        = new()
+            {
+                ["UserComponent"] = new Dictionary<string, object>
+                {
+                    ["Email"] = ""
+                },
+                ["OrdersComponent"] = new Dictionary<string, object>
+                {
+                    ["Email"] = ""
+                }
+            };
+
+    protected override Task OnInitializedAsync()
+    {
+        foreach (var component in componentParameters)
+        {
+            component.Value["Email"] = Query;
+        }
+
+        return base.OnInitializedAsync();
+    }
+
+    private void UpdateComponent(ComponentType componentName)
+    {
+        ComponentName = componentName.ToString() switch
+        {
+            "Profile" => typeof(UserComponent),
+            "Orders" => typeof(OrdersComponent),
+            _ => typeof(UserComponent)
+        };
+    }
+
+    class NavLink
+    {
+        public string Text { get; set; }
+        public bool IsActive { get; set; }
+        public ComponentType ComponentType { get; set; }
+    }
+
+}

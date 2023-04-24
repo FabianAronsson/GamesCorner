@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using GamesCorner.Shared.Dtos
+@inject HttpClient Http
+@attribute [Authorize(Roles = "Administrator")]
+    
+<div class="row">
+    <div class="field-wrapper col-md-6 d-flex align-items-center flex-column">
+        <span class="text-start">Id</span>
+        <div class=" field">@User.Id</div>
+    </div>
+    <div class="field-wrapper col-md-6 d-flex align-items-center flex-column">
+        <span class="text-start">Username</span>
+        <div class="field">@User.UserName</div>
+    </div>
+    <div class="field-wrapper col-md-6 d-flex align-items-center flex-column">
+        <span class="text-start">Email</span>
+        <div class="field">@User.Email</div>
+    </div>
+    <div class="field-wrapper col-md-6 d-flex align-items-center flex-column">
+        <span class="text-start">Phone number</span>
+        <div class="field">@User.PhoneNumber</div>
+    </div>
+    <div class="field-wrapper col-md-6 d-flex align-items-center flex-column">
+        <span class="text-start">Address</span>
+        <div class="field">@User.Address</div>
+    </div>
+    <div class="field-wrapper col-md-6 d-flex align-items-center flex-column">
+        <span class="text-start">City</span>
+        <div class="field">@User.City</div>
+    </div>
+    <div class="field-wrapper col-md-6 d-flex align-items-center flex-column">
+        <span class="text-start">Postal Code</span>
+        <div class="field">@User.PostalCode</div>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter]
+    public string Email { get; set; }
+
+    private UserDto User { get; set; } = new();
+
+
+    protected override Task OnInitializedAsync()
+    {
+        GetData();
+        return base.OnInitializedAsync();
+    }
+
+
+    private async Task GetData()
+    {
+        var response = await Http.GetFromJsonAsync<IEnumerable<UserDto>>($"{Http.BaseAddress}getUsers?Query={Email}");
+
+        User = response.FirstOrDefault();
+        StateHasChanged();
+    }
+
+}

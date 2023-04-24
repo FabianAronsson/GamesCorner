@@ -1,0 +1,88 @@
+﻿@page "/admin/dashboard/manage/users"
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using GamesCorner.Shared.Dtos
+@attribute [Authorize(Roles = "Administrator")]
+<PageTitle>User Manager</PageTitle>
+
+<style> 
+    .form-input {
+        width: 20rem;
+        padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+        color: rgb(17 24 39);
+        background-color: rgb(249 250 251);
+        border: 1px solid rgb(209 213 219);
+        border-radius: 0.5rem;
+        outline-offset: 1px;
+    }
+</style>
+
+<div class="my-2 d-flex justify-content-center flex-column align-items-center">
+    <div class="inline-block mr-4 my-1">
+        <input class="form-input" type="search" autofocus @bind="SearchQuery" @bind:event="oninput" placeholder="Email..." />
+    </div>
+
+    <div class="inline-block my-1 text-white">
+        Total: <strong>@numResults results found</strong>
+    </div>
+</div>
+<div class="grid d-flex justify-content-center" tabindex="-1">
+    <QuickGrid ItemsProvider="@_userProvider" Virtualize="true" @ref="grid">
+        <PropertyColumn Property="@(c => c.Id)" />
+        <PropertyColumn Property="@(c => c.UserName)" />
+        <PropertyColumn Property="@(c => c.Email)" />
+        <TemplateColumn Title="Actions">
+            <button class="btn btn-info" @onclick="@(() => ViewUser(context))">View</button>
+        </TemplateColumn>
+    </QuickGrid>
+</div>
+
+
+
+@code {
+    GridItemsProvider<UserDto> _userProvider;
+    QuickGrid<UserDto>? grid;
+    string searchQuery;
+    int numResults;
+
+    protected override Task OnInitializedAsync()
+    {
+
+        _userProvider = async req =>
+        {
+            var response = await Http.GetFromJsonAsync<IEnumerable<UserDto>>($"getUsers?query={SearchQuery}");
+            if (response is null)
+            {
+                return GridItemsProviderResult.From(Array.Empty<UserDto>(), 0);
+            }
+
+            if (numResults != response.Count())
+            {
+                numResults = response.Count();
+                StateHasChanged();
+            }
+
+            return GridItemsProviderResult.From((ICollection<UserDto>)response, response.Count());
+
+        };
+        return Task.CompletedTask;
+    }
+
+    string SearchQuery
+    {
+        get => searchQuery;
+        set
+        {
+            searchQuery = value;
+            _ = grid.RefreshDataAsync();
+        }
+    }
+
+
+    private void ViewUser(UserDto user)
+    {
+        UriHelper.NavigateTo($"/admin/dashboard/manage/users/user-manager/{user.Email}");
+    }
+}

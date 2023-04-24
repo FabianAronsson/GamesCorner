@@ -61,11 +61,12 @@ namespace GamesCorner.Server.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [{
+        ///   Looks up a localized string similar to [
+        ///  {
         ///    &quot;Name&quot;: &quot;Cyberpunk 2077&quot;,
         ///    &quot;Description&quot;: &quot;Cyberpunk 2077 for PC is a first-person shooter game, but one with a difference. Set in a dystopian Free State of California, the rules of the nation and the state no longer apply. Instead, playing as a mercenary named V, the player must work their way around the city, attaining their goals and battling enemies as they go.&quot;,
-        ///    &quot;Price&quot;: 599.0,
-        ///    &quot;ImageUrl&quot;: &quot;https://s1.gaming-cdn.com/images/products/840/616x353/cyberpunk-2077-pc-game-gog-com-cover. [rest of string was truncated]&quot;;.
+        ///    &quot;Price&quot;: 599,
+        ///    &quot;ImageUrl&quot;: &quot;https://s1.gaming-cdn.com/images/products/840/616x353/cyberpunk-2077-pc-game-gog-com-cove [rest of string was truncated]&quot;;.
         /// </summary>
         public static string GamesAsJson {
             get {
