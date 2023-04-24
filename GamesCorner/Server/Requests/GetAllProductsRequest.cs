@@ -8,5 +8,6 @@ namespace GamesCorner.Server.Requests
 	{
 		public string Name { get; set; }
 		public IUnitOfWork UnitOfWork { get; set; }
+      
 	}
 }

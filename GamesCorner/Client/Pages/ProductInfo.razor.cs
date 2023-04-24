@@ -1,8 +1,6 @@
 ﻿using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
-using Blazored.LocalStorage;
-using GamesCorner.Client.Services.CartService;
+using System.Text;
 using GamesCorner.Shared.Dtos;
 using GamesCorner.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
@@ -15,18 +13,57 @@ namespace GamesCorner.Client.Pages
         [Parameter] public string ProductId { get; set; }
 
         public ProductModelDto Product { get; set; } = new();
+        public List<ReviewsDto> DisplayedReviews { get; set; } = new();
+        public List<ReviewsDto> ActualReviews { get; set; } = new();
+        public ReviewsDto newReview { get; set; } = new();
+        private int ProductScore = 0;
 
-        public List<string> _fakeReviews { get; set; } = new() { "This game is an absolute blast to play! The graphics are stunning, the gameplay is addictive, and the storyline is compelling. I love the way the game encourages exploration and experimentation, and the level design is top-notch. Overall, this is one of the best games I've played in years.", "While this game has some interesting ideas and mechanics, it ultimately falls short of its potential. The controls can be frustrating at times, and the pacing feels uneven. The story is also a bit convoluted, and I found it hard to stay engaged. Overall, this game is worth checking out if you're a fan of the genre, but it's not a must-play", "This game is a masterpiece! The world-building is incredible, the characters are well-developed, and the voice acting is top-notch. The gameplay is challenging but rewarding, and there are so many different paths to take that you'll never get bored. If you're a fan of immersive, story-driven games, you absolutely need to check this one out", "I was really excited to play this game, but unfortunately, it didn't live up to my expectations. The graphics are lackluster, and the controls feel clunky and unresponsive. The storyline is also underwhelming, and I found myself struggling to stay interested. Overall, I wouldn't recommend this game unless you're a die-hard fan of the genre.\"", "\"This game is an absolute gem! The art style is gorgeous, the music is beautiful, and the gameplay is innovative and addictive. I love the way the game challenges you to think outside the box and come up with creative solutions to puzzles. Overall, this is one of the best indie games I've played in a long time, and I highly recommend it" };
+        private bool IsSubmitted { get; set; }
+        public string cartText { get; set; } = "Add to cart";
 
-        public AuthenticationStateProvider _authenticationStateProvider { get; set; }
-        private string _authMessage;
 
-        private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
+        private int selectedVal = 0;
 
-        protected override async Task OnParametersSetAsync()
+        private int? activeVal;
+        private void HandleHoveredValueChanged(int? val) => activeVal = val;
+
+        private int GetProductScore()
         {
-            await GetProduct();
+            if (ActualReviews.Count != 0)
+            {
+                ProductScore = ActualReviews.Sum(x => x.Rating) / ActualReviews.Count;
+            }
+            else
+            {
+                ProductScore = 0;
+            }
+            return ProductScore;
         }
+        private string LabelText => (activeVal ?? selectedVal) switch
+        {
+            1 => "Very bad",
+            2 => "Bad",
+            3 => "Sufficient",
+            4 => "Good",
+            5 => "Awesome!",
+            _ => "Rate the game!"
+        };
+
+
+        protected override async Task OnInitializedAsync()
+        {
+            GetReviews();
+            GetProductScore();
+        }
+
+        private async Task GetReviews()
+        {
+            var client = HttpClientFactory.CreateClient("public");
+            ActualReviews = await client.GetFromJsonAsync<List<ReviewsDto>>($"productReviews?productId={Guid.Parse(ProductId)}");
+            DisplayedReviews = new List<ReviewsDto>(ActualReviews.Take(3));
+            ProductScore = GetProductScore();
+        }
+
 
         private async Task GetProduct()
         {
@@ -38,20 +75,64 @@ namespace GamesCorner.Client.Pages
             if (response.IsSuccessStatusCode)
             {
                 Product = await response.Content.ReadFromJsonAsync<ProductModelDto>();
-
             }
             StateHasChanged();
         }
         private async Task AddProductToCart()
         {
+
             await CartService.AddToCart(new OrderItemDto()
             {
                 Id = Guid.NewGuid().ToString(),
                 ProductId = Product.Id,
                 Amount = 1
             }, await CartService.GetUserId());
+            cartText = "Added to cart";
+            StateHasChanged();
+
+            await Task.Delay(1000); // wait for 2 seconds
+
+            cartText = "Add to cart";
+            StateHasChanged();
+        }
+        private async Task CreateNewReview()
+        {
+            var client = HttpClientFactory.CreateClient("public");
+            var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var id = state.User.Claims.FirstOrDefault(c => c.Type == "name")?.Value ?? "anonymous";
+
+            await client.PostAsJsonAsync("addReview", new ReviewsDto()
+            {
+                Content = newReview.Content,
+                CreatedDateTime = DateTime.UtcNow,
+                Id = Guid.NewGuid().ToString(),
+                ProductId = ProductId,
+                Rating = selectedVal,
+                UserEmail = id
+            });
+
+            newReview = new();
+            selectedVal = 0;
+            await GetReviews();
+            StateHasChanged();
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await GetProduct();
+        }
+
+        private bool shouldCollapse = true;
+        public string CollapseReviewMenu => shouldCollapse ? "collapse" : null;
+        private void ChangeVisibility()
+        {
+            shouldCollapse = !shouldCollapse;
+        }
+
+        private void LoadReviews()
+        {
+            DisplayedReviews.AddRange(ActualReviews.Skip(DisplayedReviews.Count).Take(3));
+            StateHasChanged();
         }
     }
-
-
 }

@@ -1,0 +1,34 @@
+﻿.card {
+    background-color: #323232;
+    border-radius: 10px
+}
+.customer {
+    font-size: 13px;
+    margin-left: 1rem
+}
+.footer {
+    font-size: 8px
+}
+.oi-person {
+    color: white
+}
+
+.review {
+    background-color: #323232;
+}
+
+.text-area {
+    background-color: white;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+.btn {
+    background-color: orangered;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+
+.CollapseReviewMenu {
+    display: none;
+}

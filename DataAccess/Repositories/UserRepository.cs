@@ -24,6 +24,10 @@ namespace DataAccess.Repositories
             var user = await _userContext.Users.FirstOrDefaultAsync(u=>u.Id.Equals(id.ToString()));
             return user;
         }
+        public async Task<IEnumerable<ApplicationUser>> GetSpecificUsersAsync(string query)
+        {
+            return await _userContext.Users.Where(user => user.Email.Contains(query)).ToListAsync();
+        }
 
         public async Task<IEnumerable<ApplicationUser>> GetAllAsync()
         {
