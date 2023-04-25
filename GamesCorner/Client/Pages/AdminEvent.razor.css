@@ -18,6 +18,10 @@ h3.my-orange-text {
 
 }
 
+h1.my-orange-text {
+    color: #ff5400;
+}
+
 label {
     color: #ff5400;
 
