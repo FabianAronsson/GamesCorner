@@ -48,7 +48,6 @@ public partial class EventInfo : ComponentBase
 
 		if (response.IsSuccessStatusCode)
 		{
-			
 			var url = "https://prod-04.northeurope.logic.azure.com:443/workflows/20e461c9d4724a64a4719abd3fb70e76/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dF_OnxPHmKi1j8Ji5FEhL8q1c20NmQpYgVGrDue6PXI";
 			var payload = $"{{\"to\": \"{userEvent.Email}\", \"subject\": \"{Event.Name} Event\", \"body\": " +
 			              $"\"<h1>{NameUser}, Welcome to the {Event.Name} Event!</h1><p><b>Description:</b> " +
