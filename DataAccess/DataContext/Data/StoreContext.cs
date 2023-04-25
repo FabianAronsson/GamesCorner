@@ -19,5 +19,7 @@ namespace DataAccess.DataContext.Data
 		public DbSet<ProductModel> Products { get; set; }
         public DbSet<EventModel> Events { get; set; }
 		public DbSet<ReviewModel> Reviews { get; set; }
+		public DbSet<UserEventModel> EventUsers { get; set; }
+
     }
 }

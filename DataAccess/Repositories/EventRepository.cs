@@ -20,7 +20,8 @@ namespace DataAccess.Repositories
         }
         public async Task<EventModel?> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var Event = _storeContext.Events.FirstOrDefault(x => x.Id.Equals(id));
+            return Event;
         }
 
         public async Task<IEnumerable<EventModel>> GetAllAsync()
@@ -30,7 +31,7 @@ namespace DataAccess.Repositories
 
         public async Task<EventModel> AddAsync(EventModel entity)
         {
-            var eventToAdd = _storeContext.Events.FirstOrDefault(x => x.Id == entity.Id);
+            var eventToAdd = _storeContext.Events.FirstOrDefault(x => x.Id.Equals(entity.Id));
             if (eventToAdd == null)
             {
 	            _storeContext.Events.Add(entity);
@@ -46,7 +47,7 @@ namespace DataAccess.Repositories
 
         public async Task<EventModel> DeleteAsync(EventModel entity)
         {
-            var eventToDelete = _storeContext.Events.FirstOrDefault(x => x.Id == entity.Id);
+            var eventToDelete = _storeContext.Events.FirstOrDefault(x => x.Id.Equals(entity.Id) );
             _storeContext.Events.Remove(eventToDelete);
 			await _storeContext.SaveChangesAsync();
 			return entity;
@@ -59,7 +60,7 @@ namespace DataAccess.Repositories
 
         public async Task<IResult> DeleteByIdAsync(string id)
         {
-	        var eventToDelete = _storeContext.Events.FirstOrDefault(e => e.Id.ToString() == id);
+	        var eventToDelete = _storeContext.Events.FirstOrDefault(e => e.Id.ToString().Equals(id));
 	        if (eventToDelete == null)
 	        {
 		        return Results.NotFound();
@@ -70,7 +71,7 @@ namespace DataAccess.Repositories
 
         public async Task<EventModel> UpdateAsync(Guid id, EventModel entity)
         {
-	       var eventToUpdate = _storeContext.Events.FirstOrDefault(x => x.Id == id);
+	       var eventToUpdate = _storeContext.Events.FirstOrDefault(x => x.Id.Equals(id));
 	       if (eventToUpdate == null)
 	       {
 		       return entity;

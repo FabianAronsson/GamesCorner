@@ -1,0 +1,54 @@
+﻿@page "/EventInfo/{EventId}"
+@inject IHttpClientFactory HttpClientFactory
+@inject HttpClient HttpClient
+<div class="container-lg">
+	<div class=" align-content-center justify-content-center" style="background-image: url(@Event.ImageUrl); background-repeat: no-repeat; overflow-x: hidden;">
+
+		<div class="row">
+			<div class=" col-md-5  p-0 mx-6 mt-4 ">
+				<div class="card-img  mx-auto">
+					<img class="rounded-2 img-fluid" src="@Event.ImageUrl" alt="" />
+				</div>
+			</div>
+			<div class="col-md-6 mx-6 mt-3">
+
+				@if (showSuccesPage)
+				{
+					<div class="mt-10">
+						<h1>Success!</h1>
+						<p>Your details have been submitted for the event @Event.Name</p>
+						<p>You will get an email with more detailed information about the event</p>
+					</div>
+				}
+				else
+				{
+					<form class="mr-8" onsubmit="event.preventDefault()">
+						<div class="form-row">
+							<div class="form-group col-md-12 mt-3">
+								<input type="email" class="form-control" id="inputEmail4" placeholder="Email" @bind-value="@EmailUser" required>
+							</div>
+							<div class="form-group col-md-12 mt-6">
+								<input type="text" class="form-control" id="inputName" placeholder="Name" @bind-value="@NameUser" required>
+							</div>
+							<div class="form-group col-md-12 mt-6">
+								<input type="text" class="form-control" id="inputPhone" placeholder="Phone number" @bind-value="@PhoneUser" required>
+							</div>
+							<div class="form-group mt-6">
+								<button type="submit" @onclick="HandleSubmit" class="btn btn-primary col-md-12 col-12">
+									<span>Assist to event</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				}
+			</div>
+			<div class="p-4 mx-2 col-12">
+				<div class="text-light bg-dark rounded-3 p-4">
+					<h3>@Event.Name event Information</h3>
+					<p>@Event.Description. The event will take place in @Event.Location on the date of @Event.Date and has a price of @Event.Price kr</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
