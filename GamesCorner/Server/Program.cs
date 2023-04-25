@@ -14,6 +14,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using DataAccess.Models;
 using GamesCorner.Server.Services.PaymentService;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,9 +66,6 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IInterestedUserEventRepository, InterestedUserEventRepository>();
-
-
-
 
 builder.Services.AddRazorPages();
 
@@ -124,7 +122,6 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapEndpoints();
-
 app.MapFallbackToFile("index.html");
 
 app.Run();
