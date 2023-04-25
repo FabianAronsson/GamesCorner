@@ -12,7 +12,7 @@
 
 <hr />
 <div class="d-flex justify-content-center align-items-center">
-	<EditForm Model="@_currentEvent" >
+	<EditForm Model="@_currentEvent" OnSubmit="@OnClickCreate">
 		<div class=" my-1 row d-flex justify-content-center align-items-center">
 
 
@@ -44,7 +44,7 @@
 
 			<div class=" col-sm-6 col-lg-3 col-md-6 col-xl-3 m-1">
 				<label for="price">Price</label> <br>
-				<InputNumber id="price" type="input" min="0" class="form-input" @bind-Value="_currentEvent.Price" placeholder="Price" required />
+				<InputNumber id="price" type="input" min="10" class="form-input" @bind-Value="_currentEvent.Price" placeholder="Price" required />
 			</div>
 
 			<div class="d-flex justify-content-center align-items-center my-3">
@@ -52,7 +52,7 @@
 				@if (!_isEditing)
 				{
 					<button type="button" class="btn btn-danger mx-2" @onclick="OnClickReset">Reset values</button>
-					<button class="btn btn-success mx-2" type="submit" @onclick="OnClickCreate">Create Event</button>
+					<button class="btn btn-success mx-2" type="submit" >Create Event</button>
 				}else
 				{
 					<div class="col-sm-1">
@@ -136,10 +136,8 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 @code {
 
-	//TempEvent? _currentEvent { get; set; } = new TempEvent("", "", "", DateTime.Today, "", 0);
 	public EventDto? _currentEvent { get; set; } = new EventDto { Id = Guid.NewGuid().ToString(), Name = "", Description = "", Location = "", Date = DateTime.Today, ImageUrl = "", Price = 0 };
 	private List<EventDto> _events { get; set; } = new();
-	public string searchString { get; set; } = "";			// needed for get list ?
 
 	private string _adminCurrentActivity = "Create an Event!";
 
@@ -173,13 +171,13 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 		_editingEventName = _currentEvent.Name;
 		SetActivityString();
-
+		GetEvents();
 	}
 
 	// Save Button
 	private void OnClickSave()
 	{
-		// Save						TO DO: Uppdate changes to the event
+		// Save						
 		UpdateCurrentEvent();
 		StartCleanEvent();
 	}
@@ -193,7 +191,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	// Delete Button
 	private void OnClickDelete()
 	{
-		// Delete					TO DO:	the current GUID from list
+		// Delete	
 		RemoveEvent();
 		StartCleanEvent();
 	}
@@ -203,6 +201,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 		_currentEvent = new EventDto { Id = Guid.NewGuid().ToString(), Name = "", Description = "", Location = "", Date = DateTime.Today, ImageUrl = "", Price = 0 };
 		_isEditing = false;
 		SetActivityString();
+		GetEvents();
 	}
 
 	private void SetCurrentEventForEdit()
@@ -211,7 +210,6 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 		{
 			if (item.Id == _editingCurrentGuid.ToString())
 			{
-				//_currentEvent = item;
 				_currentEvent.Id = item.Id;
 				_currentEvent.Name = item.Name;
 				_currentEvent.Description = item.Description;
@@ -226,31 +224,14 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	private void UpdateCurrentEvent()
 	{
 		UpdateEvent(_currentEvent);
-	//foreach (var item in _events)
-	//{
-	//	if (item.Id == _editingCurrentGuid.ToString())
-	//	{
-	//		item.Name = _currentEvent.Name;
-	//		item.Description = _currentEvent.Description;
-	//		item.Location = _currentEvent.Location;
-	//		item.Price = _currentEvent.Price;
-	//		item.Date = _currentEvent.Date;
-	//		item.ImageUrl = _currentEvent.ImageUrl;
-	//	}
-	//}
+
+		GetEvents();
 	}
 
 	private void RemoveEvent()
 	{
-		//for (int i = 0; i < _events.Count; i++)
-		//{
-		//	if (_events[i].Id == _editingCurrentGuid.ToString())
-		//	{
-		//		_events.RemoveAt(i);
-		//		break;
-		//	}
-		//}
 		DeleteEvent(_currentEvent);
+		GetEvents();
 	}
 
 	private void SetActivityString()
@@ -277,6 +258,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 			_events = await response.Content.ReadFromJsonAsync<List<EventDto>>();
 			StateHasChanged();
 		}
+
 	}
 
 	private async Task AddEvent(EventDto currentEvent)
@@ -284,9 +266,9 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 		var newEvent = currentEvent;
 
 
-		var client = HttpClientFactory.CreateClient("public");
+		//var client = HttpClientFactory.CreateClient("public");
 	    var response2 = await HttpClient.PostAsJsonAsync("addEvent", newEvent);
-		var response = await client.PostAsJsonAsync($"addEvent", newEvent);
+		//var response = await client.PostAsJsonAsync($"addEvent", newEvent);
 
 		if (response2.IsSuccessStatusCode)
 		{
@@ -303,7 +285,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 		if (response.IsSuccessStatusCode)
 		{
-			///
+			await GetEvents();
 		}
 	}
 
@@ -311,13 +293,14 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	{
 		var id = currentEvent.Id;
 
-		var client = HttpClientFactory.CreateClient("public");
+		//var client = HttpClientFactory.CreateClient("public");
 
-		var response = await client.DeleteAsync($"updateEvent?EventId={id}");
+		//var response = await client.PutAsJsonAsync($"updateEvent?EventId={id}");
+		var response = await HttpClient.PutAsJsonAsync($"updateEvent?EventId={id}", currentEvent);
 
 		if (response.IsSuccessStatusCode)
 		{
-			///
+			GetEvents();
 		}
 		
 	}
