@@ -48,14 +48,14 @@ public partial class EventInfo : ComponentBase
 
 		if (response.IsSuccessStatusCode)
 		{
-			var client2 = new HttpClient();
+			
 			var url = "https://prod-04.northeurope.logic.azure.com:443/workflows/20e461c9d4724a64a4719abd3fb70e76/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dF_OnxPHmKi1j8Ji5FEhL8q1c20NmQpYgVGrDue6PXI";
 			var payload = $"{{\"to\": \"{userEvent.Email}\", \"subject\": \"{Event.Name} Event\", \"body\": " +
 			              $"\"<h1>{NameUser}, Welcome to the {Event.Name} Event!</h1><p><b>Description:</b> " +
 			              $"{Event.Description}</p><p> <h1>Information:</h1><strong>{Event.Name} event will be celebrated on {Event.Date} " +
 			              $"at {Event.Location}.</strong></p><p>The price of the event is {Event.Price} Kr and can be paid on location.</p>\"}}";
 			var content = new StringContent(payload, Encoding.UTF8, "application/json");
-			var response2 = await client2.PostAsync(url, content);
+			var response2 = await HttpClient.PostAsync(url, content);
 			showSuccesPage = true;
 			
 		}
