@@ -79,43 +79,47 @@
 
 
 <Virtualize Items="_events" Context="thisEvent">
-	<div class="d-flex justify-content-center align-items-center p-1">
-		<div class="card border col-9">
-			<div class="card-header my-orange">
-				<Strong>EVENT NAME:</Strong> @thisEvent.Name
-			</div>
-			<div class="row">
+    <div class="d-flex justify-content-center align-items-center p-1">
+        <div class="card border col-9">
+            <div class="card-header my-orange">
+                <Strong>EVENT NAME:</Strong> @thisEvent.Name
+            </div>
+            <div class="row">
 
-				<div class="col-sm-3">
-					<div class="my-image">
-						<img src="@thisEvent.ImageUrl" class="rounded-circle mx-auto d-block mt-3 img-fluid" />
-					</div>
-				</div>
+                <div class="col-sm-3">
+                    <div class="my-image">
+                        <img src="@thisEvent.ImageUrl" class="rounded-circle mx-auto d-block mt-3 img-fluid" />
+                    </div>
+                </div>
 
-				<div class="col-sm-9">
-					<div class="card border">
-						<div class="my-Card-Info">
-							@*<div class="card-header">
+                <div class="col-sm-9">
+                    <div class="card border">
+                        <div class="my-Card-Info">
+                            @*<div class="card-header">
 							<strong>Card header</strong>
 							</div>*@
-							<ul class="list-group list-group-flush d-flex flex-wrap">
-								<li class="list-group-item"><strong>Description:<br /> </strong>@thisEvent.Description</li>
+                            <ul class="list-group list-group-flush d-flex flex-wrap">
+                                <li class="list-group-item"><strong>Description:<br /> </strong>@thisEvent.Description</li>
 
-								<li class="list-group-item"><strong>Location:<br /> </strong>@thisEvent.Location </li>
-								<li class="list-group-item"><strong>Date: </strong>@thisEvent.Date.ToString("dd MMMM -yyyy kl: HH:mm ") <strong>Price: </strong>@thisEvent.Price</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+                                <li class="list-group-item"><strong>Location:<br /> </strong>@thisEvent.Location </li>
+                                <li class="list-group-item"><strong>Date: </strong>@thisEvent.Date.ToString("dd MMMM -yyyy kl: HH:mm ") <strong>Price: </strong>@thisEvent.Price</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-			</div>
-		</div>
-		<div class="col-sm-1">
-			<button class="btn btn-success mx-2 align-items-center" type="submit" @onclick="() => OnClickEdit(thisEvent.Id)">Edit</button>
-		</div>
-	</div>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <button class="btn btn-success mx-2 align-items-center" type="submit" @onclick="() => OnClickEdit(thisEvent.Id)">Edit</button>
+        </div>
+    </div>
 
 </Virtualize>
+@if (_events.Count == 0)
+{
+    <h1 class="text-white">No events</h1>
+}
 <!--
 d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 -->
@@ -143,7 +147,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 	//Editing stuff
 	private bool _isEditing = false;
-	private string _editingEventName = "invailid object";
+	private string _editingEventName = "invalid object";
 	private string _editingCurrentGuid = "";
 
 	// Create Button
@@ -230,8 +234,7 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 
 	private void RemoveEvent()
 	{
-		DeleteEvent(_currentEvent);
-		GetEvents();
+		 DeleteEvent(_currentEvent);
 	}
 
 	private void SetActivityString()
@@ -243,22 +246,22 @@ d-flex = fyller ut rutan efter text och inget tomma vit utrymmen
 	protected override async Task OnInitializedAsync()
 	{
 		await GetEvents();
-		await base.OnInitializedAsync();
 	}
 
 
 	private async Task GetEvents()
 	{
-
-		
-		var response = await HttpClient.GetAsync($"events");
+	    var response = await HttpClient.GetAsync($"events");
 
 		if (response.IsSuccessStatusCode)
 		{
 			_events = await response.Content.ReadFromJsonAsync<List<EventDto>>();
-			StateHasChanged();
 		}
-
+		else
+		{
+		    _events = new();
+		}
+	    StateHasChanged();
 	}
 
 	private async Task AddEvent(EventDto currentEvent)
