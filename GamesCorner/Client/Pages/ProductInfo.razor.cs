@@ -11,7 +11,6 @@ namespace GamesCorner.Client.Pages
     partial class ProductInfo : ComponentBase
     {
         [Parameter] public string ProductId { get; set; }
-        public int CartAmount { get; set; }
         public ProductModelDto Product { get; set; } = new();
         public List<ReviewsDto> DisplayedReviews { get; set; } = new();
         public List<ReviewsDto> ActualReviews { get; set; } = new();
