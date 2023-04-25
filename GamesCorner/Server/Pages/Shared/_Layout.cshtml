@@ -20,12 +20,20 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/Identity/css/site.css" asp-append-version="true" />
     </environment>
+    <style>
+        body {
+            background: url(https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fcom.ft.imagepublish.upp-prod-eu.s3.amazonaws.com%2Fa501a0f8-b83a-11e9-8a88-aa6628ac896c?dpr=2&fit=scale-down&quality=medium&source=next&width=700);
+            height: 100vh;
+            background-size: cover;
+        }
+    </style>
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3" style="background-color: #101010">
             <div class="container">
-                <a class="navbar-brand" href="~/">Games Corner</a>
+                <a class="navbar-brand fw-bolder" href="~/" style="color: orangered">Games Corner</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -55,18 +63,7 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="footer border-top mt-5 pl-3 text-muted">
-        <div class="container">
-        &copy; 2023 - Games Corner
-            @{
-                var foundPrivacy = Url.Page("/Privacy", new { area = "" });
-            }
-            @if (foundPrivacy != null)
-            {
-                <a asp-area="" asp-page="/Privacy">Privacy</a>
-            }
-        </div>
-    </footer>
+   
 
     <environment include="Development">
         <script src="~/Identity/lib/jquery/dist/jquery.js"></script>
