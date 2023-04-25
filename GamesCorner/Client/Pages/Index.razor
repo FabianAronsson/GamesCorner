@@ -13,15 +13,12 @@
     @foreach (var itemToShow in _events)
     {
         <MudCarouselItem Transition="transition" Color="@Color.Primary">
-            <div class="d-flex align-items-center justify-content-center bg-dark" style="height: 100%">
-                @*<img src="@itemToShow.ImageUrl" style="width: 100%"/>*@
+	        <div class="d-flex align-items-center justify-content-center bg-dark" style="height: 100%">
+		        <a href="/EventInfo/@itemToShow.Id">
+			        <MudImage ObjectFit="ObjectFit.Cover" Src="@itemToShow.ImageUrl" Class="rounded-lg" />
+		        </a>
+	        </div>
 
-
-                <a href="/ProductInfo/@itemToShow.Id">
-				<a href="/EventInfo/@itemToShow.Id">
-                    <MudImage ObjectFit="ObjectFit.Cover" Src="@itemToShow.ImageUrl" Class="rounded-lg" />
-                </a>
-            </div>
         </MudCarouselItem>
     }
 

@@ -29,8 +29,7 @@ public class OrderRepository_VerifyChangedOrder
 
         //Act
         await using var context = new StoreContext(options);
-        var sut = new UnitOfWork(context, productRepository, orderRepository, eventRepository, reviewRepository);
-        var sut = new UnitOfWork(context, productRepository, orderRepository, eventRepository,interestedUserEvent);
+        var sut = new UnitOfWork(context, productRepository, orderRepository, eventRepository, interestedUserEvent, reviewRepository);
         var result = await sut.OrderRepository.UpdateAsync(orderModel);
 
         //Assert
