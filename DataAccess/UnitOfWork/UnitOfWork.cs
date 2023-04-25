@@ -11,10 +11,11 @@ public class UnitOfWork :IDisposable, IUnitOfWork
 	private readonly IOrderRepository? _orderRepository;
 	private readonly IEventRepository _eventRepository;
     private readonly IReviewRepository _reviewRepository;
-    public UnitOfWork(StoreContext context, IProductRepository productRepository, IOrderRepository orderRepository, IEventRepository eventRepository, IReviewRepository reviewRepository)
+
+
 
 	private readonly IInterestedUserEventRepository _interestedUserEventRepository;
-    public UnitOfWork(StoreContext context, IProductRepository productRepository, IOrderRepository orderRepository, IEventRepository eventRepository, IInterestedUserEventRepository intrestedUserEventRepository)
+    public UnitOfWork(StoreContext context, IProductRepository productRepository, IOrderRepository orderRepository, IEventRepository eventRepository, IInterestedUserEventRepository interestedUserEventRepository, IReviewRepository reviewRepository)
 
 	{
 		_context = context;
@@ -22,7 +23,7 @@ public class UnitOfWork :IDisposable, IUnitOfWork
 		_orderRepository = orderRepository;
 		_eventRepository = eventRepository;
 		_reviewRepository = reviewRepository;
-		_interestedUserEventRepository = intrestedUserEventRepository;
+		_interestedUserEventRepository = interestedUserEventRepository;
     }
 
 	public IProductRepository ProductRepository => _productRepository;
