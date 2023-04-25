@@ -2,11 +2,13 @@
 @inject ICartService CartService
 @inject IHttpClientFactory HttpClientFactory
 @inject IJSRuntime jsInterop
+@inject IMessageService MessageService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @using GamesCorner.Shared.Dtos
 @using GamesCorner.Client.Services.CartService
 @using GamesCorner.Shared.DTOs
 @using System.Diagnostics
+@using GamesCorner.Client.Services.MessageService
 
 <div class="container">
     <div class="progressbar">
@@ -147,6 +149,8 @@
         {
             TotalPrice += (decimal)(item.Amount * item.Product.Price);
         }
+
+
     }
 
     private async Task GetRecommendedProducts()
@@ -202,6 +206,7 @@
                 }
             }
         }
+	    MessageService.UpdateCartAmount(await CartService.GetCartAmount());
 
     }
 
