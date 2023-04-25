@@ -9,5 +9,6 @@ namespace GamesCorner.Server.Requests
     {
         public OrderItem item { get; set; }
         public HttpContext HttpContext { get; set; }
+        public IUnitOfWork UnitOfWork { get; set; }
     }
 }
