@@ -11,7 +11,7 @@ namespace GamesCorner.Client.Pages
     partial class ProductInfo : ComponentBase
     {
         [Parameter] public string ProductId { get; set; }
-
+        public int CartAmount { get; set; }
         public ProductModelDto Product { get; set; } = new();
         public List<ReviewsDto> DisplayedReviews { get; set; } = new();
         public List<ReviewsDto> ActualReviews { get; set; } = new();
@@ -94,8 +94,11 @@ namespace GamesCorner.Client.Pages
 
             cartText = "Add to cart";
             StateHasChanged();
+
+            MessageService.UpdateCartAmount(await CartService.GetCartAmount());
         }
-        private async Task CreateNewReview()
+       
+		private async Task CreateNewReview()
         {
             var client = HttpClientFactory.CreateClient("public");
             var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
