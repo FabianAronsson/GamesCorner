@@ -13,7 +13,7 @@ namespace GamesCorner.Client.Services.CartService
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly HttpClient _httpClient;
         private readonly AuthenticationStateProvider _authenticationStateProvider;
-        
+
 
         public CartService(ILocalStorageService localStorage, IHttpClientFactory httpClientFactory, HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider)
         {
@@ -21,6 +21,7 @@ namespace GamesCorner.Client.Services.CartService
             _httpClientFactory = httpClientFactory;
             _httpClient = httpClient;
             _authenticationStateProvider = authenticationStateProvider;
+            
         }
 
         public async Task<string?> GetUserId()
@@ -65,6 +66,17 @@ namespace GamesCorner.Client.Services.CartService
 
             var order = await _httpClient.GetFromJsonAsync<OrderDto>("getActiveOrder");
             return order.Products;
+        }
+
+        public async Task<int> GetCartAmount()
+        {
+            var totalAmount = 0;
+	        var result = await GetCartItems();
+	        foreach (var product in result)
+	        {
+		        totalAmount += product.Amount;
+	        }
+	        return totalAmount;
         }
 
         public async Task DeleteItem(OrderItemDto item)

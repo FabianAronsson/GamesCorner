@@ -1,9 +1,11 @@
 ﻿@page "/ProductInfo/{ProductId}"
 @using GamesCorner.Client.Services.CartService
+@using GamesCorner.Client.Services.MessageService
 @using MudBlazor
 @inject IHttpClientFactory HttpClientFactory
 @inject ICartService CartService
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IMessageService MessageService
 
 
 
