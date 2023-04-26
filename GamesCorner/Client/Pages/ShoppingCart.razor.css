@@ -11,8 +11,8 @@
     line-height: 40px;
     position: relative;
     border-radius: 50%;
-    background:#ee5435;
-    border-color: #ee5435;
+    background: #ff5400;
+    border-color: #ff5400;
 }
 
 .circle2 {
@@ -22,8 +22,8 @@
     line-height: 40px;
     position: relative;
     border-radius: 50%;
-    background:#ee5435;
-    border-color: #ee5435;
+    background: #ff5400;
+    border-color: #ff5400;
 }
 
 .content1 {
@@ -38,7 +38,7 @@
     width: 29px;
     margin-left: 15px;
     text-align: center;
-    border-color: #ee5435;
+    border-color: #ff5400;
 }
 
 .circle2:before {
@@ -61,7 +61,7 @@
     margin-left: 5px;
 }
 .checkout-button {
-    background-color: #ee5435;
+    background-color: #ff5400;
     border-radius: 0.5rem
 }
 
