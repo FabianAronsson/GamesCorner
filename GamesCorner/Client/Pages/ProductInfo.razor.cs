@@ -88,13 +88,13 @@ namespace GamesCorner.Client.Pages
             }, await CartService.GetUserId());
             cartText = "Added to cart";
             StateHasChanged();
-
-            await Task.Delay(1000); // wait for 2 seconds
+            MessageService.UpdateCartAmount(await CartService.GetCartAmount());
+			await Task.Delay(1000); // wait for 2 seconds
 
             cartText = "Add to cart";
             StateHasChanged();
 
-            MessageService.UpdateCartAmount(await CartService.GetCartAmount());
+            
         }
        
 		private async Task CreateNewReview()
