@@ -1,5 +1,4 @@
-﻿using DataAccess.Models;
-using DataAccess.Repositories.Interfaces;
+﻿using DataAccess.Repositories.Interfaces;
 using DataAccess.UnitOfWork;
 using GamesCorner.Server.Requests.Interface;
 

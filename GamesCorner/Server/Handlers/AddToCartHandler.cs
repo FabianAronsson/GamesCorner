@@ -3,7 +3,6 @@ using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
 using GamesCorner.Server.Requests;
 using MediatR;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GamesCorner.Server.Handlers
 {

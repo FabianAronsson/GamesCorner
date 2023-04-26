@@ -1,13 +1,6 @@
-﻿using System.Reflection;
-using System.Resources;
-using DataAccess.DataContext.Data;
-using DataAccess.Models;
-using DataAccess.Repositories;
-using DataAccess.Repositories.Interfaces;
+﻿using DataAccess.Models;
 using DataAccess.UnitOfWork;
-using Duende.IdentityServer.Models;
 using Newtonsoft.Json;
-using NuGet.Protocol;
 
 namespace GamesCorner.Server.Extensions
 {

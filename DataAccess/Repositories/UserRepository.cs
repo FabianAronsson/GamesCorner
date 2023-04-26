@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccess.Models;
+﻿using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
 using GamesCorner.Server.Data;
 using Microsoft.EntityFrameworkCore;

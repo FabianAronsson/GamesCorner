@@ -1,10 +1,6 @@
-﻿using System.Security.Claims;
-using DataAccess.Models;
-using DataAccess.Repositories.Interfaces;
+﻿using DataAccess.Models;
 using GamesCorner.Server.Requests;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using NuGet.Protocol.Plugins;
 
 namespace GamesCorner.Server.Handlers;
 
