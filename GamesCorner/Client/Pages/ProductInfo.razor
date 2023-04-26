@@ -54,7 +54,7 @@
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <h4 class="align-self-center">Game review score</h4>
                     <MudRating @bind-SelectedValue="@ProductScore" ReadOnly="true" />
-                    <div>based on @DisplayedReviews.Count reviews</div>
+                    <div>based on @ActualReviews.Count reviews</div>
                     <button class="btn col-3 text-white fw-bolder" type="button" @onclick="@ChangeVisibility">Review this game</button>
                     <div class="@CollapseReviewMenu mt-5 col-sm-6">
                         <EditForm Model="@newReview" OnSubmit="CreateNewReview">
