@@ -225,6 +225,7 @@
             ProductId = product.Id
         };
         await CartService.AddToCart(orderItemTemp, await CartService.GetUserId());
+	    MessageService.UpdateCartAmount(await CartService.GetCartAmount());
         cartItems = new List<CartProductDto>();
         await GetCartItems();
         StateHasChanged();
