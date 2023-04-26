@@ -51,7 +51,7 @@ namespace GamesCorner.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            GetReviews();
+            await GetReviews();
             GetProductScore();
         }
 
