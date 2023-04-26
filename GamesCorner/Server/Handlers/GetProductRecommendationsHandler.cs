@@ -1,8 +1,5 @@
-﻿using System.Security.Claims;
-using GamesCorner.Server.Requests;
+﻿using GamesCorner.Server.Requests;
 using MediatR;
-using Microsoft.AspNetCore.Http.Metadata;
-using Stripe;
 
 namespace GamesCorner.Server.Handlers;
 

@@ -1,7 +1,4 @@
-﻿using DataAccess.Repositories.Interfaces;
-using DataAccess.UnitOfWork;
-using Duende.IdentityServer.Models;
-using GamesCorner.Server.Requests;
+﻿using GamesCorner.Server.Requests;
 using MediatR;
 using Stripe.Checkout;
 

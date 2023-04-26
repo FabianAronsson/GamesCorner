@@ -1,6 +1,4 @@
 ﻿using DataAccess.Models;
-using Duende.IdentityServer.EntityFramework.Entities;
-using Microsoft.AspNetCore.Identity;
 
 namespace DataAccess.Repositories.Interfaces;
 

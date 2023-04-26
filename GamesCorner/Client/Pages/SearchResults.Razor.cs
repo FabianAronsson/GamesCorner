@@ -1,5 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using GamesCorner.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
 

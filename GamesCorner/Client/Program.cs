@@ -1,9 +1,7 @@
-using System.Net.Http.Headers;
 using Blazored.LocalStorage;
 using GamesCorner.Client;
 using GamesCorner.Client.Services.CartService;
 using GamesCorner.Client.Services.MessageService;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
