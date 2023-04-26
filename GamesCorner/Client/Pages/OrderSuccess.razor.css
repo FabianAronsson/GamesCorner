@@ -1,0 +1,81 @@
+﻿.progressbar {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    background-color: #101010;
+}
+
+.circle1 {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 50%;
+    background: #ee5435;
+    border-color: #ee5435;
+}
+
+.circle2 {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 50%;
+    background: #ee5435;
+    border-color: #ee5435;
+}
+
+.content1 {
+    margin: 10px;
+    color: white;
+}
+
+.content2 {
+    margin: 10px;
+    color: white;
+}
+
+.circle1:before {
+    content: "1";
+    color: grey;
+    width: 29px;
+    margin-left: 15px;
+    text-align: center;
+    border-color: #ee5435;
+}
+
+.circle2:before {
+    content: "2";
+    color: white;
+    width: 29px;
+    margin-left: 15px;
+    text-align: center;
+    border-color: #ee5435;
+}
+
+
+.line {
+    font-size: 1rem;
+    width: 33.33%;
+    height: 5px;
+    position: relative;
+    font-weight: 200;
+    background-color: grey;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+
+
+.successCheck {
+    color: #9ABC66;
+    font-size: 100px;
+}
+
+.failedCheck {
+    color: #a81e02;
+    font-size: 100px;
+}
+

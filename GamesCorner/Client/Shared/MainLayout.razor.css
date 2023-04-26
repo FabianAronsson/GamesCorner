@@ -4,6 +4,14 @@
     flex-direction: column;
 }
 
+.buttons {
+    display: flex;
+    justify-content:space-between;
+    margin: 1rem;
+    padding: 0;
+
+}
+
 main {
     flex: 1;
 }
@@ -15,15 +23,16 @@ main {
 .top-row {
     background-color: #f7f7f7;
     border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
+    justify-content: center;
     height: 3.5rem;
     display: flex;
     align-items: center;
+    border-color: black;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
         white-space: nowrap;
-        margin-left: 1.5rem;
+        
         text-decoration: none;
     }
 
@@ -32,15 +41,30 @@ main {
     }
 
     .top-row ::deep a:first-child {
-        overflow: hidden;
         text-overflow: ellipsis;
     }
 
+.search-bar-2 {
+    display: none;
+    background-color: black;
+    padding-bottom: 0.5rem;
+    border-color: black
+}
+.search-bar-1 {
+    display: block;
+}
+
 @media (max-width: 640.98px) {
-    .top-row:not(.auth) {
+    /*.top-row:not(.auth) {
+        display: none;
+    }*/
+    .search-bar-2 {
+        display: block;
+    }
+    .search-bar-1 {
         display: none;
     }
-
+  
     .top-row.auth {
         justify-content: space-between;
     }
@@ -50,7 +74,9 @@ main {
     }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 200px) {
+
+    
     .page {
         flex-direction: row;
     }
@@ -66,12 +92,7 @@ main {
         position: sticky;
         top: 0;
         z-index: 1;
-    }
-
-    .top-row.auth ::deep a:first-child {
-        flex: 1;
-        text-align: right;
-        width: 0;
+        
     }
 
     .top-row, article {

@@ -1,0 +1,28 @@
+﻿body {
+    color: white;
+}
+
+form {
+    color: white;
+    border: #ff5400;
+    border-style: solid;
+    border-color: #ff5400;
+}
+
+.my-orange {
+    background-color: #ff5400;
+}
+
+h3.my-orange-text {
+    color: #ff5400;
+
+}
+
+h1.my-orange-text {
+    color: #ff5400;
+}
+
+label {
+    color: #ff5400;
+
+}

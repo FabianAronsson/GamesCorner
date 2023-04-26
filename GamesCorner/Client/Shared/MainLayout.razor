@@ -1,18 +1,43 @@
 ﻿@inherits LayoutComponentBase
 
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
     <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+        <div class="top-row px-4 auth bg-black">
+            <a href="">
+                <img src="static/logo.svg" alt="logo" class="logo" style="width: 5rem; padding-top: 1rem" />
+            </a>
+            <div class="search-bar-1 col-lg-8 col-md-8">
+                <SearchBar />
+            </div>
+            <div class="buttons">
+                <UserButton />
+                <CartButton />
+            </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
+
+        </div>
+        <div class="search-bar-2">
+            <SearchBar />
+        </div>
+        <AuthorizeView Roles="Administrator">
+            <div class="nav-item px-3 col-12 text-center" style="background-color:white">
+                <NavLink class="nav-link" href="admin/dashboard">
+                    <span class="oi oi-key" aria-hidden="true"></span> Admin Panel
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+	    <article class="content px-4 bg-dark">
+		    @Body
+	    </article>
+
+	    <div>
+		    <FooterBar />
+	    </div>
+
     </main>
 </div>

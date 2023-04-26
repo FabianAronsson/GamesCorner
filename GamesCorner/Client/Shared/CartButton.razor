@@ -1,0 +1,51 @@
+﻿@using GamesCorner.Client.Services.CartService
+@using GamesCorner.Client.Services.MessageService
+@using GamesCorner.Shared.Dtos
+@inject ICartService CartService
+@inject IMessageService MessageService
+
+
+
+<a href="ShoppingCart">
+	<i class="oi oi-cart fs-4" style="color: white"></i>
+	<span class="badge">
+		@CartAmount
+	</span>
+</a>
+
+@code {
+
+	public int CartAmount { get; set; } = 0;
+
+	protected override async Task OnInitializedAsync()
+	{
+		MessageService.OnChange += MessageHandler;
+		await GetAmount();
+	}
+	
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await GetAmount();
+	}
+
+
+	public async Task<int> GetAmount()
+	{
+		CartAmount = await CartService.GetCartAmount();
+
+		return CartAmount;
+	}
+
+	private void MessageHandler(int amount)
+	{
+		if (amount != null)
+		{
+			CartAmount = amount;
+		}
+
+		StateHasChanged();
+	}
+
+
+}

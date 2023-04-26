@@ -21,17 +21,23 @@ namespace DataAccess.Repositories
         }
         public async Task<ProductModel?> GetAsync(Guid id)
         {
-            return await _storeContext.Products.FirstOrDefaultAsync(p => p.Id.Equals(id));
+			var product = await _storeContext.Products.FindAsync(id);
+			return product;
         }
 
-		public async Task<IEnumerable<ProductModel>> GetAllAsync()
+		public async Task<List<ProductModel>> GetAllAsync(string name)
 		{
-			throw new NotImplementedException();
+			IEnumerable<ProductModel> products;
+
+			products =  _storeContext.Products.Where(x => x.Name.Contains(name));
+		
+			return products.ToList();
 		}
 
 		public async Task<ProductModel> AddAsync(ProductModel entity)
 		{
-			throw new NotImplementedException();
+			await _storeContext.Products.AddAsync(entity);
+			return entity;
 		}
 
 		public async Task<ProductModel> UpdateAsync(ProductModel entity)
@@ -39,9 +45,31 @@ namespace DataAccess.Repositories
 			throw new NotImplementedException();
 		}
 
+		public async Task<ProductModel> UpdateAsync(Guid id, ProductModel entity)
+		{
+			var oldProduct = _storeContext.Products.FirstOrDefault(x => x.Id == id);
+
+			oldProduct.Name = entity.Name;
+			oldProduct.BannerUrl = entity.BannerUrl;
+			oldProduct.ImageUrl = entity.ImageUrl;
+			oldProduct.Price = entity.Price;
+			oldProduct.Category = entity.Category;
+			oldProduct.Description = entity.Description;
+			oldProduct.AgeRestriction = entity.AgeRestriction;
+			oldProduct.InStock = entity.InStock;
+
+			return oldProduct;
+		}
+
 		public async Task<ProductModel> DeleteAsync(ProductModel entity)
+        {
+            _storeContext.Products.Remove(entity);
+            return entity;
+        }
+
+		public Task<IEnumerable<ProductModel>> GetAllAsync()
 		{
 			throw new NotImplementedException();
 		}
-	}
+    }
 }

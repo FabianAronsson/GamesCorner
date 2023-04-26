@@ -1,0 +1,121 @@
+﻿@page "/ProductInfo/{ProductId}"
+@using GamesCorner.Client.Services.CartService
+@using GamesCorner.Client.Services.MessageService
+@using MudBlazor
+@inject IHttpClientFactory HttpClientFactory
+@inject ICartService CartService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IMessageService MessageService
+
+
+
+<div class="page align-content-center justify-content-center" style="background-image: url(@Product.BannerUrl); background-repeat: no-repeat;">
+    <div class="container">
+        <div class="row pt-5"></div>
+        <div class="row pt-5"></div>
+        <div class="row pt-5"></div>
+        <div class="row flex-wrap pb-4">
+            <div class="col-md-4">
+                <div class="card-img">
+                    <img class="rounded-2 img-fluid" src="@Product.ImageUrl" alt="" />
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4" style="height: 100%">
+                <div class="card bg-dark bg-opacity-75 rounded-2">
+                    <div class="card-header border-0 h2 text-light">@Product.Name</div>
+                    <div class="m-2">
+                        <MudRating @bind-SelectedValue="@ProductScore" ReadOnly="true" />
+                    </div>
+                    @if (Product.InStock == true)
+                    {
+
+                        <div class="card-body text-light">In stock</div>
+                        <div class="card-body h5 card-title text-light">@Product.Price Kr</div>
+                        <button href="/ShoppingCart" class="btn btn-primary @(cartText == "Added to cart" ? "btn-lg" : "")" style="@(cartText == "Added to cart" ? "background-color: green;" : "background-color: orangered;")" @onclick="AddProductToCart">@cartText</button>
+                    }
+                    else
+                    {
+                        <div class="card-body text-light">Out of stock</div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row p-5">
+            <div class=" text-light bg-dark rounded-3 p-4">
+                <h3>About the Game</h3>
+                <p>@Product.Description</p>
+            </div>
+        </div>
+
+        <div class="row col-12 p-5 mt-4">
+            <h3 class="text-white">Reviews</h3>
+            <div class="card review text-light p-4 justify-content-center">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h4 class="align-self-center">Game review score</h4>
+                    <MudRating @bind-SelectedValue="@ProductScore" ReadOnly="true" />
+                    <div>based on @DisplayedReviews.Count reviews</div>
+                    <button class="btn col-3 text-white fw-bolder" type="button" @onclick="@ChangeVisibility">Review this game</button>
+                    <div class="@CollapseReviewMenu mt-5 col-sm-6">
+                        <EditForm Model="@newReview" OnSubmit="CreateNewReview">
+                            <div class="d-flex flex-column align-center">
+                                <MudRating @bind-SelectedValue="selectedVal" HoveredValueChanged="@HandleHoveredValueChanged" />
+                                <MudText Typo="Typo.subtitle2" Class="text-white mt-2">@LabelText</MudText>
+                            </div>
+                            <div class="col-12 text-area shadow-sm p-1">
+                                <MudTextField Class="bg-white d-flex flex-wrap text-dark m-1 p-1 text-start" Lines="5" Variant="Variant.Text" T="string" Label="Your comment....." @bind-Value="newReview.Content"></MudTextField>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button class="btn buttons rating-submit text-white" type="submit">Submit</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row p-5 bg-dark">
+
+            @if (DisplayedReviews is null || DisplayedReviews.Count == 0)
+            {
+                <div class="rate col-12 py-3 text-white mb-5">
+                   <div>There is no review for this game yet!</div>
+                </div>
+            }
+            else
+            {
+
+                <h3 class="text-white">Comments</h3>
+                <div class="row  text-center align-items-center justify-content-center m-0">
+                    <div class="row m-2 d-flex m-3 align-items-center justify-content-evenly">
+                        @foreach (var review in DisplayedReviews)
+                        {
+                            <div class="card m-2 col-12 col-sm-12 ">
+                                <div class="card-header d-flex">
+                                    <i class="oi oi-person"></i>
+                                    <div class="text-white customer">Anonymous</div>
+                                </div>
+                                <div class="card-body p-0 m-0">
+                                    <MudRating @bind-SelectedValue="review.Rating" ReadOnly="true" />
+                                    <div class="d-flex flex-wrap"><p class="m-2 text-white text-wrap">@review.Content</p></div>
+                                </div>
+                                <div class="card-footer align-self-start text-white footer">@review.CreatedDateTime</div>
+                            </div>
+                            <hr />
+                        }
+                    </div>
+                </div>
+                if (DisplayedReviews.Count < ActualReviews.Count)
+                {
+                    <div class="d-flex justify-content-center my-1">
+                        <button class="btn buttons text-white" @onclick="LoadReviews">
+                            Load more
+                        </button>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</div>
+

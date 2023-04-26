@@ -1,0 +1,80 @@
+﻿.progressbar {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+.circle1 {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 50%;
+    background:#ee5435;
+    border-color: #ee5435;
+}
+
+.circle2 {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 50%;
+    background:#ee5435;
+    border-color: #ee5435;
+}
+
+.content1 {
+    margin: 10px;
+    color: white;
+}
+
+
+.circle1:before {
+    content: "1";
+    color: white;
+    width: 29px;
+    margin-left: 15px;
+    text-align: center;
+    border-color: #ee5435;
+}
+
+.circle2:before {
+    content: "2";
+    color: grey;
+    width: 29px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+
+.line {
+    font-size: 1rem;
+    width: 33.33%;
+    height: 5px;
+    position: relative;
+    font-weight: 200;
+    background-color: grey;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+.checkout-button {
+    background-color: #ee5435;
+    border-radius: 0.5rem
+}
+
+.card {
+    background-color: #323232;
+    border-radius: 0.8rem;
+}
+
+@media  (max-width: 556px) {
+    .line {
+        display: none;
+    }
+    .content1 {
+        font-size: 0.8rem
+    }
+}

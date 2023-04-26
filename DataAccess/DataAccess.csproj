@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DataContext\Data\Migrations\" />
     <Folder Include="UnitOfWork\" />
   </ItemGroup>
 

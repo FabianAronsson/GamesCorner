@@ -1,0 +1,52 @@
+﻿@page "/admin/dashboard"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Administrator")]
+<PageTitle>Admin Panel</PageTitle>
+<h1 class="text-center text-white">Admin Dashboard</h1>
+
+<div class="row d-flex justify-content-center align-items-center mt-5">
+    <div class="col-sm-2 pt-2">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Manage Products</h3>
+                <div class="card-text"></div>
+                <NavLink class="nav-link d-flex justify-content-center" href="admin/dashboard/manage/products">
+                    <button class="btn btn-success">Enter</button>
+                </NavLink>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 pt-2">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Manage Users</h3>
+                <div class="card-text"></div>
+                <NavLink class="nav-link d-flex justify-content-center" href="admin/dashboard/manage/users">
+                    <button class="btn btn-success">Enter</button>
+                </NavLink>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 pt-2">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Manage Events</h3>
+                <div class="card-text"></div>
+                <NavLink class="nav-link d-flex justify-content-center" href="admin/dashboard/manage/events">
+                    <button class="btn btn-success">Enter</button>
+                </NavLink>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 pt-2">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Manage Orders</h3>
+                <div class="card-text"></div>
+                <NavLink class="nav-link d-flex justify-content-center" href="admin/dashboard/manage/orders">
+                    <button class="btn btn-success">Enter</button>
+                </NavLink>
+            </div>
+        </div>
+    </div>
+</div>
