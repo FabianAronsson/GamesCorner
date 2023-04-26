@@ -37,11 +37,7 @@ builder.Services.AddIdentityServer()
     });
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-	{
-		googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-		googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-	})
+builder.Services.AddAuthentication()
 	.AddIdentityServerJwt();
 
 builder.Services.AddAuthorization(op =>
