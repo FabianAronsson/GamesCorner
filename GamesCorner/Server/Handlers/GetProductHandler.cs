@@ -1,6 +1,5 @@
 ﻿using GamesCorner.Server.Requests;
 using MediatR;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 
 namespace GamesCorner.Server.Handlers
 {

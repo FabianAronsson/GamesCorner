@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GamesCorner.Shared.Dtos;
+﻿using GamesCorner.Shared.Dtos;
 
 namespace GamesCorner.Shared.DTOs
 {

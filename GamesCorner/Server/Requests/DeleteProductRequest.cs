@@ -1,5 +1,4 @@
-﻿using DataAccess.Models;
-using DataAccess.UnitOfWork;
+﻿using DataAccess.UnitOfWork;
 using GamesCorner.Server.Requests.Interface;
 
 namespace GamesCorner.Server.Requests

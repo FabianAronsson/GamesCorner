@@ -1,5 +1,4 @@
 using System.IdentityModel.Tokens.Jwt;
-using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using DataAccess.DataContext.Data;
 using DataAccess.Repositories;
 using DataAccess.Repositories.Interfaces;
@@ -7,14 +6,10 @@ using DataAccess.UnitOfWork;
 using GamesCorner.Server.Data;
 using GamesCorner.Server.Extensions;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 using DataAccess.Models;
 using GamesCorner.Server.Services.PaymentService;
-using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,11 +37,7 @@ builder.Services.AddIdentityServer()
     });
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-	{
-		googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-		googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-	})
+builder.Services.AddAuthentication()
 	.AddIdentityServerJwt();
 
 builder.Services.AddAuthorization(op =>

@@ -1,8 +1,6 @@
-﻿using DataAccess.Models;
-using GamesCorner.Server.Requests;
+﻿using GamesCorner.Server.Requests;
 
 namespace GamesCorner.Server.Extensions;
-using MediatR;
 
 public static class WebApplicationEndpointsExtensions
 {

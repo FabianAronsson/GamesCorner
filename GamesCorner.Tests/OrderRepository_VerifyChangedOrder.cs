@@ -1,6 +1,5 @@
 ﻿using DataAccess.DataContext.Data;
 using DataAccess.Models;
-using DataAccess.Repositories;
 using DataAccess.Repositories.Interfaces;
 using DataAccess.UnitOfWork;
 using FakeItEasy;

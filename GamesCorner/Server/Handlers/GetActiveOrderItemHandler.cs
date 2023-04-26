@@ -1,11 +1,7 @@
 ﻿using System.Security.Claims;
 using DataAccess.Repositories.Interfaces;
-using Duende.IdentityServer;
 using GamesCorner.Server.Requests;
 using MediatR;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using NuGet.Protocol;
-using Stripe;
 
 namespace GamesCorner.Server.Handlers
 {

@@ -2,9 +2,6 @@
 using System.Net.Http.Json;
 using GamesCorner.Shared.Dtos;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
 using System.Text;
 
 namespace GamesCorner.Client.Pages;

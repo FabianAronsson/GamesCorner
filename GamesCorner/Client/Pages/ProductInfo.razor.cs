@@ -1,10 +1,7 @@
 ﻿using System.Net.Http.Json;
-using System.Security.Claims;
-using System.Text;
 using GamesCorner.Shared.Dtos;
 using GamesCorner.Shared.DTOs;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 
 namespace GamesCorner.Client.Pages
 {
@@ -51,7 +48,7 @@ namespace GamesCorner.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            GetReviews();
+            await GetReviews();
             GetProductScore();
         }
 

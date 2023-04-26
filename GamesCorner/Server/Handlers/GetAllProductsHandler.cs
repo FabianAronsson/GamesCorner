@@ -1,8 +1,5 @@
-﻿using DataAccess.Models;
-using GamesCorner.Server.Requests;
+﻿using GamesCorner.Server.Requests;
 using MediatR;
-using Stripe;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace GamesCorner.Server.Handlers
 {

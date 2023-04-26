@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using GamesCorner.Server.Requests;
+﻿using GamesCorner.Server.Requests;
 using MediatR;
 
 namespace GamesCorner.Server.Handlers

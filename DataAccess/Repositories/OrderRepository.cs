@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccess.DataContext.Data;
+﻿using DataAccess.DataContext.Data;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
-using Duende.IdentityServer.EntityFramework.Entities;
-using Duende.IdentityServer.Extensions;
-using IdentityModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories

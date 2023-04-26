@@ -1,5 +1,4 @@
 ﻿using GamesCorner.Server.Requests;
-using GamesCorner.Shared.Dtos;
 using MediatR;
 
 namespace GamesCorner.Server.Handlers
