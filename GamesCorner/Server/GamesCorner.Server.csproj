@@ -60,6 +60,6 @@
     </EmbeddedResource>
   </ItemGroup>
 	<ItemGroup>
-		<watch Include="..\Client\**\.razor"/>
+		<watch Include="..\Client\**\.razor" />
 	</ItemGroup>
 </Project>
