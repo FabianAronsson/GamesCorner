@@ -42,7 +42,7 @@ namespace GamesCorner.Client.Pages
         {
             1 => "Very bad",
             2 => "Bad",
-            3 => "Sufficient",
+            3 => "Okay",
             4 => "Good",
             5 => "Awesome!",
             _ => "Rate the game!"
