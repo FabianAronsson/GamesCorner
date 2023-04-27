@@ -3,8 +3,11 @@
     <input @bind-value="SearchText"
            type="search"
            @onkeyup="KeyboardHandler"
-           class="form-control"
-           placeholder="Search here..."
+           class="form-control searchBar"
+           placeholder="@PlaceHolderText"
+           @onmouseover="UpdatePlaceHolder"
+           @onfocus="UpdatePlaceHolder"
+           @onfocusout="OnFocusOutPlaceHolder"
            style="background-color: #ff5400; border-radius: 20px; border-color: #ff5400" />
     <div>
         <button class="btn text-white" @onclick="Search" style="z-index: 0">
@@ -14,7 +17,20 @@
 </div>
 @code {
 
+    public string PlaceHolderText { get; set; } = "Gamers Got To Game!";
+    private bool _isHover = false;
     public string SearchText { get; set; } = string.Empty;
+
+    private void UpdatePlaceHolder()
+    {
+        PlaceHolderText =  "Search here...";
+        
+    }
+    private void OnFocusOutPlaceHolder()
+    {
+        PlaceHolderText = "Gamers Got To Game!";
+
+    }
     private void Search()
     {
         if (SearchText.Length == 0)

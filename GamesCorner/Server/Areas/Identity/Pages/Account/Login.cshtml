@@ -6,7 +6,7 @@
 }
 
 
-<div class="container d-flex flex-column justify-content-center align-items-center">
+<div class="container d-flex flex-column justify-content-center align-items-center p-2">
     <div class="col-8 opacity-75 d-flex flex-column justify-content-center align-items-center"
          style="background-color: #101010;color: orangered; font-weight: 800; margin-top: 10rem">
         <form id="account" method="post">
@@ -43,8 +43,8 @@
             </div>
         </form>
         
-        <h5>Use another service to log in.</h5>
-        <hr />
+        @*<h5>Use another service to log in.</h5>
+        <hr />*@
         @{
             if ((Model.ExternalLogins?.Count ?? 0) != 0)
             {

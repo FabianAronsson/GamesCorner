@@ -1,6 +1,8 @@
 ﻿@page "/EventInfo/{EventId}"
 @inject IHttpClientFactory HttpClientFactory
 @inject HttpClient HttpClient
+
+
 <div class="container-lg">
 	<div class=" align-content-center justify-content-center" style="background-image: url(@Event.ImageUrl); background-repeat: no-repeat; overflow-x: hidden;">
 
@@ -23,18 +25,18 @@
 				else
 				{
 					<form class="mr-8" onsubmit="event.preventDefault()">
-						<div class="form-row">
+						<div class="form-row" >
 							<div class="form-group col-md-12 mt-3">
-								<input type="email" class="form-control" id="inputEmail4" placeholder="Email" @bind-value="@EmailUser" required>
+								<input type="email" class="form-control" id="inputEmail4" placeholder="Email" @bind-value="@EmailUser" required >
 							</div>
 							<div class="form-group col-md-12 mt-6">
-								<input type="text" class="form-control" id="inputName" placeholder="Name" @bind-value="@NameUser" required>
+								<input type="text" class="form-control" id="inputName" placeholder="Name" @bind-value="@NameUser" required >
 							</div>
 							<div class="form-group col-md-12 mt-6">
-								<input type="text" class="form-control" id="inputPhone" placeholder="Phone number" @bind-value="@PhoneUser" required>
+								<input type="text" class="form-control" id="inputPhone" placeholder="Phone number" @bind-value="@PhoneUser" required >
 							</div>
 							<div class="form-group mt-6">
-								<button type="submit" @onclick="HandleSubmit" class="btn btn-primary col-md-12 col-12">
+								<button type="submit" @onclick="HandleSubmit" class="btn col-md-12 col-12 text-white" style="background-color: orangered">
 									<span>I'm Interested!</span>
 								</button>
 							</div>
@@ -44,9 +46,19 @@
 			</div>
 			<div class="p-4 mx-2 col-12">
 				<div class="text-light bg-dark rounded-3 p-4">
-					<h3>@Event.Name event Information</h3>
-					<p>@Event.Description. The event will take place in @Event.Location on the date of @Event.Date and has a price of @Event.Price kr</p>
-				</div>
+					<h3>Event Information</h3>
+                    <p>@Event.Description</p>
+                    <p>The event will take place at @Event.Location</p>
+                    <br />
+                    <ul>
+                        <li>
+                            <p>Date: @Event.Date</p>
+                        </li>
+                        <li>
+                            <p>Price: @Event.Price kr</p>
+                        </li>
+                    </ul>
+                </div>
 			</div>
 		</div>
 	</div>
