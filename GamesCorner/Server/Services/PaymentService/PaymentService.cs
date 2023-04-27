@@ -50,8 +50,8 @@ public class PaymentService : IPaymentService
             LineItems = lineItems,
             Mode = "payment",
             
-            SuccessUrl = "https://localhost:7126" + "/OrderSuccess/{CHECKOUT_SESSION_ID}",
-            CancelUrl = "https://localhost:7126" + "/ShoppingCart",
+            SuccessUrl = "https://gamescorner.azurewebsites.net" + "/OrderSuccess/{CHECKOUT_SESSION_ID}",
+            CancelUrl = "https://gamescorner.azurewebsites.net" + "/ShoppingCart",
         };
 
 
