@@ -86,7 +86,10 @@
         <div class="row">
             @foreach (var product in RecommandProducts)
             {
-                <div class="card m-3 p-4 col-lg-7 ">
+                
+                
+                    var cartTextLocal = "Add to cart";
+                    <div class="card m-3 p-4 col-lg-7 ">
                     <div class="row">
                         <div class="col-sm-4 d-flex justify-content-center align-items-center">
                             <img src="@product.ImageUrl" class="card-img img-fluid" alt="@product.Name">
@@ -99,13 +102,13 @@
                         <div class="col-sm-4  d-flex flex-column justify-content-center align-items-center">
                             <p class="card-text text-white fw-bolder fs-4 mt-4">@product.Price kr</p>
 
-                            <div class=" d-flex  h-25 align-items-center ">
-                                <button class="btn btn-dark text-white" @onclick="async () => await AddToCart(product)">
-                                    Add to cart
+                            <div class=" d-flex  h-25 align-items-center">
+                                <button class="btn text-white" @onclick="async () => await AddToCart(product)" style="background-color: orangered;">
+                                    @cartText
                                 </button>
 
                             </div>
-                        </div>
+                        </div>  
 
                     </div>
                     <hr class="bg-light" />
@@ -123,6 +126,9 @@
     private List<CartProductDto> cartItems { get; set; } = new();
     private List<ProductModelDto> RecommandProducts = new();
     public decimal TotalPrice { get; set; } = 0;
+
+    public string cartText { get; set; } = "Add to cart";
+
     protected override async Task OnInitializedAsync()
     {
         GetRecommendedProducts();
